@@ -2,8 +2,7 @@ package dto;
 
 import java.time.LocalDate;
 
-public class PersonaDTO 
-{
+public class PersonaDTO {
 	private LocalDate fechaCumpleanios;
 	private int idPersona;
 	private String nombre;
@@ -11,27 +10,22 @@ public class PersonaDTO
 	private Domicilio domicilio;
 	private String email;
 	private String etiqueta;
-	
 
-	public PersonaDTO(int idPersona, String nombre, String telefono)
-	{
+	public PersonaDTO(int idPersona, String nombre, String telefono) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
 	}
-	
-	public int getIdPersona() 
-	{
+
+	public int getIdPersona() {
 		return this.idPersona;
 	}
 
-	public String getNombre() 
-	{
+	public String getNombre() {
 		return this.nombre;
 	}
 
-	public String getTelefono() 
-	{
+	public String getTelefono() {
 		return this.telefono;
 	}
 
@@ -51,5 +45,4 @@ public class PersonaDTO
 		return fechaCumpleanios;
 	}
 
-	
 }
