@@ -2,12 +2,15 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
+import dto.Domicilio;
 import dto.PersonaDTO;
 
 public class Controlador implements ActionListener
@@ -44,8 +47,11 @@ public class Controlador implements ActionListener
 			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 			String tipoContacto = ventanaPersona.getTxtTipoContacto().getText();
 			
+			//LocalDate auxFecha = LocalDate.parse(fechaCumple, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 			
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel);
+			Domicilio domicilio = new Domicilio (calle,Integer.parseInt(altura),Integer.parseInt(piso),Integer.parseInt(departamento),localidad);
+			
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel,domicilio,email,tipoContacto);
 			this.agenda.agregarPersona(nuevaPersona);
 			this.refrescarTabla();
 			this.ventanaPersona.cerrar();

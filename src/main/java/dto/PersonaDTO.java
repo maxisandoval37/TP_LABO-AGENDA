@@ -3,7 +3,7 @@ package dto;
 import java.time.LocalDate;
 
 public class PersonaDTO {
-	private LocalDate fechaCumple;
+	//private LocalDate fechaCumple;
 	private int idPersona;
 	private String nombre;
 	private String telefono;
@@ -11,11 +11,11 @@ public class PersonaDTO {
 	private String email;
 	private String etiqueta;
 
-	public PersonaDTO(int idPersona, String nombre, String telefono,LocalDate fechaCumple,Domicilio domicilio,String email,String etiqueta) {
+	public PersonaDTO(int idPersona, String nombre, String telefono,Domicilio domicilio,String email,String etiqueta) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
-		this.fechaCumple = fechaCumple;
+		//this.fechaCumple = fechaCumple;
 		this.domicilio  = domicilio;
 		this.email = email;
 		this.etiqueta = etiqueta;
@@ -45,9 +45,6 @@ public class PersonaDTO {
 		return etiqueta;
 	}
 
-	public LocalDate getFechaCumpleanios() {
-		return fechaCumple;
-	}
 
 
 }
