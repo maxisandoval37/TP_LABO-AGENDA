@@ -15,3 +15,7 @@ CREATE TABLE `personas`
   PRIMARY KEY (`idPersona`)
 );
 
+CREATE USER 'montenegro_sandoval'@'localhost' IDENTIFIED BY '1234';
+GRANT RELOAD,PROCESS ON *.* TO 'montenegro_sandoval'@'localhost';
+
+GRANT ALL PRIVILEGES ON *.* TO 'montenegro_sandoval'@'localhost' WITH GRANT OPTION;
