@@ -8,6 +8,7 @@ public class PersonaDTO {
 	private String nombre;
 	private String telefono;
 	private Domicilio domicilio;
+	private String localidad;
 	private String email;
 	private String etiqueta;
 
@@ -43,6 +44,10 @@ public class PersonaDTO {
 
 	public LocalDate getFechaCumpleanios() {
 		return fechaCumpleanios;
+	}
+
+	public String getLocalidad() {
+		return localidad;
 	}
 
 }

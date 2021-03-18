@@ -18,6 +18,10 @@ public class VentanaPersona extends JFrame
 	private JTextField txtAltura;
 	private JTextField txtPiso;
 	private JTextField txtDepartamento;
+	private JTextField txtEmail;
+	private JTextField txtFechaCumple;
+	private JTextField txtTipoContacto;
+
 	private JButton btnAgregarPersona;
 	private static VentanaPersona INSTANCE;
 	
@@ -38,14 +42,14 @@ public class VentanaPersona extends JFrame
 		super();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 343, 400);
+		setBounds(100, 100, 343, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 307, 400);
+		panel.setBounds(10, 11, 307,500);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -76,6 +80,18 @@ public class VentanaPersona extends JFrame
 		JLabel lblDpto = new JLabel ("Departamento");
 		lblDpto.setBounds(10,257,113,14);
 		panel.add(lblDpto);
+		
+		JLabel lblEmail = new JLabel ("Email");
+		lblEmail.setBounds(10,lblDpto.getY()+41,113,14);
+		panel.add(lblEmail);
+		
+		JLabel lblFechaCumple = new JLabel ("Fecha de Cumpleaños");
+		lblFechaCumple.setBounds(10,lblEmail.getY()+41,113,14);
+		panel.add(lblFechaCumple);
+		
+		JLabel lblTipoContacto = new JLabel ("Tipo de Contacto");
+		lblTipoContacto.setBounds(10,lblFechaCumple.getY()+41,113,14);
+		panel.add(lblTipoContacto);
 		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(133, 8, 164, 20);
@@ -112,10 +128,24 @@ public class VentanaPersona extends JFrame
 		panel.add(txtDepartamento);
 		txtDepartamento.setColumns(10);
 		
-		btnAgregarPersona = new JButton("Agregar");
-		btnAgregarPersona.setBounds(208, txtDepartamento.getY()+41, 89, 23);
-		panel.add(btnAgregarPersona);
+		txtEmail = new JTextField();
+		txtEmail.setBounds(133, txtDepartamento.getY()+41, 164, 20);
+		panel.add(txtEmail);
+		txtEmail.setColumns(10);
 		
+		txtFechaCumple = new JTextField();
+		txtFechaCumple.setBounds(133, txtEmail.getY()+41, 164, 20);
+		panel.add(txtFechaCumple);
+		txtFechaCumple.setColumns(10);
+		
+		txtTipoContacto = new JTextField();
+		txtTipoContacto.setBounds(133, txtFechaCumple.getY()+41, 164, 20);
+		panel.add(txtTipoContacto);
+		txtTipoContacto.setColumns(10);
+		
+		btnAgregarPersona = new JButton("Agregar");
+		btnAgregarPersona.setBounds(208, txtTipoContacto.getY()+41, 89, 23);
+		panel.add(btnAgregarPersona);
 		
 		
 		this.setVisible(false);
@@ -147,6 +177,49 @@ public class VentanaPersona extends JFrame
 		this.txtTelefono.setText(null);
 		this.dispose();
 	}
+
+
+	public JTextField getTxtLocalidad() {
+		return txtLocalidad;
+	}
+
+
+	public JTextField getTxtCalle() {
+		return txtCalle;
+	}
+
+
+	public JTextField getTxtAltura() {
+		return txtAltura;
+	}
+
+
+	public JTextField getTxtPiso() {
+		return txtPiso;
+	}
+
+
+	public JTextField getTxtDepartamento() {
+		return txtDepartamento;
+	}
+
+
+	public JTextField getTxtEmail() {
+		return txtEmail;
+	}
+
+
+
+	public JTextField getTxtFechaCumple() {
+		return txtFechaCumple;
+	}
+
+
+
+	public JTextField getTxtTipoContacto() {
+		return txtTipoContacto;
+	}
+	
 	
 }
 

@@ -84,8 +84,8 @@ public class Vista
 			@Override
 		    public void windowClosing(WindowEvent e) {
 		        int confirm = JOptionPane.showOptionDialog(
-		             null, "Â¿EstÃ¡s seguro que quieres salir de la Agenda?", 
-		             "ConfirmaciÃ³n", JOptionPane.YES_NO_OPTION,
+		             null, "¿Estás seguro que quieres salir de la Agenda?", 
+		             "Confirmación", JOptionPane.YES_NO_OPTION,
 		             JOptionPane.QUESTION_MESSAGE, null, null, null);
 		        if (confirm == 0) {
 		        	Conexion.getConexion().cerrarConexion();
