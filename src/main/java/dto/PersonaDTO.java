@@ -42,7 +42,7 @@ public class PersonaDTO {
 	
 	public void setTelefono(String telefonoNuevo) {//agregar limite de caracteres
 		if (telefonoNuevo.length() >0)
-			this.nombre = telefonoNuevo;
+			this.telefono = telefonoNuevo;
 		else
 			throw new RuntimeException("El telefono no puede ser vacio");
 	}

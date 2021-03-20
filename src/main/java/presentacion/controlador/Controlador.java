@@ -29,7 +29,8 @@ public class Controlador implements ActionListener
 			this.vista.getBtnEditar().addActionListener(c->ventanaEditarPersona(c));
 			this.vista.getBtnReporte().addActionListener(r->mostrarReporte(r));
 			this.ventanaPersona = VentanaPersona.getInstance();
-			this.ventanaPersona.getBtnAgregarPersona().addActionListener(p->guardarPersona(p));
+			this.ventanaPersona.getBtnAgregarPersona().addActionListener(w->guardarPersona(w));
+			this.ventanaPersona.getBtnEditarPersona().addActionListener(p->editarPersona(p));
 			this.agenda = agenda;
 		}
 		
@@ -60,6 +61,43 @@ public class Controlador implements ActionListener
 			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel,domicilio,email,tipoContacto);
 			this.agenda.agregarPersona(nuevaPersona);
 			this.refrescarTabla();
+			this.ventanaPersona.cerrar();
+		}
+		
+		private void editarPersona(ActionEvent p) {
+			int[] filasSeleccionadas = this.vista.getTablaPersonas().getSelectedRows();
+			for (int fila : filasSeleccionadas) {
+
+				int idPersonaClick = this.personasEnTabla.get(fila).getIdPersona();
+
+				for (PersonaDTO per : personasEnTabla) {
+
+					if (per.getIdPersona() == idPersonaClick) {
+
+						//this.ventanaPersona.setTxtNombre(per.getNombre());
+						per.setNombre(this.ventanaPersona.getTxtNombre().getText());
+						per.setTelefono(this.ventanaPersona.getTxtTelefono().getText());
+						per.setEmail(ventanaPersona.getTxtEmail().getText());
+						per.setEtiqueta(ventanaPersona.getTxtTipoContacto().getText());
+					
+						String localidad = ventanaPersona.getTxtLocalidad().getText();
+						String calle = ventanaPersona.getTxtCalle().getText();
+						String altura = ventanaPersona.getTxtAltura().getText();
+						String piso = ventanaPersona.getTxtPiso().getText();
+						String departamento = ventanaPersona.getTxtDepartamento().getText();
+						
+						String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
+					
+
+
+						this.agenda.editarPersona(idPersonaClick, per);
+						this.refrescarTabla();
+
+						break;
+					}
+				}
+			}
+
 			this.ventanaPersona.cerrar();
 		}
 		

@@ -23,6 +23,7 @@ public class VentanaPersona extends JFrame
 	private JTextField txtTipoContacto;
 
 	private JButton btnAgregarPersona;
+	private JButton btnEditarPersona;
 	private static VentanaPersona INSTANCE;
 	
 	public static VentanaPersona getInstance()
@@ -145,7 +146,13 @@ public class VentanaPersona extends JFrame
 		
 		btnAgregarPersona = new JButton("Agregar");
 		btnAgregarPersona.setBounds(208, txtTipoContacto.getY()+41, 89, 23);
+		btnAgregarPersona.setVisible(true);
 		panel.add(btnAgregarPersona);
+		
+		btnEditarPersona = new JButton("Editar");
+		btnEditarPersona.setBounds(208, txtTipoContacto.getY()+41, 89, 23);
+		btnEditarPersona.setVisible(false);
+		panel.add(btnEditarPersona);
 		
 		
 		this.setVisible(false);
@@ -168,7 +175,16 @@ public class VentanaPersona extends JFrame
 
 	public JButton getBtnAgregarPersona() 
 	{
+		btnEditarPersona.setVisible(false);
+		btnAgregarPersona.setVisible(true);
 		return btnAgregarPersona;
+	}
+	
+	public JButton getBtnEditarPersona() 
+	{
+		btnAgregarPersona.setVisible(false);
+		btnEditarPersona.setVisible(true);
+		return btnEditarPersona;
 	}
 
 	public void cerrar()
