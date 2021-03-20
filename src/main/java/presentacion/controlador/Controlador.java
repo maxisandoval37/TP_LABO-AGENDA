@@ -77,18 +77,20 @@ public class Controlador implements ActionListener
 						//this.ventanaPersona.setTxtNombre(per.getNombre());
 						per.setNombre(this.ventanaPersona.getTxtNombre().getText());
 						per.setTelefono(this.ventanaPersona.getTxtTelefono().getText());
+						
+						String localidad = ventanaPersona.getTxtLocalidad().getText();
+						String calle = ventanaPersona.getTxtCalle().getText();
+						int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
+						int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
+						int departamento = Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
+						Domicilio daux = new Domicilio(calle,altura,piso,departamento,localidad);
+						
+						per.setDomicilio(daux);
+						
 						per.setEmail(ventanaPersona.getTxtEmail().getText());
 						per.setEtiqueta(ventanaPersona.getTxtTipoContacto().getText());
 					
-						String localidad = ventanaPersona.getTxtLocalidad().getText();
-						String calle = ventanaPersona.getTxtCalle().getText();
-						String altura = ventanaPersona.getTxtAltura().getText();
-						String piso = ventanaPersona.getTxtPiso().getText();
-						String departamento = ventanaPersona.getTxtDepartamento().getText();
-						
-						String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
-					
-
+						//String fechaCumple = ventanaPersona.getTxtFechaCumple().getText(); hacer set de fecha
 
 						this.agenda.editarPersona(idPersonaClick, per);
 						this.refrescarTabla();
