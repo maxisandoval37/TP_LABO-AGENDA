@@ -26,7 +26,7 @@ public class Controlador implements ActionListener
 			this.vista = vista;
 			this.vista.getBtnAgregar().addActionListener(a->ventanaAgregarPersona(a));
 			this.vista.getBtnBorrar().addActionListener(s->borrarPersona(s));
-			this.vista.getBtnEditar().addActionListener(c->editarPersona(c));
+			this.vista.getBtnEditar().addActionListener(c->ventanaEditarPersona(c));
 			this.vista.getBtnReporte().addActionListener(r->mostrarReporte(r));
 			this.ventanaPersona = VentanaPersona.getInstance();
 			this.ventanaPersona.getBtnAgregarPersona().addActionListener(p->guardarPersona(p));
@@ -34,6 +34,10 @@ public class Controlador implements ActionListener
 		}
 		
 		private void ventanaAgregarPersona(ActionEvent a) {
+			this.ventanaPersona.mostrarVentana();
+		}
+		
+		private void ventanaEditarPersona(ActionEvent a) {
 			this.ventanaPersona.mostrarVentana();
 		}
 
@@ -58,7 +62,7 @@ public class Controlador implements ActionListener
 			this.refrescarTabla();
 			this.ventanaPersona.cerrar();
 		}
-
+		
 		private void mostrarReporte(ActionEvent r) {
 			ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
 			reporte.mostrar();	
@@ -72,22 +76,6 @@ public class Controlador implements ActionListener
 				this.agenda.borrarPersona(this.personasEnTabla.get(fila));
 			}
 			
-			this.refrescarTabla();
-		}
-		
-		public void editarPersona(ActionEvent s) {
-			int[] filasSeleccionadas = this.vista.getTablaPersonas().getSelectedRows();
-			for (int fila : filasSeleccionadas) {
-				
-				//para los datos de la persona aux, hacer el get de los editTexts
-				
-				Domicilio d = new Domicilio("editado",0,0,0,"editado");
-				PersonaDTO paux = new PersonaDTO(this.personasEnTabla.get(fila).getIdPersona(),"vanesa mayonesa"
-				,"editado",d,"editado@gmail.com","editado");
-				
-				this.agenda.editarPersona(this.personasEnTabla.get(fila).getIdPersona(),paux);
-			}
-
 			this.refrescarTabla();
 		}
 		
