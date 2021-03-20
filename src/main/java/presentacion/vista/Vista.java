@@ -37,7 +37,7 @@ public class Vista
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1200, 300);
+		frame.setBounds(100, 100, 1200, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -145,7 +145,16 @@ public class Vista
 		{
 			String nombre = p.getNombre();
 			String tel = p.getTelefono();
-			Object[] fila = {nombre, tel};
+			String localidad = p.getDomicilio().getLocalidad();
+			String calle = p.getDomicilio().getCalle();
+			int altura = p.getDomicilio().getAltura();
+			int piso = p.getDomicilio().getPiso();
+			int depa = p.getDomicilio().getDepto();
+			String email = p.getEmail();
+			//fechaCumple
+			String etiq = p.getEtiqueta();
+			
+			Object[] fila = {nombre, tel,localidad,calle,altura,piso,depa,email,"",etiq};
 			this.getModelPersonas().addRow(fila);
 		}
 		

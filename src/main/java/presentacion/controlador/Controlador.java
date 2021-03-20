@@ -82,10 +82,10 @@ public class Controlador implements ActionListener
 				//para los datos de la persona aux, hacer el get de los editTexts
 				
 				Domicilio d = new Domicilio("editado",0,0,0,"editado");
-				PersonaDTO paxu = new PersonaDTO(this.personasEnTabla.get(fila).getIdPersona(),"vanesa mayonesa"
-				,"editado",d,"editado@gmail.com","");
+				PersonaDTO paux = new PersonaDTO(this.personasEnTabla.get(fila).getIdPersona(),"vanesa mayonesa"
+				,"editado",d,"editado@gmail.com","editado");
 				
-				this.agenda.editarPersona(this.personasEnTabla.get(fila).getIdPersona(),paxu);
+				this.agenda.editarPersona(this.personasEnTabla.get(fila).getIdPersona(),paux);
 			}
 
 			this.refrescarTabla();
