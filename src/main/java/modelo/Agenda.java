@@ -20,8 +20,8 @@ public class Agenda {
 		this.persona.delete(persona_a_eliminar);
 	}
 
-	public void editarPersona(PersonaDTO persona_a_editar) {
-		this.persona.update(persona_a_editar);
+	public void editarPersona(int id_a_editar,PersonaDTO persona_nueva) {
+		this.persona.update(id_a_editar,persona_nueva);
 	}
 
 	public List<PersonaDTO> obtenerPersonas() {

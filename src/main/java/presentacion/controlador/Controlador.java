@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import com.google.gson.JsonElement;
 
 import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
@@ -76,14 +77,17 @@ public class Controlador implements ActionListener
 		
 		public void editarPersona(ActionEvent s) {
 			int[] filasSeleccionadas = this.vista.getTablaPersonas().getSelectedRows();
-			for (int fila : filasSeleccionadas)
-			{
-				//Domicilio d = new Domicilio("",0,0,0,"");
-				//PersonaDTO paxu = new PersonaDTO(this.personasEnTabla.get(fila).getIdPersona(),"el pepe","000",d,"pep@gmai.com","");
-				//this.agenda.editarPersona(this.personasEnTabla.get(fila));
-				this.agenda.editarPersona(this.personasEnTabla.get(fila));
+			for (int fila : filasSeleccionadas) {
+				
+				//para los datos de la persona aux, hacer el get de los editTexts
+				
+				Domicilio d = new Domicilio("editado",0,0,0,"editado");
+				PersonaDTO paxu = new PersonaDTO(this.personasEnTabla.get(fila).getIdPersona(),"vanesa mayonesa"
+				,"editado",d,"editado@gmail.com","");
+				
+				this.agenda.editarPersona(this.personasEnTabla.get(fila).getIdPersona(),paxu);
 			}
-			
+
 			this.refrescarTabla();
 		}
 		
