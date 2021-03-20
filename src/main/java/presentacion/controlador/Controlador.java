@@ -25,6 +25,7 @@ public class Controlador implements ActionListener
 			this.vista = vista;
 			this.vista.getBtnAgregar().addActionListener(a->ventanaAgregarPersona(a));
 			this.vista.getBtnBorrar().addActionListener(s->borrarPersona(s));
+			this.vista.getBtnEditar().addActionListener(c->editarPersona(c));
 			this.vista.getBtnReporte().addActionListener(r->mostrarReporte(r));
 			this.ventanaPersona = VentanaPersona.getInstance();
 			this.ventanaPersona.getBtnAgregarPersona().addActionListener(p->guardarPersona(p));
@@ -68,6 +69,19 @@ public class Controlador implements ActionListener
 			for (int fila : filasSeleccionadas)
 			{
 				this.agenda.borrarPersona(this.personasEnTabla.get(fila));
+			}
+			
+			this.refrescarTabla();
+		}
+		
+		public void editarPersona(ActionEvent s) {
+			int[] filasSeleccionadas = this.vista.getTablaPersonas().getSelectedRows();
+			for (int fila : filasSeleccionadas)
+			{
+				//Domicilio d = new Domicilio("",0,0,0,"");
+				//PersonaDTO paxu = new PersonaDTO(this.personasEnTabla.get(fila).getIdPersona(),"el pepe","000",d,"pep@gmai.com","");
+				//this.agenda.editarPersona(this.personasEnTabla.get(fila));
+				this.agenda.editarPersona(this.personasEnTabla.get(fila));
 			}
 			
 			this.refrescarTabla();
