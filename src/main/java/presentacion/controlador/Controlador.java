@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import com.google.gson.JsonElement;
 
 import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
@@ -68,38 +67,33 @@ public class Controlador implements ActionListener
 			int[] filasSeleccionadas = this.vista.getTablaPersonas().getSelectedRows();
 			for (int fila : filasSeleccionadas) {
 
+				//this.ventanaPersona.getTxtNombre().setText(this.personasEnTabla.get(fila).getNombre());
+				//ver como poner los datos actuales en la vista de editar
+				
+				this.personasEnTabla.get(fila).setNombre(this.ventanaPersona.getTxtNombre().getText());
+				this.personasEnTabla.get(fila).setTelefono(this.ventanaPersona.getTxtTelefono().getText());
+
+				String localidad = ventanaPersona.getTxtLocalidad().getText();
+				String calle = ventanaPersona.getTxtCalle().getText();
+				int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
+				int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
+				int departamento = Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
+				Domicilio daux = new Domicilio(calle, altura, piso, departamento, localidad);
+
+				this.personasEnTabla.get(fila).setDomicilio(daux);
+
+				this.personasEnTabla.get(fila).setEmail(ventanaPersona.getTxtEmail().getText());
+				this.personasEnTabla.get(fila).setEtiqueta(ventanaPersona.getTxtTipoContacto().getText());
+
+				// String fechaCumple = ventanaPersona.getTxtFechaCumple().getText(); hacer set de fecha
+
 				int idPersonaClick = this.personasEnTabla.get(fila).getIdPersona();
+				this.agenda.editarPersona(idPersonaClick, this.personasEnTabla.get(fila));
+				this.refrescarTabla();
 
-				for (PersonaDTO per : personasEnTabla) {
-
-					if (per.getIdPersona() == idPersonaClick) {
-
-						//this.ventanaPersona.setTxtNombre(per.getNombre());
-						per.setNombre(this.ventanaPersona.getTxtNombre().getText());
-						per.setTelefono(this.ventanaPersona.getTxtTelefono().getText());
-						
-						String localidad = ventanaPersona.getTxtLocalidad().getText();
-						String calle = ventanaPersona.getTxtCalle().getText();
-						int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
-						int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
-						int departamento = Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
-						Domicilio daux = new Domicilio(calle,altura,piso,departamento,localidad);
-						
-						per.setDomicilio(daux);
-						
-						per.setEmail(ventanaPersona.getTxtEmail().getText());
-						per.setEtiqueta(ventanaPersona.getTxtTipoContacto().getText());
-					
-						//String fechaCumple = ventanaPersona.getTxtFechaCumple().getText(); hacer set de fecha
-
-						this.agenda.editarPersona(idPersonaClick, per);
-						this.refrescarTabla();
-
-						break;
-					}
-				}
+				break;
 			}
-
+			
 			this.ventanaPersona.cerrar();
 		}
 		
