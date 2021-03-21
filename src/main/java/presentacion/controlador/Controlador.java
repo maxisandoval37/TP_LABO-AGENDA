@@ -30,14 +30,19 @@ public class Controlador implements ActionListener
 			this.ventanaPersona = VentanaPersona.getInstance();
 			this.ventanaPersona.getBtnAgregarPersona().addActionListener(w->guardarPersona(w));
 			this.ventanaPersona.getBtnEditarPersona().addActionListener(p->editarPersona(p));
+			
 			this.agenda = agenda;
 		}
 		
 		private void ventanaAgregarPersona(ActionEvent a) {
+			this.ventanaPersona.getBtnEditarPersona().setVisible(false);
+			this.ventanaPersona.getBtnAgregarPersona().setVisible(true);
 			this.ventanaPersona.mostrarVentana();
 		}
 		
 		private void ventanaEditarPersona(ActionEvent a) {
+			this.ventanaPersona.getBtnAgregarPersona().setVisible(false);
+			this.ventanaPersona.getBtnEditarPersona().setVisible(true);
 			this.ventanaPersona.mostrarVentana();
 		}
 

@@ -187,13 +187,22 @@ public class VentanaPersona extends JFrame
 		return btnEditarPersona;
 	}
 
-	public void cerrar()
-	{
+	public void cerrar() {
 		this.txtNombre.setText(null);
 		this.txtTelefono.setText(null);
+		this.txtLocalidad.setText(null);
+		this.txtCalle.setText(null);
+		this.txtAltura.setText(null);
+		this.txtPiso.setText(null);
+		this.txtDepartamento.setText(null);
+		this.txtEmail.setText(null);
+		this.txtFechaCumple.setText(null);
+		this.txtTipoContacto.setText(null);
+		
+		btnEditarPersona.setVisible(false);
+		btnAgregarPersona.setVisible(true);
 		this.dispose();
 	}
-
 
 	public JTextField getTxtLocalidad() {
 		return txtLocalidad;
