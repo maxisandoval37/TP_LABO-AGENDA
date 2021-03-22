@@ -12,7 +12,8 @@ import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
-import dto.Domicilio;
+import dto.DomicilioDTO;
+import dto.EtiquetaContactoDTO;
 import dto.PersonaDTO;
 
 public class Controlador implements ActionListener {
@@ -58,15 +59,17 @@ public class Controlador implements ActionListener {
 			String departamento = ventanaPersona.getTxtDepartamento().getText();
 			String email = ventanaPersona.getTxtEmail().getText();
 			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
-			String tipoContacto = ventanaPersona.getTxtTipoContacto().getText();
+			
+			EtiquetaContactoDTO etiqueta = new EtiquetaContactoDTO();
+			etiqueta.setTipoEtiqueta(ventanaPersona.getTxtTipoContacto().getText());
 
 			// LocalDate auxFecha = LocalDate.parse(fechaCumple,
 			// DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-			Domicilio domicilio = new Domicilio(calle, Integer.parseInt(altura), Integer.parseInt(piso),
+			DomicilioDTO domicilio = new DomicilioDTO(calle, Integer.parseInt(altura), Integer.parseInt(piso),
 					Integer.parseInt(departamento), localidad);
 
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, tipoContacto);
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, etiqueta);
 			this.agenda.agregarPersona(nuevaPersona);
 			this.refrescarTabla();
 			this.ventanaPersona.cerrar();
@@ -98,12 +101,15 @@ public class Controlador implements ActionListener {
 				int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
 				int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
 				int departamento = Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
-				Domicilio daux = new Domicilio(calle, altura, piso, departamento, localidad);
+				DomicilioDTO daux = new DomicilioDTO(calle, altura, piso, departamento, localidad);
 
 				this.personasEnTabla.get(fila).setDomicilio(daux);
 
 				this.personasEnTabla.get(fila).setEmail(ventanaPersona.getTxtEmail().getText());
-				this.personasEnTabla.get(fila).setEtiqueta(ventanaPersona.getTxtTipoContacto().getText());
+				
+				EtiquetaContactoDTO etiqueta = new EtiquetaContactoDTO();
+				etiqueta.setTipoEtiqueta(ventanaPersona.getTxtTipoContacto().getText());
+				this.personasEnTabla.get(fila).setEtiqueta(etiqueta);
 
 				// String fechaCumple = ventanaPersona.getTxtFechaCumple().getText(); hacer set
 				// de fecha

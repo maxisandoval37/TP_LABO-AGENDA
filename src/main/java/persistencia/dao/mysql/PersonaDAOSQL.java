@@ -11,7 +11,8 @@ import java.util.List;
 
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.PersonaDAO;
-import dto.Domicilio;
+import dto.DomicilioDTO;
+import dto.EtiquetaContactoDTO;
 import dto.PersonaDTO;
 
 public class PersonaDAOSQL implements PersonaDAO {
@@ -37,7 +38,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setInt(7, persona.getDomicilio().getDepto());
 			statement.setString(8, persona.getDomicilio().getLocalidad());
 			statement.setString(9, persona.getEmail());
-			statement.setString(10, persona.getEtiqueta());
+			statement.setString(10, persona.getEtiqueta().getTipoEtiqueta());
 
 			if (statement.executeUpdate() > 0) {
 				conexion.commit();
@@ -89,7 +90,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setInt(6, persona_nueva.getDomicilio().getDepto());
 			statement.setString(7, persona_nueva.getDomicilio().getLocalidad());
 			statement.setString(8, persona_nueva.getEmail());
-			statement.setString(9, persona_nueva.getEtiqueta());
+			statement.setString(9, persona_nueva.getEtiqueta().getTipoEtiqueta());
 			statement.setInt(10, id_a_editar);
 
 			if (statement.executeUpdate() > 0) {
@@ -127,12 +128,15 @@ public class PersonaDAOSQL implements PersonaDAO {
 		// String fechaCumple = resultSet.getString("Fecha de Cumpleaños");
 		String calle = resultSet.getString("Calle");
 		String email = resultSet.getString("Email");
-		String etiqueta = resultSet.getString("Etiqueta");
+		
+		EtiquetaContactoDTO etiqueta = new EtiquetaContactoDTO();
+		etiqueta.setTipoEtiqueta(resultSet.getString("Etiqueta"));
+		
 		int altura = resultSet.getInt("Altura");
 		int piso = resultSet.getInt("Piso");
 		int departamento = resultSet.getInt("Departamento");
 		String localidad = resultSet.getString("Localidad");
-		Domicilio domicilio = new Domicilio(calle, altura, piso, departamento, localidad);
+		DomicilioDTO domicilio = new DomicilioDTO(calle, altura, piso, departamento, localidad);
 		// LocalDate auxFecha = LocalDate.parse(fechaCumple,
 		// DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 

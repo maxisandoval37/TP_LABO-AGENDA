@@ -7,11 +7,11 @@ public class PersonaDTO {
 	private int idPersona;
 	private String nombre;
 	private String telefono;
-	private Domicilio domicilio;
+	private DomicilioDTO domicilio;
 	private String email;
-	private String etiqueta;
+	private EtiquetaContactoDTO etiqueta;
 
-	public PersonaDTO(int idPersona, String nombre, String telefono,Domicilio domicilio,String email,String etiqueta) {
+	public PersonaDTO(int idPersona, String nombre, String telefono,DomicilioDTO domicilio,String email,EtiquetaContactoDTO etiqueta) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
@@ -47,11 +47,11 @@ public class PersonaDTO {
 			throw new RuntimeException("El telefono no puede ser vacio");
 	}
 
-	public Domicilio getDomicilio() {
+	public DomicilioDTO getDomicilio() {
 		return domicilio;
 	}
 	
-	public void setDomicilio(Domicilio domNuevo) {
+	public void setDomicilio(DomicilioDTO domNuevo) {
 		this.domicilio = domNuevo;
 	}
 
@@ -63,11 +63,11 @@ public class PersonaDTO {
 		this.email = emailNuevo;
 	}
 
-	public String getEtiqueta() {
+	public EtiquetaContactoDTO getEtiqueta() {
 		return etiqueta;
 	}
 	
-	public void setEtiqueta(String nuevaEtiqueta) {
+	public void setEtiqueta(EtiquetaContactoDTO nuevaEtiqueta) {
 		this.etiqueta = nuevaEtiqueta;
 	}
 

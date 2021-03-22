@@ -1,6 +1,6 @@
 package dto;
 
-public class Domicilio {
+public class DomicilioDTO {
 
 	private String calle;
 	private int altura;
@@ -8,7 +8,7 @@ public class Domicilio {
 	private int depto;
 	private String localidad;
 
-	public Domicilio(String calle, int altura, int piso, int depto, String localidad) {
+	public DomicilioDTO(String calle, int altura, int piso, int depto, String localidad) {
 		this.calle = calle;
 		this.altura = altura;
 		this.piso = piso;

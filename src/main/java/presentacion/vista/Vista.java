@@ -152,7 +152,7 @@ public class Vista
 			int depa = p.getDomicilio().getDepto();
 			String email = p.getEmail();
 			//fechaCumple
-			String etiq = p.getEtiqueta();
+			String etiq = p.getEtiqueta().getTipoEtiqueta();
 			
 			Object[] fila = {nombre, tel,localidad,calle,altura,piso,depa,email,"",etiq};
 			this.getModelPersonas().addRow(fila);
