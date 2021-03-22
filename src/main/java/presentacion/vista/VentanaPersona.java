@@ -163,10 +163,6 @@ public class VentanaPersona extends JFrame
 		jcbTipoContacto = new JComboBox<String>();
 		jcbTipoContacto.setBounds(133, txtFechaCumple.getY()+41, 164, 20);
 		panel.add(jcbTipoContacto);
-		jcbTipoContacto.addItem("Personal");//meterlo en un txt
-		jcbTipoContacto.addItem("Trabajo");
-		jcbTipoContacto.addItem("Escuela");
-		jcbTipoContacto.addItem("Gimnasio");
 		
 		jcbTipoContacto.addActionListener(new ActionListener() {
 			@Override
