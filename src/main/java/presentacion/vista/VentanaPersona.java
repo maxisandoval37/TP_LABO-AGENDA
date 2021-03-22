@@ -1,6 +1,10 @@
 package presentacion.vista;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,7 +24,8 @@ public class VentanaPersona extends JFrame
 	private JTextField txtDepartamento;
 	private JTextField txtEmail;
 	private JTextField txtFechaCumple;
-	private JTextField txtTipoContacto;
+	private JComboBox<String> jcbTipoContacto;
+	private String tipoContactoSeleccionado;
 
 	private JButton btnAgregarPersona;
 	private JButton btnEditarPersona;
@@ -139,23 +144,36 @@ public class VentanaPersona extends JFrame
 		panel.add(txtFechaCumple);
 		txtFechaCumple.setColumns(10);
 		
-		txtTipoContacto = new JTextField();
-		txtTipoContacto.setBounds(133, txtFechaCumple.getY()+41, 164, 20);
-		panel.add(txtTipoContacto);
-		txtTipoContacto.setColumns(10);
+		comboBoxTipoContacto(panel);
 		
 		btnAgregarPersona = new JButton("Agregar");
-		btnAgregarPersona.setBounds(208, txtTipoContacto.getY()+41, 89, 23);
+		btnAgregarPersona.setBounds(208, jcbTipoContacto.getY()+41, 89, 23);
 		btnAgregarPersona.setVisible(true);
 		panel.add(btnAgregarPersona);
 		
 		btnEditarPersona = new JButton("Editar");
-		btnEditarPersona.setBounds(208, txtTipoContacto.getY()+41, 89, 23);
+		btnEditarPersona.setBounds(208, jcbTipoContacto.getY()+41, 89, 23);
 		btnEditarPersona.setVisible(false);
 		panel.add(btnEditarPersona);
 		
-		
 		this.setVisible(false);
+	}
+	
+	private void comboBoxTipoContacto(JPanel panel) {
+		jcbTipoContacto = new JComboBox<String>();
+		jcbTipoContacto.setBounds(133, txtFechaCumple.getY()+41, 164, 20);
+		panel.add(jcbTipoContacto);
+		jcbTipoContacto.addItem("Personal");//meterlo en un txt
+		jcbTipoContacto.addItem("Trabajo");
+		jcbTipoContacto.addItem("Escuela");
+		jcbTipoContacto.addItem("Gimnasio");
+		
+		jcbTipoContacto.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tipoContactoSeleccionado = jcbTipoContacto.getSelectedItem().toString();
+			}
+		});
 	}
 	
 	public void mostrarVentana()
@@ -197,7 +215,6 @@ public class VentanaPersona extends JFrame
 		this.txtDepartamento.setText(null);
 		this.txtEmail.setText(null);
 		this.txtFechaCumple.setText(null);
-		this.txtTipoContacto.setText(null);
 		
 		btnEditarPersona.setVisible(false);
 		btnAgregarPersona.setVisible(true);
@@ -241,8 +258,8 @@ public class VentanaPersona extends JFrame
 
 
 
-	public JTextField getTxtTipoContacto() {
-		return txtTipoContacto;
+	public String getTipoContacto() {
+		return tipoContactoSeleccionado;
 	}
 	
 	

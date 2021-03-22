@@ -61,7 +61,7 @@ public class Controlador implements ActionListener {
 			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 			
 			EtiquetaContactoDTO etiqueta = new EtiquetaContactoDTO();
-			etiqueta.setTipoEtiqueta(ventanaPersona.getTxtTipoContacto().getText());
+			etiqueta.setTipoEtiqueta(ventanaPersona.getTipoContacto());
 
 			// LocalDate auxFecha = LocalDate.parse(fechaCumple,
 			// DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -108,7 +108,7 @@ public class Controlador implements ActionListener {
 				this.personasEnTabla.get(fila).setEmail(ventanaPersona.getTxtEmail().getText());
 				
 				EtiquetaContactoDTO etiqueta = new EtiquetaContactoDTO();
-				etiqueta.setTipoEtiqueta(ventanaPersona.getTxtTipoContacto().getText());
+				etiqueta.setTipoEtiqueta(ventanaPersona.getTipoContacto());
 				this.personasEnTabla.get(fila).setEtiqueta(etiqueta);
 
 				// String fechaCumple = ventanaPersona.getTxtFechaCumple().getText(); hacer set
