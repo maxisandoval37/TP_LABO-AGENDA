@@ -59,17 +59,16 @@ public class Controlador implements ActionListener {
 			String departamento = ventanaPersona.getTxtDepartamento().getText();
 			String email = ventanaPersona.getTxtEmail().getText();
 			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
+			LocalDate auxFecha = LocalDate.parse(fechaCumple);
 			
 			EtiquetaContactoDTO etiqueta = new EtiquetaContactoDTO();
 			etiqueta.setTipoEtiqueta(ventanaPersona.getTipoContacto());
 
-			// LocalDate auxFecha = LocalDate.parse(fechaCumple,
-			// DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
 			DomicilioDTO domicilio = new DomicilioDTO(calle, Integer.parseInt(altura), Integer.parseInt(piso),
 					Integer.parseInt(departamento), localidad);
 
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, etiqueta);
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, etiqueta,auxFecha);
 			this.agenda.agregarPersona(nuevaPersona);
 			this.refrescarTabla();
 			this.ventanaPersona.cerrar();
@@ -88,6 +87,7 @@ public class Controlador implements ActionListener {
 
 		try {
 			int[] filasSeleccionadas = this.vista.getTablaPersonas().getSelectedRows();
+			
 			for (int fila : filasSeleccionadas) {
 
 				// this.ventanaPersona.getTxtNombre().setText(this.personasEnTabla.get(fila).getNombre());
@@ -111,8 +111,9 @@ public class Controlador implements ActionListener {
 				etiqueta.setTipoEtiqueta(ventanaPersona.getTipoContacto());
 				this.personasEnTabla.get(fila).setEtiqueta(etiqueta);
 
-				// String fechaCumple = ventanaPersona.getTxtFechaCumple().getText(); hacer set
-				// de fecha
+				String fechaCumple = ventanaPersona.getTxtFechaCumple().getText(); 
+				LocalDate auxFecha = LocalDate.parse(fechaCumple);
+				this.personasEnTabla.get(fila).setFechaCumple(auxFecha);
 
 				int idPersonaClick = this.personasEnTabla.get(fila).getIdPersona();
 				this.agenda.editarPersona(idPersonaClick, this.personasEnTabla.get(fila));

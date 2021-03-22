@@ -20,6 +20,7 @@ CREATE TABLE `personas`
   `Localidad` varchar(20) NOT NULL,
   `Email` varchar(30),
   `idEtiqueta` int(11) NOT NULL,
+	`FechaCumple` varchat(20) NOT NULL
 
   PRIMARY KEY (`idPersona`),
   FOREIGN KEY (idEtiqueta) REFERENCES Etiquetas(idEtiqueta)
