@@ -6,39 +6,37 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import dto.EtiquetaContactoDTO;
+import dto.EtiquetaDTO;
 import persistencia.conexion.Conexion;
+import persistencia.dao.interfaz.EtiquetaDAO;
 
-public class EtiquetaContactoDAOSQL {
+public class EtiquetaDAOSQL implements EtiquetaDAO{
 	
 	private static final String insert = "INSERT INTO etiquetas(idEtiqueta, tipoEtiqueta) VALUES(?, ?)";
 	private static final String delete = "DELETE FROM etiquetas WHERE idEtiqueta = ?";
 	private static final String update = "UPDATE etiquetas SET tipoEtiqueta = ? WHERE idEtiqueta = ?";
 	private static final String readall = "SELECT * FROM etiquetas";
 	
-	public void insertarEtiquetasGenericas() {
+	@Override
+	public void insertGenericTags() {
 		if (readAll().size() == 0) {
+
+			EtiquetaDTO etiquetaAux1 = new EtiquetaDTO(1,"Personal");
+			insert(etiquetaAux1);
 			
-			EtiquetaContactoDTO etiquetaAux = new EtiquetaContactoDTO();
-			etiquetaAux.setId(1);
-			etiquetaAux.setTipoEtiqueta("Personal");
-			insert(etiquetaAux);
+			EtiquetaDTO etiquetaAux2 = new EtiquetaDTO(2,"Trabajo");
+			insert(etiquetaAux2);
 			
-			etiquetaAux.setId(2);
-			etiquetaAux.setTipoEtiqueta("Trabajo");
-			insert(etiquetaAux);
+			EtiquetaDTO etiquetaAux3 = new EtiquetaDTO(3,"Escuela");
+			insert(etiquetaAux3);
 			
-			etiquetaAux.setId(3);
-			etiquetaAux.setTipoEtiqueta("Escuela");
-			insert(etiquetaAux);
-			
-			etiquetaAux.setId(4);
-			etiquetaAux.setTipoEtiqueta("Gimnasio");
-			insert(etiquetaAux);
+			EtiquetaDTO etiquetaAux4 = new EtiquetaDTO(4,"Gimnasio");
+			insert(etiquetaAux4);
 		}
 	}
 	
-	public boolean insert(EtiquetaContactoDTO etiqueta) {
+	@Override
+	public boolean insert(EtiquetaDTO etiqueta) {
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
@@ -63,7 +61,8 @@ public class EtiquetaContactoDAOSQL {
 		return isInsertExitoso;
 	}
 
-	public boolean delete(EtiquetaContactoDTO etiqueta) {
+	@Override
+	public boolean delete(EtiquetaDTO etiqueta) {
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isdeleteExitoso = false;
@@ -80,7 +79,8 @@ public class EtiquetaContactoDAOSQL {
 		return isdeleteExitoso;
 	}
 
-	public boolean update(int id_a_editar,EtiquetaContactoDTO etiqueta) {
+	@Override
+	public boolean update(int id_a_editar,EtiquetaDTO etiqueta) {
 		boolean ret = false;
 		PreparedStatement statement;
 
@@ -102,10 +102,10 @@ public class EtiquetaContactoDAOSQL {
 		return ret;
 	}
 
-	public List<EtiquetaContactoDTO> readAll() {
+	public List<EtiquetaDTO> readAll() {
 		PreparedStatement statement;
 		ResultSet resultSet; // Guarda el resultado de la query
-		ArrayList<EtiquetaContactoDTO> etiquetas = new ArrayList<EtiquetaContactoDTO>();
+		ArrayList<EtiquetaDTO> etiquetas = new ArrayList<EtiquetaDTO>();
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(readall);
@@ -119,11 +119,8 @@ public class EtiquetaContactoDAOSQL {
 		return etiquetas;
 	}
 
-	private EtiquetaContactoDTO getEtiquetaDTO(ResultSet resultSet) throws SQLException {
-		EtiquetaContactoDTO etiqueta = new EtiquetaContactoDTO();
-		etiqueta.setId(resultSet.getInt("idEtiqueta"));
-		etiqueta.setTipoEtiqueta(resultSet.getString("tipoEtiqueta"));
-
+	private EtiquetaDTO getEtiquetaDTO(ResultSet resultSet) throws SQLException {
+		EtiquetaDTO etiqueta = new EtiquetaDTO(resultSet.getInt("idEtiqueta"),resultSet.getString("tipoEtiqueta"));
 		return etiqueta;
 	}
 

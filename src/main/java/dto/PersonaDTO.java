@@ -3,15 +3,16 @@ package dto;
 import java.time.LocalDate;
 
 public class PersonaDTO {
-	private LocalDate fechaCumple;
+	
 	private int idPersona;
 	private String nombre;
 	private String telefono;
 	private DomicilioDTO domicilio;
 	private String email;
-	private EtiquetaContactoDTO etiqueta;
+	private EtiquetaDTO etiqueta;
+	private LocalDate fechaCumple;
 
-	public PersonaDTO(int idPersona, String nombre, String telefono,DomicilioDTO domicilio,String email,EtiquetaContactoDTO etiqueta,LocalDate fechaCumple) {
+	public PersonaDTO(int idPersona, String nombre, String telefono,DomicilioDTO domicilio,String email,EtiquetaDTO etiqueta,LocalDate fechaCumple) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
@@ -63,18 +64,18 @@ public class PersonaDTO {
 		this.email = emailNuevo;
 	}
 
-	public EtiquetaContactoDTO getEtiqueta() {
+	public EtiquetaDTO getEtiqueta() {
 		return etiqueta;
 	}
 	
-	public void setEtiqueta(EtiquetaContactoDTO nuevaEtiqueta) {
+	public void setEtiqueta(EtiquetaDTO nuevaEtiqueta) {
 		this.etiqueta = nuevaEtiqueta;
 	}
-
+	
 	public LocalDate getFechaCumple() {
 		return fechaCumple;
 	}
-	
+
 	public void setFechaCumple(LocalDate fechaCumple) {
 		this.fechaCumple = fechaCumple;
 	}

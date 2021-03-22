@@ -13,7 +13,7 @@ import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
 import dto.DomicilioDTO;
-import dto.EtiquetaContactoDTO;
+import dto.EtiquetaDTO;
 import dto.PersonaDTO;
 
 public class Controlador implements ActionListener {
@@ -24,6 +24,7 @@ public class Controlador implements ActionListener {
 
 	public Controlador(Vista vista, Agenda agenda) {
 		this.vista = vista;
+		
 		this.vista.getBtnAgregar().addActionListener(a -> ventanaAgregarPersona(a));
 		this.vista.getBtnBorrar().addActionListener(s -> borrarPersona(s));
 		this.vista.getBtnEditar().addActionListener(c -> ventanaEditarPersona(c));
@@ -33,6 +34,8 @@ public class Controlador implements ActionListener {
 		this.ventanaPersona.getBtnEditarPersona().addActionListener(p -> editarPersona(p));
 
 		this.agenda = agenda;
+		agregarEtiquetasGenericas();
+		ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
 	}
 
 	private void ventanaAgregarPersona(ActionEvent a) {
@@ -61,9 +64,10 @@ public class Controlador implements ActionListener {
 			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 			LocalDate auxFecha = LocalDate.parse(fechaCumple);
 			
-			EtiquetaContactoDTO etiqueta = new EtiquetaContactoDTO();
-			etiqueta.setTipoEtiqueta(ventanaPersona.getTipoContacto());
+			EtiquetaDTO etiqueta = new EtiquetaDTO(1,ventanaPersona.getNombreEtiquetaSeleccionada());//poner id correspondiente
 
+			// LocalDate auxFecha = LocalDate.parse(fechaCumple,
+			// DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
 			DomicilioDTO domicilio = new DomicilioDTO(calle, Integer.parseInt(altura), Integer.parseInt(piso),
 					Integer.parseInt(departamento), localidad);
@@ -87,7 +91,6 @@ public class Controlador implements ActionListener {
 
 		try {
 			int[] filasSeleccionadas = this.vista.getTablaPersonas().getSelectedRows();
-			
 			for (int fila : filasSeleccionadas) {
 
 				// this.ventanaPersona.getTxtNombre().setText(this.personasEnTabla.get(fila).getNombre());
@@ -107,8 +110,7 @@ public class Controlador implements ActionListener {
 
 				this.personasEnTabla.get(fila).setEmail(ventanaPersona.getTxtEmail().getText());
 				
-				EtiquetaContactoDTO etiqueta = new EtiquetaContactoDTO();
-				etiqueta.setTipoEtiqueta(ventanaPersona.getTipoContacto());
+				EtiquetaDTO etiqueta = new EtiquetaDTO(0,ventanaPersona.getNombreEtiquetaSeleccionada());
 				this.personasEnTabla.get(fila).setEtiqueta(etiqueta);
 
 				String fechaCumple = ventanaPersona.getTxtFechaCumple().getText(); 
@@ -142,6 +144,22 @@ public class Controlador implements ActionListener {
 		}
 
 		this.refrescarTabla();
+	}
+	
+	public List<EtiquetaDTO> obtenerEtiquetas() {
+		return this.agenda.obtenerEtiquetas();
+	}
+	
+	public EtiquetaDTO obtenerEtiquetaPorID(int id) {
+		for (EtiquetaDTO e: this.agenda.obtenerEtiquetas()){
+			if (e.getId() == id)
+				return e;
+		}
+		return null;
+	}
+	
+	public void agregarEtiquetasGenericas() {
+		this.agenda.insertarEtiquetasGenericas();
 	}
 
 	public void inicializar() {

@@ -5,17 +5,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.PersonaDAO;
 import dto.DomicilioDTO;
-import dto.EtiquetaContactoDTO;
+import dto.EtiquetaDTO;
 import dto.PersonaDTO;
 
 public class PersonaDAOSQL implements PersonaDAO {
-	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, calle, altura, piso, departamento, localidad, email, etiqueta, fechaCumple) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, calle, altura, piso, departamento, localidad, email, idEtiqueta, fechaCumple) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
 	private static final String update = "UPDATE personas SET Nombre = ?, Telefono = ?, Calle = ?, Altura = ?, Piso = ?, Departamento = ?, Localidad = ?, Email = ?, Etiqueta = ?, FechaCumple = ? WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM personas";
@@ -25,7 +26,6 @@ public class PersonaDAOSQL implements PersonaDAO {
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
 		try {
-			
 			statement = conexion.prepareStatement(insert);
 			statement.setInt(1, persona.getIdPersona());
 			statement.setString(2, persona.getNombre());
@@ -36,7 +36,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setInt(7, persona.getDomicilio().getDepto());
 			statement.setString(8, persona.getDomicilio().getLocalidad());
 			statement.setString(9, persona.getEmail());
-			statement.setString(10, persona.getEtiqueta().getTipoEtiqueta());
+			statement.setInt(10, persona.getEtiqueta().getId());
 			statement.setString(11, persona.getFechaCumple().toString());
 
 			if (statement.executeUpdate() > 0) {
@@ -81,7 +81,6 @@ public class PersonaDAOSQL implements PersonaDAO {
 
 		try {
 			statement = conexion.prepareStatement(update);
-			
 			statement.setString(1, persona_nueva.getNombre());
 			statement.setString(2, persona_nueva.getTelefono());
 			statement.setString(3, persona_nueva.getDomicilio().getCalle());
@@ -90,10 +89,9 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setInt(6, persona_nueva.getDomicilio().getDepto());
 			statement.setString(7, persona_nueva.getDomicilio().getLocalidad());
 			statement.setString(8, persona_nueva.getEmail());
-			statement.setString(9, persona_nueva.getEtiqueta().getTipoEtiqueta());
-			statement.setInt(10, id_a_editar);
-			statement.setString(11, persona_nueva.getFechaCumple().toString());
-
+			statement.setInt(9, persona_nueva.getEtiqueta().getId());
+			statement.setString(10, persona_nueva.getFechaCumple().toString());
+			statement.setInt(11, id_a_editar);
 
 			if (statement.executeUpdate() > 0) {
 				conexion.commit();
@@ -131,20 +129,19 @@ public class PersonaDAOSQL implements PersonaDAO {
 		String calle = resultSet.getString("Calle");
 		String email = resultSet.getString("Email");
 		
-		EtiquetaContactoDTO etiqueta = new EtiquetaContactoDTO();
-		etiqueta.setTipoEtiqueta(resultSet.getString("Etiqueta"));
+		EtiquetaDTO etiqueta = new EtiquetaDTO(resultSet.getInt("idEtiqueta"),resultSet.getString("tipoEtiqueta"));
 		
 		int altura = resultSet.getInt("Altura");
 		int piso = resultSet.getInt("Piso");
 		int departamento = resultSet.getInt("Departamento");
 		String localidad = resultSet.getString("Localidad");
 		DomicilioDTO domicilio = new DomicilioDTO(calle, altura, piso, departamento, localidad);
-		
+
 		if (fechaCumple.equals("")) {
 			return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta,null);
 		}
+		
 		LocalDate auxFecha = LocalDate.parse(fechaCumple);
-
 		return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta,auxFecha);
 	}
 

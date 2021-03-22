@@ -1,10 +1,15 @@
 package dto;
 
-public class EtiquetaContactoDTO {
+public class EtiquetaDTO {
 	
 	private int id;
 	private String tipoEtiqueta;
 
+	public EtiquetaDTO(int id, String tipoEtiqueta) {
+		this.id = id;
+		this.tipoEtiqueta = tipoEtiqueta;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -24,8 +29,8 @@ public class EtiquetaContactoDTO {
 	@Override
 	public boolean equals(Object obj) {
 		boolean ret = false;
-		if(obj instanceof EtiquetaContactoDTO) {
-			EtiquetaContactoDTO ec = (EtiquetaContactoDTO) obj;
+		if(obj instanceof EtiquetaDTO) {
+			EtiquetaDTO ec = (EtiquetaDTO) obj;
 			ret = ec.getId() == this.id;
 		}
 		return ret;

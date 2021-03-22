@@ -2,6 +2,7 @@ package presentacion.vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import dto.EtiquetaDTO;
 
 public class VentanaPersona extends JFrame 
 {
@@ -25,7 +28,7 @@ public class VentanaPersona extends JFrame
 	private JTextField txtEmail;
 	private JTextField txtFechaCumple;
 	private JComboBox<String> jcbTipoContacto;
-	private String tipoContactoSeleccionado;
+	private String etiquetaSeleccionada;
 
 	private JButton btnAgregarPersona;
 	private JButton btnEditarPersona;
@@ -167,9 +170,15 @@ public class VentanaPersona extends JFrame
 		jcbTipoContacto.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tipoContactoSeleccionado = jcbTipoContacto.getSelectedItem().toString();
+				etiquetaSeleccionada = jcbTipoContacto.getSelectedItem().toString();
 			}
 		});
+	}
+	
+	public void agregarEtiquetasComboBox(List<EtiquetaDTO> list) {
+		for (EtiquetaDTO i : list) {
+			jcbTipoContacto.addItem(i.getTipoEtiqueta());
+		}
 	}
 	
 	public void mostrarVentana()
@@ -221,16 +230,13 @@ public class VentanaPersona extends JFrame
 		return txtLocalidad;
 	}
 
-
 	public JTextField getTxtCalle() {
 		return txtCalle;
 	}
 
-
 	public JTextField getTxtAltura() {
 		return txtAltura;
 	}
-
 
 	public JTextField getTxtPiso() {
 		return txtPiso;
@@ -241,21 +247,17 @@ public class VentanaPersona extends JFrame
 		return txtDepartamento;
 	}
 
-
 	public JTextField getTxtEmail() {
 		return txtEmail;
 	}
-
-
 
 	public JTextField getTxtFechaCumple() {
 		return txtFechaCumple;
 	}
 
 
-
-	public String getTipoContacto() {
-		return tipoContactoSeleccionado;
+	public String getNombreEtiquetaSeleccionada() {
+		return etiquetaSeleccionada;
 	}
 	
 	
