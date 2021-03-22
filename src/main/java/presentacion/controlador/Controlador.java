@@ -47,45 +47,43 @@ public class Controlador implements ActionListener {
 	}
 
 	private void guardarPersona(ActionEvent p) {
-		String nombre = this.ventanaPersona.getTxtNombre().getText();
-		String tel = ventanaPersona.getTxtTelefono().getText();
-		String localidad = ventanaPersona.getTxtLocalidad().getText();
-		String calle = ventanaPersona.getTxtCalle().getText();
-		String altura = ventanaPersona.getTxtAltura().getText();
-		String piso = ventanaPersona.getTxtPiso().getText();
-		String departamento = ventanaPersona.getTxtDepartamento().getText();
-		String email = ventanaPersona.getTxtEmail().getText();
-		String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
-		String tipoContacto = ventanaPersona.getTxtTipoContacto().getText();
+		
+		try {
+			String nombre = this.ventanaPersona.getTxtNombre().getText();
+			String tel = ventanaPersona.getTxtTelefono().getText();
+			String localidad = ventanaPersona.getTxtLocalidad().getText();
+			String calle = ventanaPersona.getTxtCalle().getText();
+			String altura = ventanaPersona.getTxtAltura().getText();
+			String piso = ventanaPersona.getTxtPiso().getText();
+			String departamento = ventanaPersona.getTxtDepartamento().getText();
+			String email = ventanaPersona.getTxtEmail().getText();
+			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
+			String tipoContacto = ventanaPersona.getTxtTipoContacto().getText();
 
-		// LocalDate auxFecha = LocalDate.parse(fechaCumple,
-		// DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+			// LocalDate auxFecha = LocalDate.parse(fechaCumple,
+			// DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-		Domicilio domicilio = new Domicilio(calle, Integer.parseInt(altura), Integer.parseInt(piso),
-				Integer.parseInt(departamento), localidad);
+			Domicilio domicilio = new Domicilio(calle, Integer.parseInt(altura), Integer.parseInt(piso),
+					Integer.parseInt(departamento), localidad);
 
-		PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, tipoContacto);
-		this.agenda.agregarPersona(nuevaPersona);
-		this.refrescarTabla();
-		this.ventanaPersona.cerrar();
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, tipoContacto);
+			this.agenda.agregarPersona(nuevaPersona);
+			this.refrescarTabla();
+			this.ventanaPersona.cerrar();
+		}
+		
+		catch (Exception e) {
+			if (e.getMessage().equals("For input string: \"\""))
+				JOptionPane.showMessageDialog(null, "Complete los campos vacíos");
+			else
+				JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+
 	}
 
 	private void editarPersona(ActionEvent p) {
 
-		if (this.ventanaPersona.getTxtNombre().getText().equals("")
-				|| this.ventanaPersona.getTxtTelefono().getText().equals("")
-				|| this.ventanaPersona.getTxtAltura().getText().equals("")
-				|| this.ventanaPersona.getTxtCalle().getText().equals("")
-				|| this.ventanaPersona.getTxtLocalidad().getText().equals("")
-				|| this.ventanaPersona.getTxtPiso().getText().equals("")
-				|| this.ventanaPersona.getTxtDepartamento().getText().equals("")) {
-			System.out.println("ACA ENTRE");
-			JOptionPane.showMessageDialog(null, "Hay campos vacíos");
-
-		}
-
-		else {
-
+		try {
 			int[] filasSeleccionadas = this.vista.getTablaPersonas().getSelectedRows();
 			for (int fila : filasSeleccionadas) {
 
@@ -114,11 +112,15 @@ public class Controlador implements ActionListener {
 				this.agenda.editarPersona(idPersonaClick, this.personasEnTabla.get(fila));
 
 				this.refrescarTabla();
+				this.ventanaPersona.cerrar();
 				break;
 			}
 		}
 
-		this.ventanaPersona.cerrar();
+		catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+
 	}
 
 	private void mostrarReporte(ActionEvent r) {
