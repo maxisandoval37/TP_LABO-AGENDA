@@ -23,7 +23,7 @@ public class Controlador implements ActionListener {
 
 	public Controlador(Vista vista, Agenda agenda) {
 		this.vista = vista;
-		
+
 		this.vista.getBtnAgregar().addActionListener(a -> ventanaAgregarPersona(a));
 		this.vista.getBtnBorrar().addActionListener(s -> borrarPersona(s));
 		this.vista.getBtnEditar().addActionListener(c -> ventanaEditarPersona(c));
@@ -44,13 +44,31 @@ public class Controlador implements ActionListener {
 	}
 
 	private void ventanaEditarPersona(ActionEvent a) {
+		int[] filasSeleccionadas = this.vista.getTablaPersonas().getSelectedRows();
+
 		this.ventanaPersona.getBtnAgregarPersona().setVisible(false);
 		this.ventanaPersona.getBtnEditarPersona().setVisible(true);
 		this.ventanaPersona.mostrarVentana();
+
+		for (int fila : filasSeleccionadas) {
+
+			ventanaPersona.getTxtNombre().setText(personasEnTabla.get(fila).getNombre());
+			ventanaPersona.getTxtTelefono().setText(personasEnTabla.get(fila).getTelefono());
+			ventanaPersona.getTxtAltura().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getAltura()));
+			ventanaPersona.getTxtCalle().setText(personasEnTabla.get(fila).getDomicilio().getCalle());
+			ventanaPersona.getTxtDepartamento()
+					.setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getDepto()));
+			ventanaPersona.getTxtEmail().setText(personasEnTabla.get(fila).getEmail());
+			ventanaPersona.getTxtLocalidad().setText(personasEnTabla.get(fila).getDomicilio().getLocalidad());
+			ventanaPersona.getTxtPiso().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getPiso()));
+			ventanaPersona.getTxtFechaCumple().setText(personasEnTabla.get(fila).getFechaCumple().toString());
+
+		}
+
 	}
 
 	private void guardarPersona(ActionEvent p) {
-		
+
 		try {
 			String nombre = this.ventanaPersona.getTxtNombre().getText();
 			String tel = ventanaPersona.getTxtTelefono().getText();
@@ -62,18 +80,19 @@ public class Controlador implements ActionListener {
 			String email = ventanaPersona.getTxtEmail().getText();
 			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 			LocalDate auxFecha = LocalDate.parse(fechaCumple);
-			
-			EtiquetaDTO etiqueta = new EtiquetaDTO(1,ventanaPersona.getNombreEtiquetaSeleccionada());//poner id correspondiente
+
+			EtiquetaDTO etiqueta = new EtiquetaDTO(1, ventanaPersona.getNombreEtiquetaSeleccionada());// poner id
+																										// correspondiente
 
 			DomicilioDTO domicilio = new DomicilioDTO(calle, Integer.parseInt(altura), Integer.parseInt(piso),
 					Integer.parseInt(departamento), localidad);
 
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, etiqueta,auxFecha);
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, etiqueta, auxFecha);
 			this.agenda.agregarPersona(nuevaPersona);
 			this.refrescarTabla();
 			this.ventanaPersona.cerrar();
 		}
-		
+
 		catch (Exception e) {
 			if (e.getMessage().equals("For input string: \"\""))
 				JOptionPane.showMessageDialog(null, "Complete los campos vacíos");
@@ -105,11 +124,11 @@ public class Controlador implements ActionListener {
 				this.personasEnTabla.get(fila).setDomicilio(daux);
 
 				this.personasEnTabla.get(fila).setEmail(ventanaPersona.getTxtEmail().getText());
-				
-				EtiquetaDTO etiqueta = new EtiquetaDTO(0,ventanaPersona.getNombreEtiquetaSeleccionada());
+
+				EtiquetaDTO etiqueta = new EtiquetaDTO(0, ventanaPersona.getNombreEtiquetaSeleccionada());
 				this.personasEnTabla.get(fila).setEtiqueta(etiqueta);
 
-				String fechaCumple = ventanaPersona.getTxtFechaCumple().getText(); 
+				String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 				LocalDate auxFecha = LocalDate.parse(fechaCumple);
 				this.personasEnTabla.get(fila).setFechaCumple(auxFecha);
 
@@ -141,19 +160,19 @@ public class Controlador implements ActionListener {
 
 		this.refrescarTabla();
 	}
-	
+
 	public List<EtiquetaDTO> obtenerEtiquetas() {
 		return this.agenda.obtenerEtiquetas();
 	}
-	
+
 	public EtiquetaDTO obtenerEtiquetaPorID(int id) {
-		for (EtiquetaDTO e: this.agenda.obtenerEtiquetas()){
+		for (EtiquetaDTO e : this.agenda.obtenerEtiquetas()) {
 			if (e.getId() == id)
 				return e;
 		}
 		return null;
 	}
-	
+
 	public void agregarEtiquetasGenericas() {
 		this.agenda.insertarEtiquetasGenericas();
 	}
