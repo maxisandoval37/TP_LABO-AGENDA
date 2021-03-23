@@ -9,7 +9,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import dto.EtiquetaDTO;
 
-public class VistaEtiqueta {
+public class VistaEtiqueta{
 	private JFrame frame;
 	private JTable tablaEtiquetas;
 	private JButton btnAgregar;

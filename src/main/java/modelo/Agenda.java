@@ -44,7 +44,7 @@ public class Agenda {
 	public void editarEtiqueta(int id_a_editar,EtiquetaDTO etiqueta_nueva) {
 		this.etiqueta.update(id_a_editar,etiqueta_nueva);
 	}
-	
+
 	public void insertarEtiquetasGenericas() {
 		this.etiqueta.insertGenericTags();
 	}

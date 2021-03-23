@@ -18,19 +18,25 @@ import dto.PersonaDTO;
 
 public class Controlador implements ActionListener {
 	private Vista vista;
+	private VistaEtiqueta vistaEtiqueta;
 	private List<PersonaDTO> personasEnTabla;
-	//private List<EtiquetaDTO>
+	private List<EtiquetaDTO> etiquetasEnTabla;
 	private VentanaPersona ventanaPersona;
 	private Agenda agenda;
 
-	public Controlador(Vista vista, Agenda agenda) {
+	public Controlador(Vista vista,VistaEtiqueta vistaEtiqueta, Agenda agenda) {
 		this.vista = vista;
+		this.vistaEtiqueta = vistaEtiqueta;
 
 		this.vista.getBtnAgregar().addActionListener(a -> ventanaAgregarPersona(a));
 		this.vista.getBtnBorrar().addActionListener(s -> borrarPersona(s));
 		this.vista.getBtnEditar().addActionListener(c -> ventanaEditarPersona(c));
 		this.vista.getBtnReporte().addActionListener(r -> mostrarReporte(r));
+		
 		this.vista.getBtnEtiqueta().addActionListener(b -> ventanaABMEtiqueta(b));
+		this.vistaEtiqueta.getBtnBorrar().addActionListener(v -> borrarEtiqueta(v));
+		//hacer el getInstance de etiqueta
+		
 		this.ventanaPersona = VentanaPersona.getInstance();
 		this.ventanaPersona.getBtnAgregarPersona().addActionListener(w -> guardarPersona(w));
 		this.ventanaPersona.getBtnEditarPersona().addActionListener(p -> editarPersona(p));
@@ -43,8 +49,8 @@ public class Controlador implements ActionListener {
 	private void ventanaABMEtiqueta(ActionEvent a) {
 		VistaEtiqueta ve = new VistaEtiqueta();
 	
-		//ve = agenda.obtenerPersonas();
-		//ve.llenarTabla(this.personasEnTabla);
+		this.etiquetasEnTabla = agenda.obtenerEtiquetas();
+		ve.llenarTabla(this.etiquetasEnTabla);
 		
 		ve.show();
 	}
@@ -63,7 +69,6 @@ public class Controlador implements ActionListener {
 		this.ventanaPersona.mostrarVentana();
 
 		for (int fila : filasSeleccionadas) {
-
 			ventanaPersona.getTxtNombre().setText(personasEnTabla.get(fila).getNombre());
 			ventanaPersona.getTxtTelefono().setText(personasEnTabla.get(fila).getTelefono());
 			ventanaPersona.getTxtAltura().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getAltura()));
@@ -156,6 +161,15 @@ public class Controlador implements ActionListener {
 		int[] filasSeleccionadas = this.vista.getTablaPersonas().getSelectedRows();
 		for (int fila : filasSeleccionadas) {
 			this.agenda.borrarPersona(this.personasEnTabla.get(fila));
+		}
+
+		this.refrescarTabla();
+	}
+	
+	public void borrarEtiqueta(ActionEvent e) {
+		int[] filasSeleccionadas = this.vistaEtiqueta.getTablaEtiquetas().getSelectedRows();
+		for (int fila : filasSeleccionadas) {
+			this.agenda.borrarEtiqueta(this.etiquetasEnTabla.get(fila));
 		}
 
 		this.refrescarTabla();
