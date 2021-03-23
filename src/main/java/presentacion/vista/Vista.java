@@ -151,10 +151,10 @@ public class Vista
 			int piso = p.getDomicilio().getPiso();
 			int depa = p.getDomicilio().getDepto();
 			String email = p.getEmail();
-			//fechaCumple
+			String fechaCumple = p.getFechaCumple().toString();
 			String etiq = p.getEtiqueta().getTipoEtiqueta();
 			
-			Object[] fila = {nombre, tel,localidad,calle,altura,piso,depa,email,"",etiq};
+			Object[] fila = {nombre, tel,localidad,calle,altura,piso,depa,email,fechaCumple,etiq,};
 			this.getModelPersonas().addRow(fila);
 		}
 		
