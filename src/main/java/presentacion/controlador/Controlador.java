@@ -3,7 +3,6 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -65,9 +64,6 @@ public class Controlador implements ActionListener {
 			LocalDate auxFecha = LocalDate.parse(fechaCumple);
 			
 			EtiquetaDTO etiqueta = new EtiquetaDTO(1,ventanaPersona.getNombreEtiquetaSeleccionada());//poner id correspondiente
-
-			// LocalDate auxFecha = LocalDate.parse(fechaCumple,
-			// DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
 			DomicilioDTO domicilio = new DomicilioDTO(calle, Integer.parseInt(altura), Integer.parseInt(piso),
 					Integer.parseInt(departamento), localidad);

@@ -5,10 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.PersonaDAO;
 import dto.DomicilioDTO;
@@ -18,9 +16,12 @@ import dto.PersonaDTO;
 public class PersonaDAOSQL implements PersonaDAO {
 	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, calle, altura, piso, departamento, localidad, email, idEtiqueta, fechaCumple) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
-	private static final String update = "UPDATE personas SET Nombre = ?, Telefono = ?, Calle = ?, Altura = ?, Piso = ?, Departamento = ?, Localidad = ?, Email = ?, Etiqueta = ?, FechaCumple = ? WHERE idPersona = ?";
+	private static final String update = "UPDATE personas SET Nombre = ?, Telefono = ?, Calle = ?, Altura = ?, Piso = ?, Departamento = ?, Localidad = ?, Email = ?, idEtiqueta = ?, FechaCumple = ? WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM personas";
+	//private static final String joinTagFK = "(SELECT * FROM Personas INNER JOIN Etiquetas ON Personas.idEtiqueta=Etiquetas.idEtiqueta and Personas.idPersona= ?)";
+	private static final String findTagFK = "SELECT tipoEtiqueta FROM Etiquetas WHERE idEtiqueta = ?";
 
+	@Override
 	public boolean insert(PersonaDTO persona) {
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
@@ -129,7 +130,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 		String calle = resultSet.getString("Calle");
 		String email = resultSet.getString("Email");
 		
-		EtiquetaDTO etiqueta = new EtiquetaDTO(resultSet.getInt("idEtiqueta"),resultSet.getString("tipoEtiqueta"));
+		EtiquetaDTO etiqueta = new EtiquetaDTO(resultSet.getInt("idEtiqueta"),getTipoEtiquetaId(resultSet.getInt("idEtiqueta")));
 		
 		int altura = resultSet.getInt("Altura");
 		int piso = resultSet.getInt("Piso");
@@ -143,6 +144,27 @@ public class PersonaDAOSQL implements PersonaDAO {
 		
 		LocalDate auxFecha = LocalDate.parse(fechaCumple);
 		return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta,auxFecha);
+	}
+	
+	private String getTipoEtiquetaId(int id) throws SQLException{
+		
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		String etiquetaHallada = "";
+		Conexion conexion = Conexion.getConexion();
+		
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(findTagFK);
+			statement.setInt(1, id);
+			resultSet = statement.executeQuery();
+			while (resultSet.next() ) {
+				etiquetaHallada=resultSet.getString("tipoEtiqueta");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return etiquetaHallada;
 	}
 
 }
