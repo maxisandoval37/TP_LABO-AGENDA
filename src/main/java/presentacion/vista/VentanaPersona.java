@@ -27,8 +27,8 @@ public class VentanaPersona extends JFrame
 	private JTextField txtDepartamento;
 	private JTextField txtEmail;
 	private JTextField txtFechaCumple;
-	private JComboBox<String> jcbTipoContacto;
-	private String etiquetaSeleccionada;
+	private JComboBox<EtiquetaDTO> jcbTipoContacto;
+	private EtiquetaDTO etiquetaSeleccionada;
 
 	private JButton btnAgregarPersona;
 	private JButton btnEditarPersona;
@@ -163,21 +163,22 @@ public class VentanaPersona extends JFrame
 	}
 	
 	private void comboBoxTipoContacto(JPanel panel) {
-		jcbTipoContacto = new JComboBox<String>();
+		jcbTipoContacto = new JComboBox<EtiquetaDTO>();
 		jcbTipoContacto.setBounds(133, txtFechaCumple.getY()+41, 164, 20);
 		panel.add(jcbTipoContacto);
 		
 		jcbTipoContacto.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				etiquetaSeleccionada = jcbTipoContacto.getSelectedItem().toString();
+				EtiquetaDTO etaux = (EtiquetaDTO) jcbTipoContacto.getSelectedItem();
+				etiquetaSeleccionada = etaux;
 			}
 		});
 	}
 	
 	public void agregarEtiquetasComboBox(List<EtiquetaDTO> list) {
 		for (EtiquetaDTO i : list) {
-			jcbTipoContacto.addItem(i.getTipoEtiqueta());
+			jcbTipoContacto.addItem(i);
 		}
 	}
 	
@@ -256,7 +257,7 @@ public class VentanaPersona extends JFrame
 	}
 
 
-	public String getNombreEtiquetaSeleccionada() {
+	public EtiquetaDTO getNombreEtiquetaSeleccionada() {
 		return etiquetaSeleccionada;
 	}
 	

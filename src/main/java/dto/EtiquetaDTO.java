@@ -27,6 +27,11 @@ public class EtiquetaDTO {
 	}
 	
 	@Override
+	public String toString() {
+	    return tipoEtiqueta;
+	}
+	
+	@Override
 	public boolean equals(Object obj) {
 		boolean ret = false;
 		if(obj instanceof EtiquetaDTO) {

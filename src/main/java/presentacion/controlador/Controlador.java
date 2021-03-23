@@ -81,13 +81,10 @@ public class Controlador implements ActionListener {
 			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 			LocalDate auxFecha = LocalDate.parse(fechaCumple);
 
-			EtiquetaDTO etiqueta = new EtiquetaDTO(1, ventanaPersona.getNombreEtiquetaSeleccionada());// poner id
-																										// correspondiente
-
 			DomicilioDTO domicilio = new DomicilioDTO(calle, Integer.parseInt(altura), Integer.parseInt(piso),
 					Integer.parseInt(departamento), localidad);
 
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, etiqueta, auxFecha);
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getNombreEtiquetaSeleccionada(), auxFecha);
 			this.agenda.agregarPersona(nuevaPersona);
 			this.refrescarTabla();
 			this.ventanaPersona.cerrar();
@@ -108,9 +105,6 @@ public class Controlador implements ActionListener {
 			int[] filasSeleccionadas = this.vista.getTablaPersonas().getSelectedRows();
 			for (int fila : filasSeleccionadas) {
 
-				// this.ventanaPersona.getTxtNombre().setText(this.personasEnTabla.get(fila).getNombre());
-				// ver como poner los datos actuales en la vista de editar
-
 				this.personasEnTabla.get(fila).setNombre(this.ventanaPersona.getTxtNombre().getText());
 				this.personasEnTabla.get(fila).setTelefono(this.ventanaPersona.getTxtTelefono().getText());
 
@@ -125,8 +119,7 @@ public class Controlador implements ActionListener {
 
 				this.personasEnTabla.get(fila).setEmail(ventanaPersona.getTxtEmail().getText());
 
-				EtiquetaDTO etiqueta = new EtiquetaDTO(0, ventanaPersona.getNombreEtiquetaSeleccionada());
-				this.personasEnTabla.get(fila).setEtiqueta(etiqueta);
+				this.personasEnTabla.get(fila).setEtiqueta(ventanaPersona.getNombreEtiquetaSeleccionada());
 
 				String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 				LocalDate auxFecha = LocalDate.parse(fechaCumple);
