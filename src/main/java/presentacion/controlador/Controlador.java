@@ -56,13 +56,10 @@ public class Controlador implements ActionListener {
 			ventanaPersona.getTxtTelefono().setText(personasEnTabla.get(fila).getTelefono());
 			ventanaPersona.getTxtAltura().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getAltura()));
 			ventanaPersona.getTxtCalle().setText(personasEnTabla.get(fila).getDomicilio().getCalle());
-			ventanaPersona.getTxtDepartamento()
-					.setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getDepto()));
+			ventanaPersona.getTxtDepartamento().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getDepto()));
 			ventanaPersona.getTxtEmail().setText(personasEnTabla.get(fila).getEmail());
-			ventanaPersona.getTxtLocalidad().setText(personasEnTabla.get(fila).getDomicilio().getLocalidad());
 			ventanaPersona.getTxtPiso().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getPiso()));
 			ventanaPersona.getTxtFechaCumple().setText(personasEnTabla.get(fila).getFechaCumple().toString());
-
 		}
 
 	}
@@ -72,7 +69,7 @@ public class Controlador implements ActionListener {
 		try {
 			String nombre = this.ventanaPersona.getTxtNombre().getText();
 			String tel = ventanaPersona.getTxtTelefono().getText();
-			String localidad = ventanaPersona.getTxtLocalidad().getText();
+			String localidad = ventanaPersona.getTxtLocalidad();
 			String calle = ventanaPersona.getTxtCalle().getText();
 			String altura = ventanaPersona.getTxtAltura().getText();
 			String piso = ventanaPersona.getTxtPiso().getText();
@@ -108,7 +105,7 @@ public class Controlador implements ActionListener {
 				this.personasEnTabla.get(fila).setNombre(this.ventanaPersona.getTxtNombre().getText());
 				this.personasEnTabla.get(fila).setTelefono(this.ventanaPersona.getTxtTelefono().getText());
 
-				String localidad = ventanaPersona.getTxtLocalidad().getText();
+				String localidad = ventanaPersona.getTxtLocalidad();
 				String calle = ventanaPersona.getTxtCalle().getText();
 				int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
 				int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
@@ -116,9 +113,7 @@ public class Controlador implements ActionListener {
 				DomicilioDTO daux = new DomicilioDTO(calle, altura, piso, departamento, localidad);
 
 				this.personasEnTabla.get(fila).setDomicilio(daux);
-
 				this.personasEnTabla.get(fila).setEmail(ventanaPersona.getTxtEmail().getText());
-
 				this.personasEnTabla.get(fila).setEtiqueta(ventanaPersona.getNombreEtiquetaSeleccionada());
 
 				String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
