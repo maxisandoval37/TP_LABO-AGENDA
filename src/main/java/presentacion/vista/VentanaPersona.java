@@ -101,7 +101,7 @@ public class VentanaPersona extends JFrame {
 		lblEmail.setBounds(10,lblDpto.getY()+40,113,14);
 		panel.add(lblEmail);
 		
-		JLabel lblFechaCumple = new JLabel ("Fecha de Cumplea�os");
+		JLabel lblFechaCumple = new JLabel ("Naci. (aaaa-mm-dd)");
 		lblFechaCumple.setBounds(10,lblEmail.getY()+40,113,14);
 		panel.add(lblFechaCumple);
 		

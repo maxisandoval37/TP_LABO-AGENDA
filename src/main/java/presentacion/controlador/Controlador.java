@@ -9,6 +9,7 @@ import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
+import presentacion.vista.VentanaAMEtiqueta;
 import presentacion.vista.VentanaEtiqueta;
 import dto.DomicilioDTO;
 import dto.EtiquetaDTO;
@@ -20,6 +21,7 @@ public class Controlador implements ActionListener {
 	private List<EtiquetaDTO> etiquetasEnTabla;
 	private VentanaPersona ventanaPersona;
 	private VentanaEtiqueta ventanaEtiqueta;
+	private VentanaAMEtiqueta ventanaAMEtiqueta;
 	private Agenda agenda;
 
 	public Controlador(Vista vista, Agenda agenda) {
@@ -29,18 +31,17 @@ public class Controlador implements ActionListener {
 		this.vista.getBtnBorrar().addActionListener(s -> borrarPersona(s));
 		this.vista.getBtnEditar().addActionListener(c -> ventanaEditarPersona(c));
 		this.vista.getBtnReporte().addActionListener(r -> mostrarReporte(r));
-
 		
 		this.vista.getBtnEtiqueta().addActionListener(b -> ventanaABMEtiqueta(b));
-		
 		this.ventanaEtiqueta = VentanaEtiqueta.getInstance();
+		this.ventanaAMEtiqueta = VentanaAMEtiqueta.getInstance();
+		this.ventanaEtiqueta.getBtnAgregar().addActionListener(h -> ventanaAgregarEtiqueta(h));
+		this.ventanaEtiqueta.getBtnEditar().addActionListener(x -> ventanaEditarEtiqueta(x));
 		this.ventanaEtiqueta.getBtnBorrar().addActionListener(v -> borrarEtiqueta(v));
 
-		
 		this.ventanaPersona = VentanaPersona.getInstance();
 		this.ventanaPersona.getBtnAgregarPersona().addActionListener(w -> guardarPersona(w));
 		this.ventanaPersona.getBtnEditarPersona().addActionListener(p -> editarPersona(p));
-
 		this.agenda = agenda;
 		agregarEtiquetasGenericas();
 		ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
@@ -55,6 +56,12 @@ public class Controlador implements ActionListener {
 		this.ventanaPersona.getBtnEditarPersona().setVisible(false);
 		this.ventanaPersona.getBtnAgregarPersona().setVisible(true);
 		this.ventanaPersona.mostrarVentana();
+	}
+	
+	private void ventanaAgregarEtiqueta(ActionEvent a) {
+		this.ventanaAMEtiqueta.getBtnEditarEtiqueta().setVisible(false);
+		this.ventanaAMEtiqueta.getBtnAgregarEtiqueta().setVisible(true);
+		this.ventanaAMEtiqueta.mostrarVentana();
 	}
 
 	private void ventanaEditarPersona(ActionEvent a) {
@@ -74,7 +81,18 @@ public class Controlador implements ActionListener {
 			ventanaPersona.getTxtPiso().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getPiso()));
 			ventanaPersona.getTxtFechaCumple().setText(personasEnTabla.get(fila).getFechaCumple().toString());
 		}
+	}
+	
+	private void ventanaEditarEtiqueta(ActionEvent et) {
+		int[] filasSeleccionadas = this.ventanaEtiqueta.getTablaEtiquetas().getSelectedRows();
 
+		this.ventanaAMEtiqueta.getBtnAgregarEtiqueta().setVisible(false);
+		this.ventanaAMEtiqueta.getBtnEditarEtiqueta().setVisible(true);
+		this.ventanaAMEtiqueta.mostrarVentana();
+		
+		for (int fila : filasSeleccionadas) {
+			ventanaAMEtiqueta.getTxtTipoEtiqueta().setText(etiquetasEnTabla.get(fila).getTipoEtiqueta());
+		}
 	}
 
 	private void guardarPersona(ActionEvent p) {
@@ -160,6 +178,14 @@ public class Controlador implements ActionListener {
 		}
 
 		this.refrescarTablaPersonas();
+	}
+	
+	public void agregarEtiqueta(ActionEvent e) {
+		
+	}
+	
+	public void editarEtiqueta(ActionEvent e) {
+		
 	}
 	
 	public void borrarEtiqueta(ActionEvent e) {

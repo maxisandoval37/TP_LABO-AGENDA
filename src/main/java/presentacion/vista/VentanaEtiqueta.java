@@ -8,7 +8,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import dto.EtiquetaDTO;
 
 public class VentanaEtiqueta extends JFrame {
@@ -128,11 +127,7 @@ public class VentanaEtiqueta extends JFrame {
 	}
 
 	public void cerrar() {
-		//this.txtNombre.setText(null);
-		//this.txtTelefono.setText(null);
-		
 		this.dispose();
 	}
 	
-
 }
