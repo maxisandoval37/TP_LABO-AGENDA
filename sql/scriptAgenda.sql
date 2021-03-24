@@ -1,4 +1,4 @@
-CREATE DATABASE `agenda`;
+CREATE DATABASE IF NOT EXISTS `agenda`;
 USE agenda;
 
 CREATE TABLE `etiquetas`(

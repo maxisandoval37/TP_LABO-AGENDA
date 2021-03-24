@@ -13,10 +13,11 @@ import persistencia.dao.interfaz.EtiquetaDAO;
 public class EtiquetaDAOSQL implements EtiquetaDAO{
 	
 	private static final String insert = "INSERT INTO etiquetas(idEtiqueta, tipoEtiqueta) VALUES(?, ?)";
+	private static final String deleteFKForPersons = "UPDATE personas SET idEtiqueta = ? WHERE idEtiqueta = ?;";
 	private static final String delete = "DELETE FROM etiquetas WHERE idEtiqueta = ?";
 	private static final String update = "UPDATE etiquetas SET tipoEtiqueta = ? WHERE idEtiqueta = ?";
 	private static final String readall = "SELECT * FROM etiquetas";
-	
+
 	@Override
 	public void insertGenericTags() {
 		if (readAll().size() == 0) {
@@ -60,19 +61,41 @@ public class EtiquetaDAOSQL implements EtiquetaDAO{
 
 		return isInsertExitoso;
 	}
+	
+	private void deleteFKForPersons(int fk) {
+		PreparedStatement statement1;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+
+		try {
+			statement1 = conexion.prepareStatement(deleteFKForPersons);
+			statement1.setString(1, null);
+			statement1.setInt(2, fk);
+
+			if (statement1.executeUpdate() > 0) {
+				conexion.commit();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public boolean delete(EtiquetaDTO etiqueta) {
-		PreparedStatement statement;
+		deleteFKForPersons(etiqueta.getId());
+		
+		PreparedStatement statement2;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isdeleteExitoso = false;
 		try {
-			statement = conexion.prepareStatement(delete);
-			statement.setString(1, Integer.toString(etiqueta.getId()));
-			if (statement.executeUpdate() > 0) {
+			statement2 = conexion.prepareStatement(delete);
+			statement2.setString(1, Integer.toString(etiqueta.getId()));
+			
+			if (statement2.executeUpdate() > 0) {
 				conexion.commit();
 				isdeleteExitoso = true;
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

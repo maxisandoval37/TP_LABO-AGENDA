@@ -1,7 +1,6 @@
 package modelo;
 
 import java.util.List;
-
 import dto.EtiquetaDTO;
 import dto.PersonaDTO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
@@ -37,7 +36,7 @@ public class Agenda {
 		this.etiqueta.insert(nuevaEtiqueta);
 	}
 
-	public void borrarEtiqueta(EtiquetaDTO etiqueta_a_eliminar) {
+	public void borrarEtiqueta(EtiquetaDTO etiqueta_a_eliminar){
 		this.etiqueta.delete(etiqueta_a_eliminar);
 	}
 
