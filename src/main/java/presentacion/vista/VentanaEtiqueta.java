@@ -3,14 +3,19 @@ package presentacion.vista;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
 import dto.EtiquetaDTO;
 
-public class VistaEtiqueta{
-	private JFrame frame;
+public class VentanaEtiqueta extends JFrame {
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private static VentanaEtiqueta INSTANCE;
+	
 	private JTable tablaEtiquetas;
 	private JButton btnAgregar;
 	private JButton btnBorrar;
@@ -18,26 +23,42 @@ public class VistaEtiqueta{
 	private DefaultTableModel modelEtiquetas;
 	private String[] nombreColumnas = {" Id ","Tipo Etiqueta"};
 	
-	public VistaEtiqueta() 
-	{
-		super();
-		initialize();
+	
+	public static VentanaEtiqueta getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new VentanaEtiqueta();
+			return new VentanaEtiqueta();
+		} else
+			return INSTANCE;
 	}
 	
-	private void initialize() 
-	{
-		frame = new JFrame();
-		frame.setBounds(100, 100, 1200, 720);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+	private VentanaEtiqueta() {
+		super();
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 1200, 720);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, frame.getWidth()-25, 262);
-		frame.getContentPane().add(panel);
+		panel.setBounds(0, 0, 1000, 720);
+		contentPane.add(panel);
 		panel.setLayout(null);
 		
+		inicializarElemsVisuales(panel);
+		
+		this.setVisible(false);
+	}
+	
+	public void mostrarVentana() {
+		this.setVisible(true);
+	}
+
+	private void inicializarElemsVisuales(JPanel panel) {
 		JScrollPane spEtiquetas = new JScrollPane();
-		spEtiquetas.setBounds(10, 11, panel.getWidth()-10, 182);
+		spEtiquetas.setBounds(10, 11, panel.getWidth()-10, 540);
 		panel.add(spEtiquetas);
 		
 		modelEtiquetas = new DefaultTableModel(null,nombreColumnas);
@@ -51,21 +72,16 @@ public class VistaEtiqueta{
 		spEtiquetas.setViewportView(tablaEtiquetas);
 		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(10, 228, 89, 23);
+		btnAgregar.setBounds(10, 600, 89, 23);
 		panel.add(btnAgregar);
 		
 		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(109, 228, 89, 23);
+		btnEditar.setBounds(109, 600, 89, 23);
 		panel.add(btnEditar);
 		
 		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(208, 228, 89, 23);
+		btnBorrar.setBounds(208, 600, 89, 23);
 		panel.add(btnBorrar);
-	}
-	
-	public void show() {
-		this.frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.frame.setVisible(true);
 	}
 	
 	public JButton getBtnAgregar() {
@@ -110,4 +126,13 @@ public class VistaEtiqueta{
 		}
 		
 	}
+
+	public void cerrar() {
+		//this.txtNombre.setText(null);
+		//this.txtTelefono.setText(null);
+		
+		this.dispose();
+	}
+	
+
 }

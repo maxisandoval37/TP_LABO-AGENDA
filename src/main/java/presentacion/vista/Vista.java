@@ -37,12 +37,13 @@ public class Vista {
 		frame.getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, frame.getWidth() - 25, 262);
+		panel.setBounds(0, 0, frame.getWidth() - 25, 720);
 		frame.getContentPane().add(panel);
+		frame.setResizable(false);
 		panel.setLayout(null);
 
 		JScrollPane spPersonas = new JScrollPane();
-		spPersonas.setBounds(10, 11, panel.getWidth() - 10, 182);
+		spPersonas.setBounds(10, 11, panel.getWidth() - 10, 540);
 		panel.add(spPersonas);
 
 		modelPersonas = new DefaultTableModel(null, nombreColumnas);
@@ -56,23 +57,23 @@ public class Vista {
 		spPersonas.setViewportView(tablaPersonas);
 
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(10, 228, 89, 23);
+		btnAgregar.setBounds(10, 600, 89, 23);
 		panel.add(btnAgregar);
 
 		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(109, 228, 89, 23);
+		btnEditar.setBounds(109, 600, 89, 23);
 		panel.add(btnEditar);
 
 		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(208, 228, 89, 23);
+		btnBorrar.setBounds(208, 600, 89, 23);
 		panel.add(btnBorrar);
 
 		btnReporte = new JButton("Reporte");
-		btnReporte.setBounds(307, 228, 89, 23);
+		btnReporte.setBounds(307, 600, 89, 23);
 		panel.add(btnReporte);
 
 		btnEtiquetas = new JButton("Etiquetas");
-		btnEtiquetas.setBounds(406, 228, 89, 23);
+		btnEtiquetas.setBounds(406, 600, 89, 23);
 		panel.add(btnEtiquetas);
 	}
 

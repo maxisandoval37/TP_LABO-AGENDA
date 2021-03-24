@@ -4,38 +4,38 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
 import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
-import presentacion.vista.VistaEtiqueta;
+import presentacion.vista.VentanaEtiqueta;
 import dto.DomicilioDTO;
 import dto.EtiquetaDTO;
 import dto.PersonaDTO;
 
 public class Controlador implements ActionListener {
 	private Vista vista;
-	private VistaEtiqueta vistaEtiqueta;
 	private List<PersonaDTO> personasEnTabla;
 	private List<EtiquetaDTO> etiquetasEnTabla;
 	private VentanaPersona ventanaPersona;
+	private VentanaEtiqueta ventanaEtiqueta;
 	private Agenda agenda;
 
-	public Controlador(Vista vista,VistaEtiqueta vistaEtiqueta, Agenda agenda) {
+	public Controlador(Vista vista, Agenda agenda) {
 		this.vista = vista;
-		this.vistaEtiqueta = vistaEtiqueta;
 
 		this.vista.getBtnAgregar().addActionListener(a -> ventanaAgregarPersona(a));
 		this.vista.getBtnBorrar().addActionListener(s -> borrarPersona(s));
 		this.vista.getBtnEditar().addActionListener(c -> ventanaEditarPersona(c));
 		this.vista.getBtnReporte().addActionListener(r -> mostrarReporte(r));
+
 		
 		this.vista.getBtnEtiqueta().addActionListener(b -> ventanaABMEtiqueta(b));
-		this.vistaEtiqueta.getBtnBorrar().addActionListener(v -> borrarEtiqueta(v));
-		//hacer el getInstance de etiqueta
+		
+		this.ventanaEtiqueta = VentanaEtiqueta.getInstance();
+		this.ventanaEtiqueta.getBtnBorrar().addActionListener(v -> borrarEtiqueta(v));
+
 		
 		this.ventanaPersona = VentanaPersona.getInstance();
 		this.ventanaPersona.getBtnAgregarPersona().addActionListener(w -> guardarPersona(w));
@@ -47,12 +47,8 @@ public class Controlador implements ActionListener {
 	}
 	
 	private void ventanaABMEtiqueta(ActionEvent a) {
-		VistaEtiqueta ve = new VistaEtiqueta();
-	
-		this.etiquetasEnTabla = agenda.obtenerEtiquetas();
-		ve.llenarTabla(this.etiquetasEnTabla);
-		
-		ve.show();
+		this.refrescarTablaEtiquetas();
+		ventanaEtiqueta.mostrarVentana();
 	}
 
 	private void ventanaAgregarPersona(ActionEvent a) {
@@ -100,7 +96,7 @@ public class Controlador implements ActionListener {
 
 			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getNombreEtiquetaSeleccionada(), auxFecha);
 			this.agenda.agregarPersona(nuevaPersona);
-			this.refrescarTabla();
+			this.refrescarTablaPersonas();
 			this.ventanaPersona.cerrar();
 		}
 
@@ -140,7 +136,7 @@ public class Controlador implements ActionListener {
 				int idPersonaClick = this.personasEnTabla.get(fila).getIdPersona();
 				this.agenda.editarPersona(idPersonaClick, this.personasEnTabla.get(fila));
 
-				this.refrescarTabla();
+				this.refrescarTablaPersonas();
 				this.ventanaPersona.cerrar();
 				break;
 			}
@@ -163,16 +159,16 @@ public class Controlador implements ActionListener {
 			this.agenda.borrarPersona(this.personasEnTabla.get(fila));
 		}
 
-		this.refrescarTabla();
+		this.refrescarTablaPersonas();
 	}
 	
 	public void borrarEtiqueta(ActionEvent e) {
-		int[] filasSeleccionadas = this.vistaEtiqueta.getTablaEtiquetas().getSelectedRows();
+		int[] filasSeleccionadas = this.ventanaEtiqueta.getTablaEtiquetas().getSelectedRows();
 		for (int fila : filasSeleccionadas) {
 			this.agenda.borrarEtiqueta(this.etiquetasEnTabla.get(fila));
 		}
 
-		this.refrescarTabla();
+		this.refrescarTablaEtiquetas();
 	}
 
 	public List<EtiquetaDTO> obtenerEtiquetas() {
@@ -192,13 +188,18 @@ public class Controlador implements ActionListener {
 	}
 
 	public void inicializar() {
-		this.refrescarTabla();
+		this.refrescarTablaPersonas();
 		this.vista.show();
 	}
 
-	private void refrescarTabla() {
+	private void refrescarTablaPersonas() {
 		this.personasEnTabla = agenda.obtenerPersonas();
 		this.vista.llenarTabla(this.personasEnTabla);
+	}
+	
+	private void refrescarTablaEtiquetas() {
+		this.etiquetasEnTabla = agenda.obtenerEtiquetas();
+		ventanaEtiqueta.llenarTabla(this.etiquetasEnTabla);
 	}
 
 	@Override
