@@ -26,7 +26,7 @@ CREATE TABLE `personas`
   FOREIGN KEY (idEtiqueta) REFERENCES Etiquetas(idEtiqueta)
 );
 
-CREATE USER 'montenegro_sandoval'@'localhost' IDENTIFIED BY '1234';
+CREATE USER  IF NOT EXISTS 'montenegro_sandoval'@'localhost' IDENTIFIED BY '1234';
 GRANT RELOAD,PROCESS ON *.* TO 'montenegro_sandoval'@'localhost';
 
 GRANT ALL PRIVILEGES ON *.* TO 'montenegro_sandoval'@'localhost' WITH GRANT OPTION;
