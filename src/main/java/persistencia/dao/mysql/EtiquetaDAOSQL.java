@@ -21,18 +21,21 @@ public class EtiquetaDAOSQL implements EtiquetaDAO{
 	@Override
 	public void insertGenericTags() {
 		if (readAll().size() == 0) {
-
-			EtiquetaDTO etiquetaAux1 = new EtiquetaDTO(1,"Personal");
-			insert(etiquetaAux1);
 			
-			EtiquetaDTO etiquetaAux2 = new EtiquetaDTO(2,"Trabajo");
+			EtiquetaDTO etiquetaAux1 = new EtiquetaDTO(1,"Amigo");
+			insert(etiquetaAux1);
+
+			EtiquetaDTO etiquetaAux2 = new EtiquetaDTO(2,"Personal");
 			insert(etiquetaAux2);
 			
-			EtiquetaDTO etiquetaAux3 = new EtiquetaDTO(3,"Escuela");
+			EtiquetaDTO etiquetaAux3 = new EtiquetaDTO(3,"Trabajo");
 			insert(etiquetaAux3);
 			
-			EtiquetaDTO etiquetaAux4 = new EtiquetaDTO(4,"Gimnasio");
+			EtiquetaDTO etiquetaAux4 = new EtiquetaDTO(4,"Escuela");
 			insert(etiquetaAux4);
+			
+			EtiquetaDTO etiquetaAux5 = new EtiquetaDTO(5,"Gimnasio");
+			insert(etiquetaAux5);
 		}
 	}
 	

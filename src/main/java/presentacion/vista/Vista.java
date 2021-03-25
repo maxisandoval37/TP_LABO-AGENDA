@@ -23,7 +23,7 @@ public class Vista {
 	private JButton btnReporte;
 	private JButton btnEtiquetas;
 	private DefaultTableModel modelPersonas;
-	private String[] nombreColumnas = { "Nombre y apellido", "Telefono", "Localidad", "Calle", "Altura", "Piso","Departamento", "Email", "Fecha de cumpleaños", "Tipo de contacto" };
+	private String[] nombreColumnas = { "Nombre y apellido", "Telefono", "Localidad", "Calle", "Altura", "Piso","Departamento", "Email", "Nacimiento", "Tipo de contacto" };
 
 	public Vista() {
 		super();

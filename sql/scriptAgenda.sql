@@ -17,10 +17,10 @@ CREATE TABLE `personas`
   `Altura` int(8),
   `Piso` int(4),
   `Departamento` int(4),
-  `Localidad` varchar(20) NOT NULL,
+  `Localidad` varchar(20),
   `Email` varchar(30),
-  `idEtiqueta` int(11) NOT NULL,
-  `FechaCumple` varchar(20) NOT NULL,
+  `idEtiqueta` int(11),
+  `FechaCumple` varchar(20),
 
   PRIMARY KEY (`idPersona`),
   FOREIGN KEY (idEtiqueta) REFERENCES Etiquetas(idEtiqueta)

@@ -195,6 +195,7 @@ public class Controlador implements ActionListener {
 		}
 
 		this.refrescarTablaEtiquetas();
+		this.refrescarTablaPersonas();
 	}
 
 	public List<EtiquetaDTO> obtenerEtiquetas() {
