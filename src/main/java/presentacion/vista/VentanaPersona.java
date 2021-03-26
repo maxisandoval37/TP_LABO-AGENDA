@@ -264,7 +264,7 @@ public class VentanaPersona extends JFrame {
 		return btnEditarPersona;
 	}
 
-	public void cerrar() {
+	public void resetearVista() {
 		this.txtNombre.setText(null);
 		this.txtTelefono.setText(null);
 		//this.txtLocalidad.setText(null);
@@ -274,7 +274,6 @@ public class VentanaPersona extends JFrame {
 		this.txtDepartamento.setText(null);
 		this.txtEmail.setText(null);
 		this.txtFechaCumple.setText(null);
-		
 		btnEditarPersona.setVisible(false);
 		btnAgregarPersona.setVisible(true);
 		this.dispose();

@@ -54,12 +54,14 @@ public class Controlador implements ActionListener {
 	}
 
 	private void ventanaAgregarPersona(ActionEvent a) {
+		this.ventanaPersona.resetearVista();
 		this.ventanaPersona.getBtnEditarPersona().setVisible(false);
 		this.ventanaPersona.getBtnAgregarPersona().setVisible(true);
 		this.ventanaPersona.mostrarVentana();
 	}
 	
 	private void ventanaAgregarEtiqueta(ActionEvent a) {
+		this.ventanaAMEtiqueta.resetearVista();
 		this.ventanaAMEtiqueta.getBtnEditarEtiqueta().setVisible(false);
 		this.ventanaAMEtiqueta.getBtnAgregarEtiqueta().setVisible(true);
 		this.ventanaAMEtiqueta.mostrarVentana();
@@ -97,7 +99,6 @@ public class Controlador implements ActionListener {
 	}
 
 	private void guardarPersona(ActionEvent p) {
-
 		try {
 			String nombre = this.ventanaPersona.getTxtNombre().getText();
 			String tel = ventanaPersona.getTxtTelefono().getText();
@@ -110,13 +111,11 @@ public class Controlador implements ActionListener {
 			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 			LocalDate auxFecha = LocalDate.parse(fechaCumple);
 
-			DomicilioDTO domicilio = new DomicilioDTO(calle, Integer.parseInt(altura), Integer.parseInt(piso),
-					Integer.parseInt(departamento), localidad);
+			DomicilioDTO domicilio = new DomicilioDTO(calle, Integer.parseInt(altura), Integer.parseInt(piso), Integer.parseInt(departamento), localidad);
 
 			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getNombreEtiquetaSeleccionada(), auxFecha);
 			this.agenda.agregarPersona(nuevaPersona);
 			this.refrescarTablaPersonas();
-			this.ventanaPersona.cerrar();
 		}
 
 		catch (Exception e) {
@@ -125,11 +124,9 @@ public class Controlador implements ActionListener {
 			else
 				JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-
 	}
 
 	private void editarPersona(ActionEvent p) {
-
 		try {
 			int[] filasSeleccionadas = this.vista.getTablaPersonas().getSelectedRows();
 			for (int fila : filasSeleccionadas) {
@@ -156,7 +153,7 @@ public class Controlador implements ActionListener {
 				this.agenda.editarPersona(idPersonaClick, this.personasEnTabla.get(fila));
 
 				this.refrescarTablaPersonas();
-				this.ventanaPersona.cerrar();
+				this.ventanaPersona.resetearVista();
 				break;
 			}
 		}
@@ -164,7 +161,6 @@ public class Controlador implements ActionListener {
 		catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-
 	}
 
 	private void mostrarReporte(ActionEvent r) {
@@ -177,7 +173,6 @@ public class Controlador implements ActionListener {
 		for (int fila : filasSeleccionadas) {
 			this.agenda.borrarPersona(this.personasEnTabla.get(fila));
 		}
-
 		this.refrescarTablaPersonas();
 	}
 	
@@ -189,7 +184,6 @@ public class Controlador implements ActionListener {
 		}
 		
 		else {
-			
 			boolean bandera = true;
 			for (EtiquetaDTO eit: obtenerEtiquetas()) {
 				if (eit.getTipoEtiqueta().equalsIgnoreCase(tipoEtiqueta)) {
@@ -197,15 +191,12 @@ public class Controlador implements ActionListener {
 					bandera = false;
 				}
 			}
-			
 			if (bandera) {
 				EtiquetaDTO nuevaEtiqueta = new EtiquetaDTO(0, tipoEtiqueta);
 				this.agenda.agregarEtiqueta(nuevaEtiqueta);
 				this.refrescarTablaEtiquetas();
 				ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
-				this.ventanaAMEtiqueta.cerrar();
 			}
-
 		}
 	}
 	

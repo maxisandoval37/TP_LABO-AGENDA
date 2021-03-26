@@ -86,7 +86,8 @@ public class VentanaAMEtiqueta extends JFrame{
 		return btnEditarEtiqueta;
 	}
 	
-	public void cerrar() {
+	public void resetearVista() {
+		this.txtTipoEtiqueta.setText(null);
 		this.dispose();
 	}
 }
