@@ -116,6 +116,7 @@ public class Controlador implements ActionListener {
 			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getNombreEtiquetaSeleccionada(), auxFecha);
 			this.agenda.agregarPersona(nuevaPersona);
 			this.refrescarTablaPersonas();
+			this.ventanaPersona.resetearVista();
 		}
 
 		catch (Exception e) {
@@ -196,8 +197,10 @@ public class Controlador implements ActionListener {
 				this.agenda.agregarEtiqueta(nuevaEtiqueta);
 				this.refrescarTablaEtiquetas();
 				ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
+				this.ventanaAMEtiqueta.resetearVista();
 			}
 		}
+		
 	}
 	
 	public void editarEtiqueta(ActionEvent e) {
