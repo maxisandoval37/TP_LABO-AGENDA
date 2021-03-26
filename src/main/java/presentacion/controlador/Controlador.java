@@ -37,6 +37,7 @@ public class Controlador implements ActionListener {
 		this.ventanaAMEtiqueta = VentanaAMEtiqueta.getInstance();
 		this.ventanaEtiqueta.getBtnAgregar().addActionListener(h -> ventanaAgregarEtiqueta(h));
 		this.ventanaEtiqueta.getBtnEditar().addActionListener(x -> ventanaEditarEtiqueta(x));
+		this.ventanaAMEtiqueta.getBtnAgregarEtiqueta().addActionListener(y -> guardarEtiqueta(y));
 		this.ventanaEtiqueta.getBtnBorrar().addActionListener(v -> borrarEtiqueta(v));
 
 		this.ventanaPersona = VentanaPersona.getInstance();
@@ -180,8 +181,32 @@ public class Controlador implements ActionListener {
 		this.refrescarTablaPersonas();
 	}
 	
-	public void agregarEtiqueta(ActionEvent e) {
+	public void guardarEtiqueta(ActionEvent e) {
+		String tipoEtiqueta = this.ventanaAMEtiqueta.getTxtTipoEtiqueta().getText();
 		
+		if (tipoEtiqueta.equals("")) {
+			JOptionPane.showMessageDialog(null, "Cumplete el tipo de Etiqueta");
+		}
+		
+		else {
+			
+			boolean bandera = true;
+			for (EtiquetaDTO eit: obtenerEtiquetas()) {
+				if (eit.getTipoEtiqueta().equalsIgnoreCase(tipoEtiqueta)) {
+					JOptionPane.showMessageDialog(null, "La etiqueta ya existe");	
+					bandera = false;
+				}
+			}
+			
+			if (bandera) {
+				EtiquetaDTO nuevaEtiqueta = new EtiquetaDTO(0, tipoEtiqueta);
+				this.agenda.agregarEtiqueta(nuevaEtiqueta);
+				this.refrescarTablaEtiquetas();
+				ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
+				this.ventanaAMEtiqueta.cerrar();
+			}
+
+		}
 	}
 	
 	public void editarEtiqueta(ActionEvent e) {
