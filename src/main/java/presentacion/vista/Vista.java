@@ -23,7 +23,7 @@ public class Vista {
 	private JButton btnReporte;
 	private JButton btnEtiquetas;
 	private DefaultTableModel modelPersonas;
-	private String[] nombreColumnas = { "Nombre y apellido", "Telefono", "Localidad", "Calle", "Altura", "Piso","Departamento", "Email", "Nacimiento", "Tipo de contacto" };
+	private String[] nombreColumnas = { "Nombre y apellido", "Telefono", "Localidad", "Provincia", "Pais", "Calle", "Altura", "Piso","Departamento", "Email", "Nacimiento", "Tipo de contacto" };
 
 	public Vista() {
 		super();
@@ -137,7 +137,9 @@ public class Vista {
 		for (PersonaDTO p : personasEnTabla) {
 			String nombre = p.getNombre();
 			String tel = p.getTelefono();
-			String localidad ="Linea 140 vista" ;//p.getDomicilio().getLocalidad();
+			String localidad = p.getDomicilio().getLocalidad().getNombreLocalidad();
+			String provincia = p.getDomicilio().getLocalidad().getProvincia();
+			String pais = p.getDomicilio().getLocalidad().getPais();
 			String calle = p.getDomicilio().getCalle();
 			int altura = p.getDomicilio().getAltura();
 			int piso = p.getDomicilio().getPiso();
@@ -146,10 +148,9 @@ public class Vista {
 			String fechaCumple = p.getFechaCumple().toString();
 			String etiq = p.getEtiqueta().getTipoEtiqueta();
 
-			Object[] fila = { nombre, tel, localidad, calle, altura, piso, depa, email, fechaCumple, etiq };
+			Object[] fila = { nombre, tel, localidad,provincia,pais, calle, altura, piso, depa, email, fechaCumple, etiq };
 			this.getModelPersonas().addRow(fila);
 		}
-
 	}
-
+	
 }

@@ -3,7 +3,6 @@ package presentacion.vista;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -11,9 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
-import dto.DomicilioDTO;
 import dto.EtiquetaDTO;
+import dto.LocalidadDTO;
 
 public class VentanaPersona extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -234,7 +232,7 @@ public class VentanaPersona extends JFrame {
 			}
 		});
 	}
-	
+
 	public void agregarEtiquetasComboBox(List<EtiquetaDTO> list) {
 		for (EtiquetaDTO i : list) {
 			jcbTipoContacto.addItem(i);
@@ -307,9 +305,10 @@ public class VentanaPersona extends JFrame {
 	public JTextField getTxtFechaCumple() {
 		return txtFechaCumple;
 	}
-
-	public DomicilioDTO getDomicilioSeleccionado() {
-		return new DomicilioDTO(0,"Linea 312 vista",0,0,0,null);
+	
+	public LocalidadDTO getLocalidadSeleccionada() {
+		LocalidadDTO localidad= new LocalidadDTO(1,"Argentina","Argentina","Lujan");
+		return localidad;
 	}
 
 	public EtiquetaDTO getEtiquetaSeleccionada() {

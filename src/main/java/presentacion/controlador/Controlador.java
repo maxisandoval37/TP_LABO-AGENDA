@@ -13,6 +13,7 @@ import presentacion.vista.VentanaAMEtiqueta;
 import presentacion.vista.VentanaEtiqueta;
 import dto.DomicilioDTO;
 import dto.EtiquetaDTO;
+import dto.LocalidadDTO;
 import dto.PersonaDTO;
 
 public class Controlador implements ActionListener {
@@ -103,18 +104,22 @@ public class Controlador implements ActionListener {
 		try {
 			String nombre = this.ventanaPersona.getTxtNombre().getText();
 			String tel = ventanaPersona.getTxtTelefono().getText();
-			String localidad = ventanaPersona.getTxtLocalidad();
+			
 			String calle = ventanaPersona.getTxtCalle().getText();
-			String altura = ventanaPersona.getTxtAltura().getText();
-			String piso = ventanaPersona.getTxtPiso().getText();
-			String departamento = ventanaPersona.getTxtDepartamento().getText();
+			int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
+			int piso =  Integer.parseInt(ventanaPersona.getTxtPiso().getText());
+			int departamento =  Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
+			LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
+			
 			String email = ventanaPersona.getTxtEmail().getText();
 			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 			LocalDate auxFecha = LocalDate.parse(fechaCumple);
+		
+			int IdDom = this.agenda.obtenerUltimoIdDomicilio()+1; 
+			DomicilioDTO domicilio = new DomicilioDTO(IdDom,calle, altura, piso, departamento, localidad);
+			this.agenda.agregarDomicilio(domicilio);
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha);
 
-			//DomicilioDTO domicilio = new DomicilioDTO(0,calle, Integer.parseInt(altura), Integer.parseInt(piso), Integer.parseInt(departamento), localidad);
-
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, ventanaPersona.getDomicilioSeleccionado(), email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha);
 			this.agenda.agregarPersona(nuevaPersona);
 			this.refrescarTablaPersonas();
 			this.ventanaPersona.resetearVista();
@@ -136,14 +141,16 @@ public class Controlador implements ActionListener {
 				this.personasEnTabla.get(fila).setNombre(this.ventanaPersona.getTxtNombre().getText());
 				this.personasEnTabla.get(fila).setTelefono(this.ventanaPersona.getTxtTelefono().getText());
 
-				String localidad = ventanaPersona.getTxtLocalidad();
 				String calle = ventanaPersona.getTxtCalle().getText();
 				int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
 				int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
 				int departamento = Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
-				//DomicilioDTO daux = new DomicilioDTO(calle, altura, piso, departamento, localidad);
+				LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
+				
+				//falta implementar
+				DomicilioDTO domicilio = new DomicilioDTO(0,calle, altura, piso, departamento, localidad);
 
-				this.personasEnTabla.get(fila).setDomicilio(ventanaPersona.getDomicilioSeleccionado());
+				this.personasEnTabla.get(fila).setDomicilio(domicilio);
 				this.personasEnTabla.get(fila).setEmail(ventanaPersona.getTxtEmail().getText());
 				this.personasEnTabla.get(fila).setEtiqueta(ventanaPersona.getEtiquetaSeleccionada());
 
@@ -170,7 +177,7 @@ public class Controlador implements ActionListener {
 		reporte.mostrar();
 	}
 
-	public void borrarPersona(ActionEvent s) {
+	private void borrarPersona(ActionEvent s) {
 		int[] filasSeleccionadas = this.vista.getTablaPersonas().getSelectedRows();
 		for (int fila : filasSeleccionadas) {
 			this.agenda.borrarPersona(this.personasEnTabla.get(fila));
@@ -178,7 +185,7 @@ public class Controlador implements ActionListener {
 		this.refrescarTablaPersonas();
 	}
 	
-	public void guardarEtiqueta(ActionEvent e) {
+	private void guardarEtiqueta(ActionEvent e) {
 		String tipoEtiqueta = this.ventanaAMEtiqueta.getTxtTipoEtiqueta().getText();
 
 		if (nuevaEtiquetaEsValida(tipoEtiqueta)) {
@@ -210,7 +217,7 @@ public class Controlador implements ActionListener {
 		return bandera;
 	}
 	
-	public void editarEtiqueta(ActionEvent e) {
+	private void editarEtiqueta(ActionEvent e) {
 		String tipoEtiqueta = this.ventanaAMEtiqueta.getTxtTipoEtiqueta().getText();
 		
 		if (nuevaEtiquetaEsValida(tipoEtiqueta)) {
@@ -231,7 +238,7 @@ public class Controlador implements ActionListener {
 		}
 	}
 	
-	public void borrarEtiqueta(ActionEvent e) {
+	private void borrarEtiqueta(ActionEvent e) {
 		int[] filasSeleccionadas = this.ventanaEtiqueta.getTablaEtiquetas().getSelectedRows();
 		for (int fila : filasSeleccionadas) {
 			this.agenda.borrarEtiqueta(this.etiquetasEnTabla.get(fila));
@@ -240,7 +247,7 @@ public class Controlador implements ActionListener {
 		this.refrescarTablaPersonas();
 	}
 
-	public List<EtiquetaDTO> obtenerEtiquetas() {
+	private List<EtiquetaDTO> obtenerEtiquetas() {
 		return this.agenda.obtenerEtiquetas();
 	}
 
@@ -252,7 +259,7 @@ public class Controlador implements ActionListener {
 		return null;
 	}
 
-	public void agregarEtiquetasGenericas() {
+	private void agregarEtiquetasGenericas() {
 		this.agenda.insertarEtiquetasGenericas();
 	}
 
