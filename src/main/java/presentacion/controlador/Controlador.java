@@ -38,6 +38,7 @@ public class Controlador implements ActionListener {
 		this.ventanaEtiqueta.getBtnAgregar().addActionListener(h -> ventanaAgregarEtiqueta(h));
 		this.ventanaEtiqueta.getBtnEditar().addActionListener(x -> ventanaEditarEtiqueta(x));
 		this.ventanaAMEtiqueta.getBtnAgregarEtiqueta().addActionListener(y -> guardarEtiqueta(y));
+		this.ventanaAMEtiqueta.getBtnEditarEtiqueta().addActionListener(q -> editarEtiqueta(q));
 		this.ventanaEtiqueta.getBtnBorrar().addActionListener(v -> borrarEtiqueta(v));
 
 		this.ventanaPersona = VentanaPersona.getInstance();
@@ -179,32 +180,55 @@ public class Controlador implements ActionListener {
 	
 	public void guardarEtiqueta(ActionEvent e) {
 		String tipoEtiqueta = this.ventanaAMEtiqueta.getTxtTipoEtiqueta().getText();
-		
-		if (tipoEtiqueta.equals("")) {
-			JOptionPane.showMessageDialog(null, "Cumplete el tipo de Etiqueta");
+
+		if (nuevaEtiquetaEsValida(tipoEtiqueta)) {
+			EtiquetaDTO nuevaEtiqueta = new EtiquetaDTO(0, tipoEtiqueta);
+			this.agenda.agregarEtiqueta(nuevaEtiqueta);
+			this.refrescarTablaEtiquetas();
+			ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
+			this.ventanaAMEtiqueta.resetearVista();
 		}
-		
+	}
+	
+	private boolean nuevaEtiquetaEsValida(String tipoEtiqueta) {
+		boolean bandera = true;
+
+		if (tipoEtiqueta.equals("")) {
+			JOptionPane.showMessageDialog(null, "Complete el tipo de Etiqueta");
+			bandera = false;
+		}
+
 		else {
-			boolean bandera = true;
-			for (EtiquetaDTO eit: obtenerEtiquetas()) {
+			for (EtiquetaDTO eit : obtenerEtiquetas()) {
 				if (eit.getTipoEtiqueta().equalsIgnoreCase(tipoEtiqueta)) {
-					JOptionPane.showMessageDialog(null, "La etiqueta ya existe");	
+					JOptionPane.showMessageDialog(null, "La etiqueta ya existe");
 					bandera = false;
+					break;
 				}
 			}
-			if (bandera) {
-				EtiquetaDTO nuevaEtiqueta = new EtiquetaDTO(0, tipoEtiqueta);
-				this.agenda.agregarEtiqueta(nuevaEtiqueta);
-				this.refrescarTablaEtiquetas();
-				ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
-				this.ventanaAMEtiqueta.resetearVista();
-			}
 		}
-		
+		return bandera;
 	}
 	
 	public void editarEtiqueta(ActionEvent e) {
+		String tipoEtiqueta = this.ventanaAMEtiqueta.getTxtTipoEtiqueta().getText();
 		
+		if (nuevaEtiquetaEsValida(tipoEtiqueta)) {
+			
+			int[] filasSeleccionadas = this.ventanaEtiqueta.getTablaEtiquetas().getSelectedRows();
+			for (int fila : filasSeleccionadas) {
+
+				this.etiquetasEnTabla.get(fila).setTipoEtiqueta(tipoEtiqueta);
+			
+				int idEtiquetaClick = this.etiquetasEnTabla.get(fila).getId();
+				this.agenda.editarEtiqueta(idEtiquetaClick, this.etiquetasEnTabla.get(fila));
+
+				this.refrescarTablaEtiquetas();
+				this.refrescarTablaPersonas();
+				this.ventanaAMEtiqueta.resetearVista();
+				break;
+			}
+		}
 	}
 	
 	public void borrarEtiqueta(ActionEvent e) {
@@ -212,7 +236,6 @@ public class Controlador implements ActionListener {
 		for (int fila : filasSeleccionadas) {
 			this.agenda.borrarEtiqueta(this.etiquetasEnTabla.get(fila));
 		}
-
 		this.refrescarTablaEtiquetas();
 		this.refrescarTablaPersonas();
 	}
@@ -251,5 +274,4 @@ public class Controlador implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 	}
-
 }
