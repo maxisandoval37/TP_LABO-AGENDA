@@ -147,13 +147,15 @@ public class Controlador implements ActionListener {
 				int departamento = Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
 				LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
 				
-				//falta implementar
-				DomicilioDTO domicilio = new DomicilioDTO(0,calle, altura, piso, departamento, localidad);
-
+				//this.personasEnTabla.get(fila).getDomicilio().setId(id);
+				int idDom = this.personasEnTabla.get(fila).getDomicilio().getId();
+				DomicilioDTO domicilio = new DomicilioDTO(idDom,calle, altura, piso, departamento, localidad);
 				this.personasEnTabla.get(fila).setDomicilio(domicilio);
+				this.agenda.editarDomicilio(idDom, domicilio);
+				//this.EditarDomicilio(idDom,domicilio) //pasar el this.personasEnTabla.get(fila).getDomicilio()
+				
 				this.personasEnTabla.get(fila).setEmail(ventanaPersona.getTxtEmail().getText());
 				this.personasEnTabla.get(fila).setEtiqueta(ventanaPersona.getEtiquetaSeleccionada());
-
 				String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 				LocalDate auxFecha = LocalDate.parse(fechaCumple);
 				this.personasEnTabla.get(fila).setFechaCumple(auxFecha);

@@ -123,7 +123,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 		String fechaCumple = resultSet.getString("FechaCumple");
 		String email = resultSet.getString("Email");
 		
-		EtiquetaDTO etiqueta = new EtiquetaDTO(resultSet.getInt("idEtiqueta"),getTipoEtiquetaId(resultSet.getInt("idEtiqueta")));
+		EtiquetaDTO etiqueta = getEtiquetaById(resultSet.getInt("idEtiqueta"));
 		DomicilioDTO domicilio = getDomiciliobyId(resultSet.getInt("idDomicilio")); 
 
 		if (fechaCumple.equals("")) {
@@ -149,6 +149,9 @@ public class PersonaDAOSQL implements PersonaDAO {
 				int altura = resultSet.getInt("Altura");
 				int piso = resultSet.getInt("Piso");;
 				int departamento = resultSet.getInt("Departamento");
+				int idLocalidad = resultSet.getInt("idLocalidad");
+				
+				//DomHallado = new DomicilioDTO(id,calle,altura,piso,departamento,DomicilioDAOSQL.getLocalidadById(idLocalidad));
 				DomHallado = new DomicilioDTO(id,calle,altura,piso,departamento,new LocalidadDTO(1,"Argentina","Buenos Aires","Lujan"));
 			}
 		} catch (SQLException e) {
@@ -158,11 +161,11 @@ public class PersonaDAOSQL implements PersonaDAO {
 		return DomHallado;
 	}
 	
-	private String getTipoEtiquetaId(int id) throws SQLException{
+	private EtiquetaDTO getEtiquetaById(int id) throws SQLException{
 		
 		PreparedStatement statement;
 		ResultSet resultSet; // Guarda el resultado de la query
-		String etiquetaHallada = "";
+		EtiquetaDTO etiquetaHallada = null;
 		Conexion conexion = Conexion.getConexion();
 		
 		try {
@@ -170,7 +173,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setInt(1, id);
 			resultSet = statement.executeQuery();
 			while (resultSet.next() ) {
-				etiquetaHallada=resultSet.getString("tipoEtiqueta");
+				etiquetaHallada = new EtiquetaDTO(id,resultSet.getString("tipoEtiqueta"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

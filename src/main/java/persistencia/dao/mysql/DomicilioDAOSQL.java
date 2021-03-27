@@ -16,8 +16,9 @@ public class DomicilioDAOSQL implements DomicilioDAO{
 	private static final String insert = "INSERT INTO domicilios(idDomicilio, Calle, Altura, Piso, Departamento, idLocalidad) VALUES(?, ?, ?, ?, ?, ?)";
 	private static final String deleteFKForPersons = "UPDATE personas SET idDomicilio = ? WHERE idDomicilio = ?;";
 	private static final String delete = "DELETE FROM domicilios WHERE idDomicilio = ?";
-	private static final String update = "UPDATE domicilios SET idDomicilio = ?, Calle = ?, Altura = ?, Piso = ?, Departamento = ?, idLocalidad = ? WHERE idDomicilio = ?";
+	private static final String update = "UPDATE domicilios SET Calle = ?, Altura = ?, Piso = ?, Departamento = ?, idLocalidad = ? WHERE idDomicilio = ?";
 	private static final String readall = "SELECT * FROM domicilios";
+	private static final String findLocationFK = "SELECT * FROM Localidades WHERE idLocalidad = ?";
 	
 	@Override
 	public boolean insert(DomicilioDTO domicilio) {
@@ -141,9 +142,31 @@ public class DomicilioDAOSQL implements DomicilioDAO{
 		int piso = resultSet.getInt("Piso");
 		int depa = resultSet.getInt("Departamento");
 		LocalidadDTO localidad = new LocalidadDTO(1,"143 DOMIDAOSQL","143 DOMIDAOSQL","143 DOMIDAOSQL");
+		//getLocalidadById(resultSet.getInt("idLocalidad"))
 		
-		DomicilioDTO etiqueta = new DomicilioDTO(idDomicilio,calle,altura,piso,depa,localidad);
-		return etiqueta;
+		DomicilioDTO domicilio = new DomicilioDTO(idDomicilio,calle,altura,piso,depa,localidad);
+		return domicilio;
+	}
+	
+	static public LocalidadDTO getLocalidadById(int id) throws SQLException{
+		
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		LocalidadDTO localidadHallada = null;
+		Conexion conexion = Conexion.getConexion();
+		
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(findLocationFK);
+			statement.setInt(1, id);
+			resultSet = statement.executeQuery();
+			while (resultSet.next() ) {
+				//IMPLEMENTAR
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return localidadHallada;
 	}
 
 }
