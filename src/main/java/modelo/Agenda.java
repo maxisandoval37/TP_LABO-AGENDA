@@ -1,18 +1,23 @@
 package modelo;
 
 import java.util.List;
+
+import dto.DomicilioDTO;
 import dto.EtiquetaDTO;
 import dto.PersonaDTO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
+import persistencia.dao.interfaz.DomicilioDAO;
 import persistencia.dao.interfaz.EtiquetaDAO;
 import persistencia.dao.interfaz.PersonaDAO;
 
 public class Agenda {
 	private PersonaDAO persona;
+	private DomicilioDAO domicilio;
 	private EtiquetaDAO etiqueta;
 
 	public Agenda(DAOAbstractFactory metodo_persistencia) {
 		this.persona = metodo_persistencia.createPersonaDAO();
+		this.domicilio = metodo_persistencia.createDomicilioDAO();
 		this.etiqueta = metodo_persistencia.createEtiquetaDAO();
 	}
 
@@ -30,6 +35,22 @@ public class Agenda {
 
 	public List<PersonaDTO> obtenerPersonas() {
 		return this.persona.readAll();
+	}
+	
+	public void agregarDomicilio(DomicilioDTO nuevo_domicilio) {
+		this.domicilio.insert(nuevo_domicilio);
+	}
+
+	public void borrarDomicilio(DomicilioDTO domicilio_a_eliminar) {
+		this.domicilio.delete(domicilio_a_eliminar);
+	}
+
+	public void editarDomicilio(int id_a_editar,DomicilioDTO domicilio_nuevo) {
+		this.domicilio.update(id_a_editar,domicilio_nuevo);
+	}
+
+	public List<DomicilioDTO> obtenerDomicilios() {
+		return this.domicilio.readAll();
 	}
 	
 	public void agregarEtiqueta(EtiquetaDTO nuevaEtiqueta) {

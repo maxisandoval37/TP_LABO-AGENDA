@@ -2,18 +2,24 @@ package dto;
 
 public class DomicilioDTO {
 
+	private int idDomicilio;
 	private String calle;
 	private int altura;
 	private int piso;
 	private int depto;
-	private String localidad;
+	private LocalidadDTO localidad;
 
-	public DomicilioDTO(String calle, int altura, int piso, int depto, String localidad) {
+	public DomicilioDTO(int idDomicilio, String calle, int altura, int piso, int depto, LocalidadDTO localidad) {
+		this.idDomicilio = idDomicilio;
 		this.calle = calle;
 		this.altura = altura;
 		this.piso = piso;
 		this.depto = depto;
 		this.localidad = localidad;
+	}
+	
+	public int getId() {
+		return idDomicilio;
 	}
 
 	public String getCalle() {
@@ -32,7 +38,7 @@ public class DomicilioDTO {
 		return depto;
 	}
 
-	public String getLocalidad() {
+	public LocalidadDTO getLocalidad() {
 		return localidad;
 	}
 

@@ -137,7 +137,7 @@ public class Vista {
 		for (PersonaDTO p : personasEnTabla) {
 			String nombre = p.getNombre();
 			String tel = p.getTelefono();
-			String localidad = p.getDomicilio().getLocalidad();
+			String localidad ="Linea 140 vista" ;//p.getDomicilio().getLocalidad();
 			String calle = p.getDomicilio().getCalle();
 			int altura = p.getDomicilio().getAltura();
 			int piso = p.getDomicilio().getPiso();

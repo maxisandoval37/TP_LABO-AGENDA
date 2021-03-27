@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import dto.DomicilioDTO;
 import dto.EtiquetaDTO;
 
 public class VentanaPersona extends JFrame {
@@ -307,8 +308,11 @@ public class VentanaPersona extends JFrame {
 		return txtFechaCumple;
 	}
 
+	public DomicilioDTO getDomicilioSeleccionado() {
+		return new DomicilioDTO(0,"Linea 312 vista",0,0,0,null);
+	}
 
-	public EtiquetaDTO getNombreEtiquetaSeleccionada() {
+	public EtiquetaDTO getEtiquetaSeleccionada() {
 		return etiquetaSeleccionada;
 	}
 }

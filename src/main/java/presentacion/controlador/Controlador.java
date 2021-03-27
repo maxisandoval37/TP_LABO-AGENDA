@@ -112,9 +112,9 @@ public class Controlador implements ActionListener {
 			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 			LocalDate auxFecha = LocalDate.parse(fechaCumple);
 
-			DomicilioDTO domicilio = new DomicilioDTO(calle, Integer.parseInt(altura), Integer.parseInt(piso), Integer.parseInt(departamento), localidad);
+			//DomicilioDTO domicilio = new DomicilioDTO(0,calle, Integer.parseInt(altura), Integer.parseInt(piso), Integer.parseInt(departamento), localidad);
 
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getNombreEtiquetaSeleccionada(), auxFecha);
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, ventanaPersona.getDomicilioSeleccionado(), email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha);
 			this.agenda.agregarPersona(nuevaPersona);
 			this.refrescarTablaPersonas();
 			this.ventanaPersona.resetearVista();
@@ -141,11 +141,11 @@ public class Controlador implements ActionListener {
 				int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
 				int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
 				int departamento = Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
-				DomicilioDTO daux = new DomicilioDTO(calle, altura, piso, departamento, localidad);
+				//DomicilioDTO daux = new DomicilioDTO(calle, altura, piso, departamento, localidad);
 
-				this.personasEnTabla.get(fila).setDomicilio(daux);
+				this.personasEnTabla.get(fila).setDomicilio(ventanaPersona.getDomicilioSeleccionado());
 				this.personasEnTabla.get(fila).setEmail(ventanaPersona.getTxtEmail().getText());
-				this.personasEnTabla.get(fila).setEtiqueta(ventanaPersona.getNombreEtiquetaSeleccionada());
+				this.personasEnTabla.get(fila).setEtiqueta(ventanaPersona.getEtiquetaSeleccionada());
 
 				String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 				LocalDate auxFecha = LocalDate.parse(fechaCumple);
