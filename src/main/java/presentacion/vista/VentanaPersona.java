@@ -307,7 +307,7 @@ public class VentanaPersona extends JFrame {
 	}
 	
 	public LocalidadDTO getLocalidadSeleccionada() {
-		LocalidadDTO localidad= new LocalidadDTO(1,"Argentina","Argentina","Lujan");
+		LocalidadDTO localidad = new LocalidadDTO(1,"Argentina","Buenos Aires","Lujan");
 		return localidad;
 	}
 

@@ -114,8 +114,8 @@ public class Controlador implements ActionListener {
 			String email = ventanaPersona.getTxtEmail().getText();
 			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 			LocalDate auxFecha = LocalDate.parse(fechaCumple);
-		
-			int IdDom = this.agenda.obtenerUltimoIdDomicilio()+1; 
+				
+			int IdDom = this.agenda.obtenerUltimoIdDomicilio()+1;
 			DomicilioDTO domicilio = new DomicilioDTO(IdDom,calle, altura, piso, departamento, localidad);
 			this.agenda.agregarDomicilio(domicilio);
 			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha);

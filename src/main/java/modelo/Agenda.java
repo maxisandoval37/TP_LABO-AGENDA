@@ -53,11 +53,14 @@ public class Agenda {
 		return this.domicilio.readAll();
 	}
 	
-	public int obtenerUltimoIdDomicilio() {
-		System.out.println(obtenerDomicilios().get(obtenerDomicilios().size()-1).getId());
-		return obtenerDomicilios().get(obtenerDomicilios().size()-1).getId();
+	public Integer obtenerUltimoIdDomicilio() {
+		try {
+			return obtenerDomicilios().get(obtenerDomicilios().size() - 1).getId();
+		} catch (Exception e) {
+			return 0;
+		}
 	}
-	
+
 	public void agregarEtiqueta(EtiquetaDTO nuevaEtiqueta) {
 		this.etiqueta.insert(nuevaEtiqueta);
 	}

@@ -32,7 +32,7 @@ public class DomicilioDAOSQL implements DomicilioDAO{
 			statement.setInt(3, domicilio.getAltura());
 			statement.setInt(4, domicilio.getPiso());
 			statement.setInt(5, domicilio.getDepto());
-			statement.setInt(6, 2);//domicilio.getLocalidad().getIdLocalidad());
+			statement.setInt(6, 1);//domicilio.getLocalidad().getIdLocalidad());
 
 			if (statement.executeUpdate() > 0) {
 				conexion.commit();
