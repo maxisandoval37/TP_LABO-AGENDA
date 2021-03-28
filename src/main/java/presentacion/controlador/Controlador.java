@@ -118,7 +118,7 @@ public class Controlador implements ActionListener {
 			int IdDom = this.agenda.obtenerUltimoIdDomicilio()+1;
 			DomicilioDTO domicilio = new DomicilioDTO(IdDom,calle, altura, piso, departamento, localidad);
 			this.agenda.agregarDomicilio(domicilio);
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha);
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha, "signo");
 
 			this.agenda.agregarPersona(nuevaPersona);
 			this.refrescarTablaPersonas();

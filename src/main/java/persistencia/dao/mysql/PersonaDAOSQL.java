@@ -15,9 +15,9 @@ import dto.LocalidadDTO;
 import dto.PersonaDTO;
 
 public class PersonaDAOSQL implements PersonaDAO {
-	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, idDomicilio, idEtiqueta, fechaCumple) VALUES(?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, idDomicilio, idEtiqueta, fechaCumple, signoZodiaco) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
-	private static final String update = "UPDATE personas SET Nombre = ?, Telefono = ?, Email = ?, idDomicilio = ?, idEtiqueta = ?, FechaCumple = ? WHERE idPersona = ?";
+	private static final String update = "UPDATE personas SET Nombre = ?, Telefono = ?, Email = ?, idDomicilio = ?, idEtiqueta = ?, FechaCumple = ?, signoZodiaco = ? WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM personas";
 	//private static final String joinTagFK = "(SELECT * FROM Personas INNER JOIN Etiquetas ON Personas.idEtiqueta=Etiquetas.idEtiqueta and Personas.idPersona= ?)";
 	private static final String findTagFK = "SELECT tipoEtiqueta FROM Etiquetas WHERE idEtiqueta = ?";
@@ -87,6 +87,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setInt(5, persona_nueva.getEtiqueta().getId());
 			statement.setString(6, persona_nueva.getFechaCumple().toString());
 			statement.setInt(7, id_a_editar);
+			statement.setString(8, persona_nueva.getSignoZodiaco());
 
 			if (statement.executeUpdate() > 0) {
 				conexion.commit();
@@ -122,16 +123,17 @@ public class PersonaDAOSQL implements PersonaDAO {
 		String tel = resultSet.getString("Telefono");
 		String fechaCumple = resultSet.getString("FechaCumple");
 		String email = resultSet.getString("Email");
+		String signo = resultSet.getString("SignoZodiaco");
 		
 		EtiquetaDTO etiqueta = getEtiquetaById(resultSet.getInt("idEtiqueta"));
 		DomicilioDTO domicilio = getDomiciliobyId(resultSet.getInt("idDomicilio")); 
 
 		if (fechaCumple.equals("")) {
-			return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta,null);
+			return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta,null,signo);
 		}
 		
 		LocalDate auxFecha = LocalDate.parse(fechaCumple);
-		return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta,auxFecha);
+		return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta,auxFecha,signo);
 	}
 	
 	private DomicilioDTO getDomiciliobyId(int id) throws SQLException{ 
