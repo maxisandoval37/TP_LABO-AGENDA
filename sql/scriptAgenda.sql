@@ -29,14 +29,12 @@ CREATE TABLE `etiquetas`(
   PRIMARY KEY (idEtiqueta)
 );
 
-CREATE TABLE `signo`(
+CREATE TABLE `signos`(
   idSigno int(11) NOT NULL AUTO_INCREMENT,
   tipoSigno varchar(45) NOT NULL,
 
   PRIMARY KEY(idSigno)
 );
-
-
 
 CREATE TABLE `personas`
 (
@@ -47,8 +45,10 @@ CREATE TABLE `personas`
   `idDomicilio` int(11),
   `idEtiqueta` int(11),
   `FechaCumple` varchar(20),
+  `idSigno` int (11),
 
-  PRIMARY KEY (`idPersona`),
+  PRIMARY KEY (idPersona),
+  FOREIGN KEY (idSigno) REFERENCES signos(idSigno), 
   FOREIGN KEY (idDomicilio) REFERENCES Domicilios(idDomicilio),
   FOREIGN KEY (idEtiqueta) REFERENCES Etiquetas(idEtiqueta)
 );

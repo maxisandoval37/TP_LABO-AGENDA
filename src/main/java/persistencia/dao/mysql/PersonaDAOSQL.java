@@ -13,6 +13,7 @@ import dto.DomicilioDTO;
 import dto.EtiquetaDTO;
 import dto.LocalidadDTO;
 import dto.PersonaDTO;
+import dto.SignoZodiacoDTO;
 
 public class PersonaDAOSQL implements PersonaDAO {
 	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, idDomicilio, idEtiqueta, fechaCumple, signoZodiaco) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
@@ -37,6 +38,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setInt(5, persona.getDomicilio().getId());
 			statement.setInt(6, persona.getEtiqueta().getId());
 			statement.setString(7, persona.getFechaCumple().toString());
+			statement.setString(8, persona.getSignoZodiaco().getSigno());
 
 			if (statement.executeUpdate() > 0) {
 				conexion.commit();
@@ -86,8 +88,9 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setInt(4, persona_nueva.getDomicilio().getId());
 			statement.setInt(5, persona_nueva.getEtiqueta().getId());
 			statement.setString(6, persona_nueva.getFechaCumple().toString());
-			statement.setInt(7, id_a_editar);
-			statement.setString(8, persona_nueva.getSignoZodiaco());
+			statement.setString(7, persona_nueva.getSignoZodiaco().getSigno());
+			statement.setInt(8, id_a_editar);
+			
 
 			if (statement.executeUpdate() > 0) {
 				conexion.commit();
@@ -123,7 +126,9 @@ public class PersonaDAOSQL implements PersonaDAO {
 		String tel = resultSet.getString("Telefono");
 		String fechaCumple = resultSet.getString("FechaCumple");
 		String email = resultSet.getString("Email");
-		String signo = resultSet.getString("SignoZodiaco");
+		
+		
+		SignoZodiacoDTO signo = new SignoZodiacoDTO(resultSet.getString("SignoZodiaco"),resultSet.getInt("idSigno"));
 		
 		EtiquetaDTO etiqueta = getEtiquetaById(resultSet.getInt("idEtiqueta"));
 		DomicilioDTO domicilio = getDomiciliobyId(resultSet.getInt("idDomicilio")); 

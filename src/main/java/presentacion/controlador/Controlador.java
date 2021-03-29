@@ -15,6 +15,7 @@ import dto.DomicilioDTO;
 import dto.EtiquetaDTO;
 import dto.LocalidadDTO;
 import dto.PersonaDTO;
+import dto.SignoZodiacoDTO;
 
 public class Controlador implements ActionListener {
 	private Vista vista;
@@ -114,11 +115,12 @@ public class Controlador implements ActionListener {
 			String email = ventanaPersona.getTxtEmail().getText();
 			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 			LocalDate auxFecha = LocalDate.parse(fechaCumple);
+			SignoZodiacoDTO signo = new SignoZodiacoDTO("signo",1);
 				
 			int IdDom = this.agenda.obtenerUltimoIdDomicilio()+1;
 			DomicilioDTO domicilio = new DomicilioDTO(IdDom,calle, altura, piso, departamento, localidad);
 			this.agenda.agregarDomicilio(domicilio);
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha, "signo");
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha, signo);
 
 			this.agenda.agregarPersona(nuevaPersona);
 			this.refrescarTablaPersonas();
