@@ -32,7 +32,7 @@ public class DomicilioDAOSQL implements DomicilioDAO{
 			statement.setInt(3, domicilio.getAltura());
 			statement.setInt(4, domicilio.getPiso());
 			statement.setInt(5, domicilio.getDepto());
-			statement.setInt(6, 1);//domicilio.getLocalidad().getIdLocalidad());
+			statement.setInt(6, domicilio.getLocalidad().getIdLocalidad());
 
 			if (statement.executeUpdate() > 0) {
 				conexion.commit();
@@ -141,10 +141,9 @@ public class DomicilioDAOSQL implements DomicilioDAO{
 		int altura = resultSet.getInt("Altura");
 		int piso = resultSet.getInt("Piso");
 		int depa = resultSet.getInt("Departamento");
-		LocalidadDTO localidad = new LocalidadDTO(1,"143 DOMIDAOSQL","143 DOMIDAOSQL","143 DOMIDAOSQL");
-		//getLocalidadById(resultSet.getInt("idLocalidad"))
-		
-		DomicilioDTO domicilio = new DomicilioDTO(idDomicilio,calle,altura,piso,depa,localidad);
+		//LocalidadDTO localidad = new LocalidadDTO(1,"143 DOMIDAOSQL","143 DOMIDAOSQL","143 DOMIDAOSQL");
+		//DomicilioDTO domicilio = new DomicilioDTO(idDomicilio,calle,altura,piso,depa,localidad);
+		DomicilioDTO domicilio = new DomicilioDTO(idDomicilio,calle,altura,piso,depa,getLocalidadById(resultSet.getInt("idLocalidad")));
 		return domicilio;
 	}
 	
@@ -160,7 +159,11 @@ public class DomicilioDAOSQL implements DomicilioDAO{
 			statement.setInt(1, id);
 			resultSet = statement.executeQuery();
 			while (resultSet.next() ) {
-				//IMPLEMENTAR
+				String pais = resultSet.getString("Pais");
+				String provincia = resultSet.getString("Provincia");
+				String nombreLocalidad = resultSet.getString("nombreLocalidad");
+				
+				localidadHallada = new LocalidadDTO(id, pais, provincia, nombreLocalidad);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

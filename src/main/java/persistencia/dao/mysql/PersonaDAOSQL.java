@@ -11,7 +11,6 @@ import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.PersonaDAO;
 import dto.DomicilioDTO;
 import dto.EtiquetaDTO;
-import dto.LocalidadDTO;
 import dto.PersonaDTO;
 
 public class PersonaDAOSQL implements PersonaDAO {
@@ -151,8 +150,8 @@ public class PersonaDAOSQL implements PersonaDAO {
 				int departamento = resultSet.getInt("Departamento");
 				int idLocalidad = resultSet.getInt("idLocalidad");
 				
-				//DomHallado = new DomicilioDTO(id,calle,altura,piso,departamento,DomicilioDAOSQL.getLocalidadById(idLocalidad));
-				DomHallado = new DomicilioDTO(id,calle,altura,piso,departamento,new LocalidadDTO(1,"Argentina","Buenos Aires","Lujan"));
+				DomHallado = new DomicilioDTO(id,calle,altura,piso,departamento,DomicilioDAOSQL.getLocalidadById(idLocalidad));
+				//DomHallado = new DomicilioDTO(id,calle,altura,piso,departamento,new LocalidadDTO(1,"Argentina","Buenos Aires","Lujan"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

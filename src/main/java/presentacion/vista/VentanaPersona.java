@@ -184,10 +184,11 @@ public class VentanaPersona extends JFrame {
 	
 	private void comboboxTipoDireccion(JPanel panel) {
 		inicializarComboBoxesDirrecion(panel);
-
+		//COMO ALTERNATIVA SE PODRIA HACER UN SOLO COMBO QUE MUESTRE LOS 3 DATOS: BELLA VISTA - BS AS - ARG
 		jcbPaises.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent pa) {
+				//HACER CLEAR
 				jcbProvincias.addItem("Buenos Aires");
 				jcbProvincias.addItem("Tucuman");
 				jcbProvincias.addItem("Salta");
@@ -197,7 +198,8 @@ public class VentanaPersona extends JFrame {
 				jcbProvincias.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent p) {
-						
+						//HACER CLEAR
+						//SE PODRIA HACER UN SWITCH CASE CUANDO ELIJA LA PROV. 
 						jcbLocalidades.addItem("Polvorines");
 						jcbLocalidades.addItem("San Miguel");
 						jcbLocalidades.addItem("La Plata");
