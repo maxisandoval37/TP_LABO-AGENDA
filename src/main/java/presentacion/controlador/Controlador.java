@@ -48,6 +48,7 @@ public class Controlador implements ActionListener {
 		this.vista.getBtnLocalidad().addActionListener(f -> ventanaABMLocalidad(f));
 		
 		this.ventanaLocalidad.getBtnAgregar().addActionListener(n -> ventanaAgregarLocalidad(n));
+		this.ventanaLocalidad.getBtnEditar().addActionListener(u -> ventanaEditarLocalidad(u));
 		
 		this.ventanaEtiqueta.getBtnAgregar().addActionListener(h -> ventanaAgregarEtiqueta(h));
 		this.ventanaEtiqueta.getBtnEditar().addActionListener(x -> ventanaEditarEtiqueta(x));
@@ -74,13 +75,6 @@ public class Controlador implements ActionListener {
 		ventanaEtiqueta.mostrarVentana();
 	}
 
-	private void ventanaAgregarPersona(ActionEvent a) {
-		this.ventanaPersona.resetearVista();
-		this.ventanaPersona.getBtnEditarPersona().setVisible(false);
-		this.ventanaPersona.getBtnAgregarPersona().setVisible(true);
-		this.ventanaPersona.mostrarVentana();
-	}
-	
 	private void ventanaAgregarLocalidad(ActionEvent a) {
 		this.ventanaAMLocalidad.resetearVista();
 		this.ventanaAMLocalidad.getBtnEditarLocalidad().setVisible(false);
@@ -88,11 +82,44 @@ public class Controlador implements ActionListener {
 		this.ventanaAMLocalidad.mostrarVentana();
 	}
 	
+	private void ventanaEditarLocalidad(ActionEvent a) {
+		int[] filasSeleccionadas = this.ventanaLocalidad.getTablaEtiquetas().getSelectedRows();
+
+		this.ventanaAMLocalidad.getBtnAgregarLocalidad().setVisible(false);
+		this.ventanaAMLocalidad.getBtnEditarLocalidad().setVisible(true);
+		this.ventanaAMLocalidad.mostrarVentana();
+		
+		for (int fila : filasSeleccionadas) {
+			this.ventanaAMLocalidad.getTxtPais().setText(this.localidadesEnTabla.get(fila).getPais());
+			this.ventanaAMLocalidad.getTxtProvincia().setText(this.localidadesEnTabla.get(fila).getProvincia());
+			this.ventanaAMLocalidad.getTxtLocalidad().setText(this.localidadesEnTabla.get(fila).getNombreLocalidad());
+		}
+	}
+	
 	private void ventanaAgregarEtiqueta(ActionEvent a) {
 		this.ventanaAMEtiqueta.resetearVista();
 		this.ventanaAMEtiqueta.getBtnEditarEtiqueta().setVisible(false);
 		this.ventanaAMEtiqueta.getBtnAgregarEtiqueta().setVisible(true);
 		this.ventanaAMEtiqueta.mostrarVentana();
+	}
+	
+	private void ventanaEditarEtiqueta(ActionEvent et) {
+		int[] filasSeleccionadas = this.ventanaEtiqueta.getTablaEtiquetas().getSelectedRows();
+
+		this.ventanaAMEtiqueta.getBtnAgregarEtiqueta().setVisible(false);
+		this.ventanaAMEtiqueta.getBtnEditarEtiqueta().setVisible(true);
+		this.ventanaAMEtiqueta.mostrarVentana();
+		
+		for (int fila : filasSeleccionadas) {
+			ventanaAMEtiqueta.getTxtTipoEtiqueta().setText(etiquetasEnTabla.get(fila).getTipoEtiqueta());
+		}
+	}
+	
+	private void ventanaAgregarPersona(ActionEvent a) {
+		this.ventanaPersona.resetearVista();
+		this.ventanaPersona.getBtnEditarPersona().setVisible(false);
+		this.ventanaPersona.getBtnAgregarPersona().setVisible(true);
+		this.ventanaPersona.mostrarVentana();
 	}
 
 	private void ventanaEditarPersona(ActionEvent a) {
@@ -111,18 +138,6 @@ public class Controlador implements ActionListener {
 			ventanaPersona.getTxtEmail().setText(personasEnTabla.get(fila).getEmail());
 			ventanaPersona.getTxtPiso().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getPiso()));
 			ventanaPersona.getTxtFechaCumple().setText(personasEnTabla.get(fila).getFechaCumple().toString());
-		}
-	}
-	
-	private void ventanaEditarEtiqueta(ActionEvent et) {
-		int[] filasSeleccionadas = this.ventanaEtiqueta.getTablaEtiquetas().getSelectedRows();
-
-		this.ventanaAMEtiqueta.getBtnAgregarEtiqueta().setVisible(false);
-		this.ventanaAMEtiqueta.getBtnEditarEtiqueta().setVisible(true);
-		this.ventanaAMEtiqueta.mostrarVentana();
-		
-		for (int fila : filasSeleccionadas) {
-			ventanaAMEtiqueta.getTxtTipoEtiqueta().setText(etiquetasEnTabla.get(fila).getTipoEtiqueta());
 		}
 	}
 
