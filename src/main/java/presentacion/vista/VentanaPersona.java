@@ -19,10 +19,8 @@ public class VentanaPersona extends JFrame {
 	private JTextField txtNombre;
 	private JTextField txtTelefono;
 	
-	private JComboBox<String> jcbPaises;
-	private JComboBox<String> jcbProvincias;
-	private JComboBox<String> jcbLocalidades;
-	private String localidadSeleccionada;
+	private JComboBox<LocalidadDTO> jcbLocalidades;
+	private LocalidadDTO localidadSeleccionada;
 	
 	private JTextField txtCalle;
 	private JTextField txtAltura;
@@ -68,16 +66,8 @@ public class VentanaPersona extends JFrame {
 		lblTelfono.setBounds(10, lblNombreYApellido.getY()+40, 113, 14);
 		panel.add(lblTelfono);
 		
-		JLabel lblPais = new JLabel ("Pais");
-		lblPais.setBounds(10,lblTelfono.getY()+40,113,14);
-		panel.add(lblPais);
-		
-		JLabel lblProvincia = new JLabel ("Provincia");
-		lblProvincia.setBounds(10,lblPais.getY()+40,113,14);
-		panel.add(lblProvincia);
-		
 		JLabel lblLocalidad = new JLabel ("Localidad");
-		lblLocalidad.setBounds(10,lblProvincia.getY()+40,113,14);
+		lblLocalidad.setBounds(10,lblTelfono.getY()+40,113,14);
 		panel.add(lblLocalidad);
 		
 		JLabel lblCalle = new JLabel ("Calle");
@@ -165,60 +155,25 @@ public class VentanaPersona extends JFrame {
 		this.setVisible(false);
 	}
 	
-	private void inicializarComboBoxesDirrecion(JPanel panel) {
-		jcbPaises = new JComboBox<String>();
-		jcbPaises.setBounds(133, txtTelefono.getY() + 40, 164, 20);
-		panel.add(jcbPaises);
-		jcbPaises.addItem("Argentina");
-		
-		//provincias
-		jcbProvincias = new JComboBox<String>();
-		jcbProvincias.setBounds(133, jcbPaises.getY() + 40, 164, 20);
-		panel.add(jcbProvincias);
-		
-		//localidades
-		jcbLocalidades = new JComboBox<String>();
-		jcbLocalidades.setBounds(133, jcbProvincias.getY() + 41, 164, 20);
-		panel.add(jcbLocalidades);
-	}
-	
 	private void comboboxTipoDireccion(JPanel panel) {
-		inicializarComboBoxesDirrecion(panel);
-		//COMO ALTERNATIVA SE PODRIA HACER UN SOLO COMBO QUE MUESTRE LOS 3 DATOS: BELLA VISTA - BS AS - ARG
-		jcbPaises.addActionListener(new ActionListener() {
+		jcbLocalidades = new JComboBox<LocalidadDTO>();
+		jcbLocalidades.setBounds(133, txtTelefono.getY() + 40, 164, 20);
+		panel.add(jcbLocalidades);
+
+		jcbLocalidades.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent pa) {
-				//HACER CLEAR
-				jcbProvincias.addItem("Buenos Aires");
-				jcbProvincias.addItem("Tucuman");
-				jcbProvincias.addItem("Salta");
-				jcbProvincias.addItem("Tierra Del Fuego");
-				jcbLocalidades.repaint();
-				
-				jcbProvincias.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent p) {
-						//HACER CLEAR
-						//SE PODRIA HACER UN SWITCH CASE CUANDO ELIJA LA PROV. 
-						jcbLocalidades.addItem("Polvorines");
-						jcbLocalidades.addItem("San Miguel");
-						jcbLocalidades.addItem("La Plata");
-						jcbLocalidades.addItem("Lujan");
-						jcbLocalidades.addItem("Lanus");
-						jcbLocalidades.repaint();
-					}
-				});
-				
-				jcbLocalidades.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent l) {
-						localidadSeleccionada = (String) jcbLocalidades.getSelectedItem();
-					}
-				});
-				
+			public void actionPerformed(ActionEvent l) {
+				LocalidadDTO loaux = (LocalidadDTO) jcbLocalidades.getSelectedItem();
+				localidadSeleccionada =  loaux;
 			}
 		});
-		
+	}
+	
+	public void agregarLocalidadesComboBox(List<LocalidadDTO> list) {
+		for (LocalidadDTO l: list) {
+			this.jcbLocalidades.addItem(l);
+		}
+		this.jcbLocalidades.repaint();
 	}
 	
 	private void comboBoxTipoContacto(JPanel panel) {
@@ -237,8 +192,9 @@ public class VentanaPersona extends JFrame {
 
 	public void agregarEtiquetasComboBox(List<EtiquetaDTO> list) {
 		for (EtiquetaDTO i : list) {
-			jcbTipoContacto.addItem(i);
+			this.jcbTipoContacto.addItem(i);
 		}
+		this.jcbTipoContacto.repaint();
 	}
 	
 	public void mostrarVentana() {
@@ -280,7 +236,7 @@ public class VentanaPersona extends JFrame {
 		this.dispose();
 	}
 	
-	public String getTxtLocalidad() {//retornar obj tipo localidad
+	public LocalidadDTO getTxtLocalidad() {
 		return localidadSeleccionada;
 	}
 

@@ -4,20 +4,24 @@ import java.util.List;
 
 import dto.DomicilioDTO;
 import dto.EtiquetaDTO;
+import dto.LocalidadDTO;
 import dto.PersonaDTO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.DomicilioDAO;
 import persistencia.dao.interfaz.EtiquetaDAO;
+import persistencia.dao.interfaz.LocalidadDAO;
 import persistencia.dao.interfaz.PersonaDAO;
 
 public class Agenda {
 	private PersonaDAO persona;
 	private DomicilioDAO domicilio;
+	private LocalidadDAO localidad;
 	private EtiquetaDAO etiqueta;
 
 	public Agenda(DAOAbstractFactory metodo_persistencia) {
 		this.persona = metodo_persistencia.createPersonaDAO();
 		this.domicilio = metodo_persistencia.createDomicilioDAO();
+		this.localidad = metodo_persistencia.createLocalidadDAO();
 		this.etiqueta = metodo_persistencia.createEtiquetaDAO();
 	}
 
@@ -59,6 +63,10 @@ public class Agenda {
 		} catch (Exception e) {
 			return 0;
 		}
+	}
+	
+	public List<LocalidadDTO> obtenerLocalidades(){
+		return this.localidad.readAll();
 	}
 
 	public void agregarEtiqueta(EtiquetaDTO nuevaEtiqueta) {

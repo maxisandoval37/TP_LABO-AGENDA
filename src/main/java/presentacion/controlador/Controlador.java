@@ -19,6 +19,7 @@ import dto.PersonaDTO;
 public class Controlador implements ActionListener {
 	private Vista vista;
 	private List<PersonaDTO> personasEnTabla;
+	//private List<LocalidadDTO> localidadesEnTabla;
 	private List<EtiquetaDTO> etiquetasEnTabla;
 	private VentanaPersona ventanaPersona;
 	private VentanaEtiqueta ventanaEtiqueta;
@@ -48,6 +49,7 @@ public class Controlador implements ActionListener {
 		this.agenda = agenda;
 		agregarEtiquetasGenericas();
 		ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
+		ventanaPersona.agregarLocalidadesComboBox(obtenerLocalidades());
 	}
 	
 	private void ventanaABMEtiqueta(ActionEvent a) {
@@ -186,6 +188,11 @@ public class Controlador implements ActionListener {
 		}
 		this.refrescarTablaPersonas();
 	}
+	
+	private List<LocalidadDTO> obtenerLocalidades() {
+		return this.agenda.obtenerLocalidades();
+	}
+
 	
 	private void guardarEtiqueta(ActionEvent e) {
 		String tipoEtiqueta = this.ventanaAMEtiqueta.getTxtTipoEtiqueta().getText();

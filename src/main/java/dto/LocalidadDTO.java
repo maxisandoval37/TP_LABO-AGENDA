@@ -29,5 +29,10 @@ public class LocalidadDTO {
 	public String getNombreLocalidad() {
 		return NombreLocalidad;
 	}
+
+	@Override
+	public String toString() {
+		return this.NombreLocalidad + " - " + this.Provincia + " - " + this.Pais;
+	}
 	
 }
