@@ -17,10 +17,9 @@ public class LocalidadDAOSQL implements LocalidadDAO{
 	private static final String update = "UPDATE localidades SET Pais = ?, Provincia = ?, NombreLocalidad = ? WHERE idLocalidad = ?";
 	private static final String readall = "SELECT * FROM localidades";
 	
-	//NOTAS
+	//----------NOTAS----------
 	//HACER METODO PARA INSERTAR DATOS GENERICOS
 	//CONTEMPLAR CUANDO NO HAYAN LOCALIDADES
-	//VER LINEA 35 EN DOMIDAOSQL
 	//AGREGAR LOCALIDADES DE EJEMPLO EN LOS COMBOBOXES DE VENTANAPERSONA
 	
 	

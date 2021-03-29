@@ -47,14 +47,14 @@ public class VentanaPersona extends JFrame {
 		super();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 345, 590);
+		setBounds(100, 100, 550, 590);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 307,590);
+		panel.setBounds(10, 11, 550,590);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -99,56 +99,56 @@ public class VentanaPersona extends JFrame {
 		panel.add(lblTipoContacto);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(133, 11, 164, 20);
+		txtNombre.setBounds(133, 11, 270, 20);
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		txtTelefono = new JTextField();
-		txtTelefono.setBounds(133, txtNombre.getY()+40, 164, 20);
+		txtTelefono.setBounds(133, txtNombre.getY()+40, 270, 20);
 		panel.add(txtTelefono);
 		txtTelefono.setColumns(10);
 		
 		comboboxTipoDireccion(panel);
 		
 		txtCalle = new JTextField();
-		txtCalle.setBounds(133, jcbLocalidades.getY()+40, 164, 20);
+		txtCalle.setBounds(133, jcbLocalidades.getY()+40, 270, 20);
 		panel.add(txtCalle);
 		txtCalle.setColumns(10);
 		
 		txtAltura = new JTextField();
-		txtAltura.setBounds(133, txtCalle.getY()+40, 164, 20);
+		txtAltura.setBounds(133, txtCalle.getY()+40, 270, 20);
 		panel.add(txtAltura);
 		txtAltura.setColumns(10);
 		
 		txtPiso = new JTextField();
-		txtPiso.setBounds(133, txtAltura.getY()+40, 164, 20);
+		txtPiso.setBounds(133, txtAltura.getY()+40, 270, 20);
 		panel.add(txtPiso);
 		txtPiso.setColumns(10);
 		
 		txtDepartamento = new JTextField();
-		txtDepartamento.setBounds(133, txtPiso.getY()+40, 164, 20);
+		txtDepartamento.setBounds(133, txtPiso.getY()+40, 270, 20);
 		panel.add(txtDepartamento);
 		txtDepartamento.setColumns(10);
 		
 		txtEmail = new JTextField();
-		txtEmail.setBounds(133, txtDepartamento.getY()+40, 164, 20);
+		txtEmail.setBounds(133, txtDepartamento.getY()+40, 270, 20);
 		panel.add(txtEmail);
 		txtEmail.setColumns(10);
 		
 		txtFechaCumple = new JTextField();
-		txtFechaCumple.setBounds(133, txtEmail.getY()+40, 164, 20);
+		txtFechaCumple.setBounds(133, txtEmail.getY()+40, 270, 20);
 		panel.add(txtFechaCumple);
 		txtFechaCumple.setColumns(10);
 		
 		comboBoxTipoContacto(panel);
 		
 		btnAgregarPersona = new JButton("Agregar");
-		btnAgregarPersona.setBounds(208, jcbTipoContacto.getY()+40, 89, 23);
+		btnAgregarPersona.setBounds(208, jcbTipoContacto.getY()+80, 89, 23);
 		btnAgregarPersona.setVisible(true);
 		panel.add(btnAgregarPersona);
 		
 		btnEditarPersona = new JButton("Editar");
-		btnEditarPersona.setBounds(208, jcbTipoContacto.getY()+40, 89, 23);
+		btnEditarPersona.setBounds(208, jcbTipoContacto.getY()+80, 89, 23);
 		btnEditarPersona.setVisible(false);
 		panel.add(btnEditarPersona);
 		
@@ -157,7 +157,7 @@ public class VentanaPersona extends JFrame {
 	
 	private void comboboxTipoDireccion(JPanel panel) {
 		jcbLocalidades = new JComboBox<LocalidadDTO>();
-		jcbLocalidades.setBounds(133, txtTelefono.getY() + 40, 164, 20);
+		jcbLocalidades.setBounds(133, txtTelefono.getY() + 40, 270, 20);
 		panel.add(jcbLocalidades);
 
 		jcbLocalidades.addActionListener(new ActionListener() {
@@ -178,7 +178,7 @@ public class VentanaPersona extends JFrame {
 	
 	private void comboBoxTipoContacto(JPanel panel) {
 		jcbTipoContacto = new JComboBox<EtiquetaDTO>();
-		jcbTipoContacto.setBounds(133, txtFechaCumple.getY()+41, 164, 20);
+		jcbTipoContacto.setBounds(133, txtFechaCumple.getY()+41, 270, 20);
 		panel.add(jcbTipoContacto);
 		
 		jcbTipoContacto.addActionListener(new ActionListener() {
@@ -265,8 +265,7 @@ public class VentanaPersona extends JFrame {
 	}
 	
 	public LocalidadDTO getLocalidadSeleccionada() {
-		LocalidadDTO localidad = new LocalidadDTO(1,"Argentina","Buenos Aires","Lujan");
-		return localidad;
+		return this.localidadSeleccionada;
 	}
 
 	public EtiquetaDTO getEtiquetaSeleccionada() {

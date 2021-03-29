@@ -18,7 +18,6 @@ public class PersonaDAOSQL implements PersonaDAO {
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
 	private static final String update = "UPDATE personas SET Nombre = ?, Telefono = ?, Email = ?, idDomicilio = ?, idEtiqueta = ?, FechaCumple = ? WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM personas";
-	//private static final String joinTagFK = "(SELECT * FROM Personas INNER JOIN Etiquetas ON Personas.idEtiqueta=Etiquetas.idEtiqueta and Personas.idPersona= ?)";
 	private static final String findTagFK = "SELECT tipoEtiqueta FROM Etiquetas WHERE idEtiqueta = ?";
 	private static final String findAddressFK = "SELECT * FROM domicilios WHERE idDomicilio = ?";
 
@@ -151,7 +150,6 @@ public class PersonaDAOSQL implements PersonaDAO {
 				int idLocalidad = resultSet.getInt("idLocalidad");
 				
 				DomHallado = new DomicilioDTO(id,calle,altura,piso,departamento,DomicilioDAOSQL.getLocalidadById(idLocalidad));
-				//DomHallado = new DomicilioDTO(id,calle,altura,piso,departamento,new LocalidadDTO(1,"Argentina","Buenos Aires","Lujan"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

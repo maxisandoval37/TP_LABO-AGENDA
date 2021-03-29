@@ -112,6 +112,7 @@ public class Controlador implements ActionListener {
 			int piso =  Integer.parseInt(ventanaPersona.getTxtPiso().getText());
 			int departamento =  Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
 			LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
+			System.out.println(localidad.getNombreLocalidad());
 			
 			String email = ventanaPersona.getTxtEmail().getText();
 			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
