@@ -51,6 +51,7 @@ public class Controlador implements ActionListener {
 		this.ventanaLocalidad.getBtnEditar().addActionListener(u -> ventanaEditarLocalidad(u));
 		this.ventanaAMLocalidad.getBtnAgregarLocalidad().addActionListener(o -> guardarLocalidad(o));
 		this.ventanaAMLocalidad.getBtnEditarLocalidad().addActionListener(r -> editarLocalidad(r));
+		this.ventanaLocalidad.getBtnBorrar().addActionListener(g -> borrarLocalidad(g));
 		
 		this.ventanaEtiqueta.getBtnAgregar().addActionListener(h -> ventanaAgregarEtiqueta(h));
 		this.ventanaEtiqueta.getBtnEditar().addActionListener(x -> ventanaEditarEtiqueta(x));
@@ -85,7 +86,7 @@ public class Controlador implements ActionListener {
 	}
 	
 	private void ventanaEditarLocalidad(ActionEvent a) {
-		int[] filasSeleccionadas = this.ventanaLocalidad.getTablaEtiquetas().getSelectedRows();
+		int[] filasSeleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
 
 		this.ventanaAMLocalidad.getBtnAgregarLocalidad().setVisible(false);
 		this.ventanaAMLocalidad.getBtnEditarLocalidad().setVisible(true);
@@ -276,7 +277,7 @@ public class Controlador implements ActionListener {
 		
 		if (nuevaLocalidadEsValida(nuevaLocalidad)) {
 			
-			int[] filasSeleccionadas = this.ventanaLocalidad.getTablaEtiquetas().getSelectedRows();
+			int[] filasSeleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
 			for (int fila : filasSeleccionadas) {
 				int idLocalidadClick = this.localidadesEnTabla.get(fila).getIdLocalidad();
 				this.agenda.editarLocalidad(idLocalidadClick, nuevaLocalidad);
@@ -288,6 +289,16 @@ public class Controlador implements ActionListener {
 				break;
 			}
 		}
+	}
+	
+	private void borrarLocalidad(ActionEvent a) {
+		int[] filasSeleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
+		for (int fila : filasSeleccionadas) {
+			this.agenda.borrarLocalidad(this.localidadesEnTabla.get(fila));
+		}
+		this.refrescarTablaLocalidades();
+		ventanaPersona.agregarLocalidadesComboBox(obtenerLocalidades());
+		this.refrescarTablaPersonas();
 	}
 	
 	private void agregarLocalidadesGenericas() {
@@ -357,6 +368,7 @@ public class Controlador implements ActionListener {
 			this.agenda.borrarEtiqueta(this.etiquetasEnTabla.get(fila));
 		}
 		this.refrescarTablaEtiquetas();
+		ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
 		this.refrescarTablaPersonas();
 	}
 

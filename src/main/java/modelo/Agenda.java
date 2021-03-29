@@ -72,6 +72,10 @@ public class Agenda {
 		this.localidad.update(id_a_editar, localidad_nueva);
 	}
 	
+	public void borrarLocalidad(LocalidadDTO localidad_a_eliminar) {
+		this.localidad.delete(localidad_a_eliminar);
+	}
+	
 	public void insertarLocalidadesGenericas() {
 		this.localidad.insertGenericLocations();
 	}

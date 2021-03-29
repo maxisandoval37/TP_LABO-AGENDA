@@ -103,7 +103,7 @@ public class VentanaLocalidad extends JFrame{
 		return modelLocalidades;
 	}
 
-	public JTable getTablaEtiquetas() {
+	public JTable getTablaLocalidades() {
 		return tablaLocalidades;
 	}
 
