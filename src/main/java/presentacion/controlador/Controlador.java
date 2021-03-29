@@ -10,6 +10,7 @@ import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
 import presentacion.vista.VentanaAMEtiqueta;
+import presentacion.vista.VentanaAMLocalidad;
 import presentacion.vista.VentanaEtiqueta;
 import presentacion.vista.VentanaLocalidad;
 import dto.DomicilioDTO;
@@ -24,6 +25,7 @@ public class Controlador implements ActionListener {
 	private List<EtiquetaDTO> etiquetasEnTabla;
 	private VentanaPersona ventanaPersona;
 	private VentanaLocalidad ventanaLocalidad;
+	private VentanaAMLocalidad ventanaAMLocalidad;
 	private VentanaEtiqueta ventanaEtiqueta;
 	private VentanaAMEtiqueta ventanaAMEtiqueta;
 	private Agenda agenda;
@@ -36,18 +38,23 @@ public class Controlador implements ActionListener {
 		this.vista.getBtnEditar().addActionListener(c -> ventanaEditarPersona(c));
 		this.vista.getBtnReporte().addActionListener(r -> mostrarReporte(r));
 		
-		this.vista.getBtnEtiqueta().addActionListener(b -> ventanaABMEtiqueta(b));
-		this.vista.getBtnLocalidad().addActionListener(f -> ventanaABMLocalidad(f));
 		this.ventanaEtiqueta = VentanaEtiqueta.getInstance();
 		this.ventanaAMEtiqueta = VentanaAMEtiqueta.getInstance();
 		this.ventanaLocalidad = VentanaLocalidad.getInstance();
+		this.ventanaAMLocalidad = VentanaAMLocalidad.getInstance();
 		this.ventanaPersona = VentanaPersona.getInstance();
+		
+		this.vista.getBtnEtiqueta().addActionListener(b -> ventanaABMEtiqueta(b));
+		this.vista.getBtnLocalidad().addActionListener(f -> ventanaABMLocalidad(f));
+		
+		this.ventanaLocalidad.getBtnAgregar().addActionListener(n -> ventanaAgregarLocalidad(n));
 		
 		this.ventanaEtiqueta.getBtnAgregar().addActionListener(h -> ventanaAgregarEtiqueta(h));
 		this.ventanaEtiqueta.getBtnEditar().addActionListener(x -> ventanaEditarEtiqueta(x));
 		this.ventanaAMEtiqueta.getBtnAgregarEtiqueta().addActionListener(y -> guardarEtiqueta(y));
 		this.ventanaAMEtiqueta.getBtnEditarEtiqueta().addActionListener(q -> editarEtiqueta(q));
 		this.ventanaEtiqueta.getBtnBorrar().addActionListener(v -> borrarEtiqueta(v));
+		
 		this.ventanaPersona.getBtnAgregarPersona().addActionListener(w -> guardarPersona(w));
 		this.ventanaPersona.getBtnEditarPersona().addActionListener(p -> editarPersona(p));
 		this.agenda = agenda;
@@ -72,6 +79,13 @@ public class Controlador implements ActionListener {
 		this.ventanaPersona.getBtnEditarPersona().setVisible(false);
 		this.ventanaPersona.getBtnAgregarPersona().setVisible(true);
 		this.ventanaPersona.mostrarVentana();
+	}
+	
+	private void ventanaAgregarLocalidad(ActionEvent a) {
+		this.ventanaAMLocalidad.resetearVista();
+		this.ventanaAMLocalidad.getBtnEditarLocalidad().setVisible(false);
+		this.ventanaAMLocalidad.getBtnAgregarLocalidad().setVisible(true);
+		this.ventanaAMLocalidad.mostrarVentana();
 	}
 	
 	private void ventanaAgregarEtiqueta(ActionEvent a) {
@@ -160,12 +174,10 @@ public class Controlador implements ActionListener {
 				int departamento = Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
 				LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
 				
-				//this.personasEnTabla.get(fila).getDomicilio().setId(id);
 				int idDom = this.personasEnTabla.get(fila).getDomicilio().getId();
 				DomicilioDTO domicilio = new DomicilioDTO(idDom,calle, altura, piso, departamento, localidad);
 				this.personasEnTabla.get(fila).setDomicilio(domicilio);
 				this.agenda.editarDomicilio(idDom, domicilio);
-				//this.EditarDomicilio(idDom,domicilio) //pasar el this.personasEnTabla.get(fila).getDomicilio()
 				
 				this.personasEnTabla.get(fila).setEmail(ventanaPersona.getTxtEmail().getText());
 				this.personasEnTabla.get(fila).setEtiqueta(ventanaPersona.getEtiquetaSeleccionada());
@@ -250,7 +262,6 @@ public class Controlador implements ActionListener {
 			for (int fila : filasSeleccionadas) {
 
 				this.etiquetasEnTabla.get(fila).setTipoEtiqueta(tipoEtiqueta);
-			
 				int idEtiquetaClick = this.etiquetasEnTabla.get(fila).getId();
 				this.agenda.editarEtiqueta(idEtiquetaClick, this.etiquetasEnTabla.get(fila));
 
@@ -308,6 +319,5 @@ public class Controlador implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-	}
+	public void actionPerformed(ActionEvent e) {}
 }
