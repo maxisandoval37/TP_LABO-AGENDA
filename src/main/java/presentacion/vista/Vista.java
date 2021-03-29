@@ -21,6 +21,7 @@ public class Vista {
 	private JButton btnBorrar;
 	private JButton btnEditar;
 	private JButton btnReporte;
+	private JButton btnLocalidades;
 	private JButton btnEtiquetas;
 	private DefaultTableModel modelPersonas;
 	private String[] nombreColumnas = { "Nombre y apellido", "Telefono", "Localidad", "Provincia", "Pais", "Calle", "Altura", "Piso","Departamento", "Email", "Nacimiento", "Tipo de contacto" };
@@ -61,19 +62,23 @@ public class Vista {
 		panel.add(btnAgregar);
 
 		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(109, 600, 89, 23);
+		btnEditar.setBounds(btnAgregar.getX()+100, 600, 89, 23);
 		panel.add(btnEditar);
 
 		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(208, 600, 89, 23);
+		btnBorrar.setBounds(btnEditar.getX()+100, 600, 89, 23);
 		panel.add(btnBorrar);
 
 		btnReporte = new JButton("Reporte");
-		btnReporte.setBounds(307, 600, 89, 23);
+		btnReporte.setBounds(btnBorrar.getX()+100, 600, 89, 23);
 		panel.add(btnReporte);
+		
+		btnLocalidades = new JButton("Localidades");
+		btnLocalidades.setBounds(btnReporte.getX()+100, 600, 105, 23);
+		panel.add(btnLocalidades);
 
 		btnEtiquetas = new JButton("Etiquetas");
-		btnEtiquetas.setBounds(406, 600, 89, 23);
+		btnEtiquetas.setBounds(btnLocalidades.getX()+115, 600, 89, 23);
 		panel.add(btnEtiquetas);
 	}
 
@@ -111,6 +116,10 @@ public class Vista {
 
 	public JButton getBtnReporte() {
 		return btnReporte;
+	}
+	
+	public JButton getBtnLocalidad() {
+		return this.btnLocalidades;
 	}
 
 	public JButton getBtnEtiqueta() {

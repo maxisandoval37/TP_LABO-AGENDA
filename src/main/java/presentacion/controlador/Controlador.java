@@ -11,6 +11,7 @@ import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
 import presentacion.vista.VentanaAMEtiqueta;
 import presentacion.vista.VentanaEtiqueta;
+import presentacion.vista.VentanaLocalidad;
 import dto.DomicilioDTO;
 import dto.EtiquetaDTO;
 import dto.LocalidadDTO;
@@ -19,9 +20,10 @@ import dto.PersonaDTO;
 public class Controlador implements ActionListener {
 	private Vista vista;
 	private List<PersonaDTO> personasEnTabla;
-	//private List<LocalidadDTO> localidadesEnTabla;
+	private List<LocalidadDTO> localidadesEnTabla;
 	private List<EtiquetaDTO> etiquetasEnTabla;
 	private VentanaPersona ventanaPersona;
+	private VentanaLocalidad ventanaLocalidad;
 	private VentanaEtiqueta ventanaEtiqueta;
 	private VentanaAMEtiqueta ventanaAMEtiqueta;
 	private Agenda agenda;
@@ -35,15 +37,17 @@ public class Controlador implements ActionListener {
 		this.vista.getBtnReporte().addActionListener(r -> mostrarReporte(r));
 		
 		this.vista.getBtnEtiqueta().addActionListener(b -> ventanaABMEtiqueta(b));
+		this.vista.getBtnLocalidad().addActionListener(f -> ventanaABMLocalidad(f));
 		this.ventanaEtiqueta = VentanaEtiqueta.getInstance();
 		this.ventanaAMEtiqueta = VentanaAMEtiqueta.getInstance();
+		this.ventanaLocalidad = VentanaLocalidad.getInstance();
+		this.ventanaPersona = VentanaPersona.getInstance();
+		
 		this.ventanaEtiqueta.getBtnAgregar().addActionListener(h -> ventanaAgregarEtiqueta(h));
 		this.ventanaEtiqueta.getBtnEditar().addActionListener(x -> ventanaEditarEtiqueta(x));
 		this.ventanaAMEtiqueta.getBtnAgregarEtiqueta().addActionListener(y -> guardarEtiqueta(y));
 		this.ventanaAMEtiqueta.getBtnEditarEtiqueta().addActionListener(q -> editarEtiqueta(q));
 		this.ventanaEtiqueta.getBtnBorrar().addActionListener(v -> borrarEtiqueta(v));
-
-		this.ventanaPersona = VentanaPersona.getInstance();
 		this.ventanaPersona.getBtnAgregarPersona().addActionListener(w -> guardarPersona(w));
 		this.ventanaPersona.getBtnEditarPersona().addActionListener(p -> editarPersona(p));
 		this.agenda = agenda;
@@ -51,6 +55,11 @@ public class Controlador implements ActionListener {
 		agregarEtiquetasGenericas();
 		ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
 		ventanaPersona.agregarLocalidadesComboBox(obtenerLocalidades());
+	}
+	
+	private void ventanaABMLocalidad(ActionEvent a) {
+		this.refrescarTablaLocalidades();
+		ventanaLocalidad.mostrarVentana();
 	}
 	
 	private void ventanaABMEtiqueta(ActionEvent a) {
@@ -288,9 +297,14 @@ public class Controlador implements ActionListener {
 		this.vista.llenarTabla(this.personasEnTabla);
 	}
 	
+	private void refrescarTablaLocalidades() {
+		this.localidadesEnTabla = agenda.obtenerLocalidades();
+		this.ventanaLocalidad.llenarTabla(this.localidadesEnTabla);
+	}
+	
 	private void refrescarTablaEtiquetas() {
 		this.etiquetasEnTabla = agenda.obtenerEtiquetas();
-		ventanaEtiqueta.llenarTabla(this.etiquetasEnTabla);
+		this.ventanaEtiqueta.llenarTabla(this.etiquetasEnTabla);
 	}
 
 	@Override

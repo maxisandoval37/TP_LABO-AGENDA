@@ -19,7 +19,6 @@ public class LocalidadDAOSQL implements LocalidadDAO{
 	
 	//----------NOTAS----------
 	//CONTEMPLAR CUANDO NO HAYAN LOCALIDADES
-	//AGREGAR LOCALIDADES DE EJEMPLO EN LOS COMBOBOXES DE VENTANAPERSONA
 	
 	@Override
 	public void insertGenericLocations() {
