@@ -108,6 +108,12 @@ public class VentanaPersona extends JFrame {
 		lblTipoContacto.setBounds(10,lblFechaCumple.getY()+40,113,14);
 		panel.add(lblTipoContacto);
 		
+		JLabel lblSignoZodiaco = new JLabel ("Signo Zodiaco");
+		lblSignoZodiaco.setBounds(10,lblTipoContacto.getY()+40,113,14);
+		panel.add(lblSignoZodiaco);
+		
+		
+		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(133, 11, 164, 20);
 		panel.add(txtNombre);
