@@ -31,6 +31,8 @@ public class VentanaPersona extends JFrame {
 	private JTextField txtEmail;
 	private JTextField txtFechaCumple;
 	private JComboBox<EtiquetaDTO> jcbTipoContacto;
+	private JComboBox<String> jcbSignoZodiaco;
+	private String signoZodiacoSeleccionado;
 	private EtiquetaDTO etiquetaSeleccionada;
 
 	private JButton btnAgregarPersona;
@@ -49,7 +51,7 @@ public class VentanaPersona extends JFrame {
 		super();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 345, 590);
+		setBounds(100, 100, 345, 620);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -157,14 +159,15 @@ public class VentanaPersona extends JFrame {
 		txtFechaCumple.setColumns(10);
 		
 		comboBoxTipoContacto(panel);
+		comboBoxSignoZodiaco(panel);
 		
 		btnAgregarPersona = new JButton("Agregar");
-		btnAgregarPersona.setBounds(208, jcbTipoContacto.getY()+40, 89, 23);
+		btnAgregarPersona.setBounds(208, jcbSignoZodiaco.getY()+40, 89, 23);
 		btnAgregarPersona.setVisible(true);
 		panel.add(btnAgregarPersona);
 		
 		btnEditarPersona = new JButton("Editar");
-		btnEditarPersona.setBounds(208, jcbTipoContacto.getY()+40, 89, 23);
+		btnEditarPersona.setBounds(208, jcbSignoZodiaco.getY()+40, 89, 23);
 		btnEditarPersona.setVisible(false);
 		panel.add(btnEditarPersona);
 		
@@ -244,6 +247,31 @@ public class VentanaPersona extends JFrame {
 			jcbTipoContacto.addItem(i);
 		}
 	}
+	
+	private void comboBoxSignoZodiaco(JPanel panel) {
+		jcbSignoZodiaco = new JComboBox<String>();
+		jcbSignoZodiaco.setBounds(133, jcbTipoContacto.getY()+41, 164, 20);
+		panel.add(jcbSignoZodiaco);
+		
+		jcbSignoZodiaco.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String sgaux = (String) jcbSignoZodiaco.getSelectedItem();
+				signoZodiacoSeleccionado = sgaux;
+			}
+		});
+	}
+	
+	public void agregarSignoZodiaco(List<String> list) {
+		for (String i : list) {
+			jcbSignoZodiaco.addItem(i);
+		}
+	}
+	
+	
+	
+	
+	
 	
 	public void mostrarVentana() {
 		this.setVisible(true);
