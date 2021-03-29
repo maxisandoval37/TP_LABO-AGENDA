@@ -50,6 +50,7 @@ public class Controlador implements ActionListener {
 		this.ventanaLocalidad.getBtnAgregar().addActionListener(n -> ventanaAgregarLocalidad(n));
 		this.ventanaLocalidad.getBtnEditar().addActionListener(u -> ventanaEditarLocalidad(u));
 		this.ventanaAMLocalidad.getBtnAgregarLocalidad().addActionListener(o -> guardarLocalidad(o));
+		this.ventanaAMLocalidad.getBtnEditarLocalidad().addActionListener(r -> editarLocalidad(r));
 		
 		this.ventanaEtiqueta.getBtnAgregar().addActionListener(h -> ventanaAgregarEtiqueta(h));
 		this.ventanaEtiqueta.getBtnEditar().addActionListener(x -> ventanaEditarEtiqueta(x));
@@ -267,6 +268,28 @@ public class Controlador implements ActionListener {
 		}
 	}
 	
+	private void editarLocalidad(ActionEvent a) {
+		String pais = this.ventanaAMLocalidad.getTxtPais().getText();
+		String provincia = this.ventanaAMLocalidad.getTxtProvincia().getText();
+		String localidad = this.ventanaAMLocalidad.getTxtLocalidad().getText();
+		LocalidadDTO nuevaLocalidad = new LocalidadDTO(0, pais, provincia, localidad);
+		
+		if (nuevaLocalidadEsValida(nuevaLocalidad)) {
+			
+			int[] filasSeleccionadas = this.ventanaLocalidad.getTablaEtiquetas().getSelectedRows();
+			for (int fila : filasSeleccionadas) {
+				int idLocalidadClick = this.localidadesEnTabla.get(fila).getIdLocalidad();
+				this.agenda.editarLocalidad(idLocalidadClick, nuevaLocalidad);
+
+				this.refrescarTablaLocalidades();
+				this.refrescarTablaPersonas();
+				ventanaPersona.agregarLocalidadesComboBox(obtenerLocalidades());
+				this.ventanaAMLocalidad.resetearVista();
+				break;
+			}
+		}
+	}
+	
 	private void agregarLocalidadesGenericas() {
 		this.agenda.insertarLocalidadesGenericas();
 	}
@@ -321,6 +344,7 @@ public class Controlador implements ActionListener {
 
 				this.refrescarTablaEtiquetas();
 				this.refrescarTablaPersonas();
+				ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
 				this.ventanaAMEtiqueta.resetearVista();
 				break;
 			}

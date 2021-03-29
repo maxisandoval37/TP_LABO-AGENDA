@@ -68,6 +68,10 @@ public class Agenda {
 		this.localidad.insert(nueva_localidad);
 	}
 	
+	public void editarLocalidad(int id_a_editar,LocalidadDTO localidad_nueva) {
+		this.localidad.update(id_a_editar, localidad_nueva);
+	}
+	
 	public void insertarLocalidadesGenericas() {
 		this.localidad.insertGenericLocations();
 	}
