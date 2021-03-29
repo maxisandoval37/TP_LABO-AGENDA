@@ -48,7 +48,9 @@ public class Controlador implements ActionListener {
 		this.ventanaPersona.getBtnEditarPersona().addActionListener(p -> editarPersona(p));
 		this.agenda = agenda;
 		agregarEtiquetasGenericas();
+		agregarSignosGenericos();
 		ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
+		ventanaPersona.agregarSignoZodiaco(obtenerSignos());
 	}
 	
 	private void ventanaABMEtiqueta(ActionEvent a) {
@@ -115,7 +117,7 @@ public class Controlador implements ActionListener {
 			String email = ventanaPersona.getTxtEmail().getText();
 			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 			LocalDate auxFecha = LocalDate.parse(fechaCumple);
-			SignoZodiacoDTO signo = new SignoZodiacoDTO("signo",1);
+			SignoZodiacoDTO signo = ventanaPersona.getSignoZodiacoSeleccionado();
 				
 			int IdDom = this.agenda.obtenerUltimoIdDomicilio()+1;
 			DomicilioDTO domicilio = new DomicilioDTO(IdDom,calle, altura, piso, departamento, localidad);
@@ -142,12 +144,15 @@ public class Controlador implements ActionListener {
 
 				this.personasEnTabla.get(fila).setNombre(this.ventanaPersona.getTxtNombre().getText());
 				this.personasEnTabla.get(fila).setTelefono(this.ventanaPersona.getTxtTelefono().getText());
+				
 
 				String calle = ventanaPersona.getTxtCalle().getText();
 				int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
 				int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
 				int departamento = Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
 				LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
+				SignoZodiacoDTO signo = ventanaPersona.getSignoZodiacoSeleccionado();
+				this.personasEnTabla.get(fila).setSignoZodiaco(signo);
 				
 				//this.personasEnTabla.get(fila).getDomicilio().setId(id);
 				int idDom = this.personasEnTabla.get(fila).getDomicilio().getId();
@@ -254,6 +259,12 @@ public class Controlador implements ActionListener {
 	private List<EtiquetaDTO> obtenerEtiquetas() {
 		return this.agenda.obtenerEtiquetas();
 	}
+	
+	private List<SignoZodiacoDTO> obtenerSignos() {
+		return this.agenda.obtenerSignos();
+	}
+	
+
 
 	public EtiquetaDTO obtenerEtiquetaPorID(int id) {
 		for (EtiquetaDTO e : this.agenda.obtenerEtiquetas()) {
@@ -265,6 +276,10 @@ public class Controlador implements ActionListener {
 
 	private void agregarEtiquetasGenericas() {
 		this.agenda.insertarEtiquetasGenericas();
+	}
+	
+	private void agregarSignosGenericos() {
+		this.agenda.insertarSignosGenericos();
 	}
 
 	public void inicializar() {

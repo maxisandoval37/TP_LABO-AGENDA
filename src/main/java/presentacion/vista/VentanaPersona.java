@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import dto.EtiquetaDTO;
 import dto.LocalidadDTO;
+import dto.SignoZodiacoDTO;
 
 public class VentanaPersona extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -31,8 +32,8 @@ public class VentanaPersona extends JFrame {
 	private JTextField txtEmail;
 	private JTextField txtFechaCumple;
 	private JComboBox<EtiquetaDTO> jcbTipoContacto;
-	private JComboBox<String> jcbSignoZodiaco;
-	private String signoZodiacoSeleccionado;
+	private JComboBox<SignoZodiacoDTO> jcbSignoZodiaco;
+	private SignoZodiacoDTO signoZodiacoSeleccionado;
 	private EtiquetaDTO etiquetaSeleccionada;
 
 	private JButton btnAgregarPersona;
@@ -249,21 +250,22 @@ public class VentanaPersona extends JFrame {
 	}
 	
 	private void comboBoxSignoZodiaco(JPanel panel) {
-		jcbSignoZodiaco = new JComboBox<String>();
+		jcbSignoZodiaco = new JComboBox<SignoZodiacoDTO>();
 		jcbSignoZodiaco.setBounds(133, jcbTipoContacto.getY()+41, 164, 20);
 		panel.add(jcbSignoZodiaco);
 		
 		jcbSignoZodiaco.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String sgaux = (String) jcbSignoZodiaco.getSelectedItem();
+				SignoZodiacoDTO sgaux = (SignoZodiacoDTO) jcbSignoZodiaco.getSelectedItem();
 				signoZodiacoSeleccionado = sgaux;
 			}
 		});
 	}
 	
-	public void agregarSignoZodiaco(List<String> list) {
-		for (String i : list) {
+	public void agregarSignoZodiaco(List<SignoZodiacoDTO> list) {
+		for (SignoZodiacoDTO i : list) {
+			System.out.println(i.getSigno());
 			jcbSignoZodiaco.addItem(i);
 		}
 	}
@@ -347,5 +349,9 @@ public class VentanaPersona extends JFrame {
 
 	public EtiquetaDTO getEtiquetaSeleccionada() {
 		return etiquetaSeleccionada;
+	}
+
+	public SignoZodiacoDTO getSignoZodiacoSeleccionado() {
+		return signoZodiacoSeleccionado;
 	}
 }

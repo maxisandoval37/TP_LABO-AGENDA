@@ -13,9 +13,9 @@ import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.SignoZodiacoDAO;
 
 public class SignoZodiacoDAOSQL implements SignoZodiacoDAO {
-	private static final String insert = "INSERT INTO signos(idSigno, tipoSigno) VALUES(?, ?,)";
+	private static final String insert = "INSERT INTO signos(idSigno, tipoSigno) VALUES(?, ?)";
 	private static final String readall = "SELECT * FROM signos";
-	private static final String findTagFK = "SELECT tipoSigno FROM Etiquetas WHERE idEtiqueta = ?";
+	
 	
 	
 	@Override
@@ -43,7 +43,7 @@ public class SignoZodiacoDAOSQL implements SignoZodiacoDAO {
 		return isInsertExitoso;
 	}
 	@Override
-	public void insertGenericTags() {
+	public void insertGenericSigno() {
 		if (readAll().size() == 0) {
 			
 			SignoZodiacoDTO signoAux1 = new SignoZodiacoDTO("Aries",1);
@@ -104,7 +104,7 @@ public class SignoZodiacoDAOSQL implements SignoZodiacoDAO {
 	}
 
 	private SignoZodiacoDTO getSignoZodiacoDTO(ResultSet resultSet) throws SQLException {
-		return new SignoZodiacoDTO(resultSet.getString("SignoZodiaco"),resultSet.getInt("idSigno"));
+		return new SignoZodiacoDTO(resultSet.getString("tipoSigno"),resultSet.getInt("idSigno"));
 	}
 
 

@@ -5,20 +5,25 @@ import java.util.List;
 import dto.DomicilioDTO;
 import dto.EtiquetaDTO;
 import dto.PersonaDTO;
+import dto.SignoZodiacoDTO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.DomicilioDAO;
 import persistencia.dao.interfaz.EtiquetaDAO;
 import persistencia.dao.interfaz.PersonaDAO;
+import persistencia.dao.interfaz.SignoZodiacoDAO;
 
 public class Agenda {
 	private PersonaDAO persona;
 	private DomicilioDAO domicilio;
 	private EtiquetaDAO etiqueta;
+	private SignoZodiacoDAO signoZodiaco;
 
 	public Agenda(DAOAbstractFactory metodo_persistencia) {
 		this.persona = metodo_persistencia.createPersonaDAO();
 		this.domicilio = metodo_persistencia.createDomicilioDAO();
 		this.etiqueta = metodo_persistencia.createEtiquetaDAO();
+		this.signoZodiaco = metodo_persistencia.createSignoZodiacoDAO();
+		
 	}
 
 	public void agregarPersona(PersonaDTO nueva_persona) {
@@ -81,4 +86,14 @@ public class Agenda {
 		return this.etiqueta.readAll();
 	}
 
+	public void insertarSignosGenericos () {
+		this.signoZodiaco.insertGenericSigno();
+	}
+	
+	public List<SignoZodiacoDTO> obtenerSignos () {
+		return this.signoZodiaco.readAll();
+		
+	}
+	
+	
 }

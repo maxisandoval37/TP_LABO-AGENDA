@@ -4,6 +4,7 @@ import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.DomicilioDAO;
 import persistencia.dao.interfaz.EtiquetaDAO;
 import persistencia.dao.interfaz.PersonaDAO;
+import persistencia.dao.interfaz.SignoZodiacoDAO;
 
 public class DAOSQLFactory implements DAOAbstractFactory {
 	
@@ -17,5 +18,9 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 	
 	public DomicilioDAO createDomicilioDAO() {
 		return new DomicilioDAOSQL();
+	}
+	
+	public SignoZodiacoDAO createSignoZodiacoDAO() {
+		return new SignoZodiacoDAOSQL();
 	}
 }

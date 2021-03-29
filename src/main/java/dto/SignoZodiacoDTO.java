@@ -6,25 +6,21 @@ public class SignoZodiacoDTO {
 	private int idSigno;
 	
 	public SignoZodiacoDTO(String signo, int idSigno) {
-		this.setSigno(signo);
-		this.setIdSigno(idSigno);
-		
+		this.signo = signo;
+		this.idSigno = idSigno;
 	}
 
 	public String getSigno() {
 		return signo;
 	}
 
-	public void setSigno(String signo) {
-		this.signo = signo;
-	}
-
 	public int getIdSigno() {
 		return idSigno;
 	}
-
-	public void setIdSigno(int idSigno) {
-		this.idSigno = idSigno;
+	
+	@Override
+	public String toString() {
+		return this.signo;
 	}
 
 }

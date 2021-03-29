@@ -7,4 +7,6 @@ public interface DAOAbstractFactory {
 	public EtiquetaDAO createEtiquetaDAO();
 	
 	public DomicilioDAO createDomicilioDAO();
+	
+	public SignoZodiacoDAO createSignoZodiacoDAO();
 }

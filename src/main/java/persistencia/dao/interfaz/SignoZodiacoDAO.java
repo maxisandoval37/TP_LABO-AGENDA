@@ -7,7 +7,7 @@ import dto.SignoZodiacoDTO;
 
 public interface SignoZodiacoDAO {
 	
-	public void insertGenericTags();
+	public void insertGenericSigno();
 	
 	public List<SignoZodiacoDTO> readAll();
 

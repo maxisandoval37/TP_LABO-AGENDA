@@ -16,13 +16,14 @@ import dto.PersonaDTO;
 import dto.SignoZodiacoDTO;
 
 public class PersonaDAOSQL implements PersonaDAO {
-	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, idDomicilio, idEtiqueta, fechaCumple, signoZodiaco) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, idDomicilio, idEtiqueta, fechaCumple, idSigno) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
-	private static final String update = "UPDATE personas SET Nombre = ?, Telefono = ?, Email = ?, idDomicilio = ?, idEtiqueta = ?, FechaCumple = ?, signoZodiaco = ? WHERE idPersona = ?";
+	private static final String update = "UPDATE personas SET Nombre = ?, Telefono = ?, Email = ?, idDomicilio = ?, idEtiqueta = ?, FechaCumple = ?, idSigno = ? WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM personas";
 	//private static final String joinTagFK = "(SELECT * FROM Personas INNER JOIN Etiquetas ON Personas.idEtiqueta=Etiquetas.idEtiqueta and Personas.idPersona= ?)";
 	private static final String findTagFK = "SELECT tipoEtiqueta FROM Etiquetas WHERE idEtiqueta = ?";
 	private static final String findAddressFK = "SELECT * FROM domicilios WHERE idDomicilio = ?";
+	private static final String findSignoFK = "SELECT * FROM signos WHERE idSigno = ?";
 
 	@Override
 	public boolean insert(PersonaDTO persona) {
@@ -38,7 +39,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setInt(5, persona.getDomicilio().getId());
 			statement.setInt(6, persona.getEtiqueta().getId());
 			statement.setString(7, persona.getFechaCumple().toString());
-			statement.setString(8, persona.getSignoZodiaco().getSigno());
+			statement.setInt(8, persona.getSignoZodiaco().getIdSigno());
 
 			if (statement.executeUpdate() > 0) {
 				conexion.commit();
@@ -126,10 +127,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 		String tel = resultSet.getString("Telefono");
 		String fechaCumple = resultSet.getString("FechaCumple");
 		String email = resultSet.getString("Email");
-		
-		
-		SignoZodiacoDTO signo = new SignoZodiacoDTO(resultSet.getString("SignoZodiaco"),resultSet.getInt("idSigno"));
-		
+		SignoZodiacoDTO signo = getSignoZodiacoById(resultSet.getInt("idSigno"));
 		EtiquetaDTO etiqueta = getEtiquetaById(resultSet.getInt("idEtiqueta"));
 		DomicilioDTO domicilio = getDomiciliobyId(resultSet.getInt("idDomicilio")); 
 
@@ -187,6 +185,27 @@ public class PersonaDAOSQL implements PersonaDAO {
 		}
 		
 		return etiquetaHallada;
+	}
+	
+	private SignoZodiacoDTO getSignoZodiacoById(int id) throws SQLException{
+		
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		SignoZodiacoDTO signoHallado = null;
+		Conexion conexion = Conexion.getConexion();
+		
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(findSignoFK);
+			statement.setInt(1, id);
+			resultSet = statement.executeQuery();
+			while (resultSet.next() ) {
+				signoHallado = new SignoZodiacoDTO(resultSet.getString("tipoSigno"),id);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return signoHallado;
 	}
 
 }
