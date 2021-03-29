@@ -224,7 +224,6 @@ public class VentanaPersona extends JFrame {
 	public void resetearVista() {
 		this.txtNombre.setText(null);
 		this.txtTelefono.setText(null);
-		//this.txtLocalidad.setText(null);
 		this.txtCalle.setText(null);
 		this.txtAltura.setText(null);
 		this.txtPiso.setText(null);

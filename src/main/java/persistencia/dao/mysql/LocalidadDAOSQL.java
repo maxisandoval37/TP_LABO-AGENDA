@@ -18,10 +18,29 @@ public class LocalidadDAOSQL implements LocalidadDAO{
 	private static final String readall = "SELECT * FROM localidades";
 	
 	//----------NOTAS----------
-	//HACER METODO PARA INSERTAR DATOS GENERICOS
 	//CONTEMPLAR CUANDO NO HAYAN LOCALIDADES
 	//AGREGAR LOCALIDADES DE EJEMPLO EN LOS COMBOBOXES DE VENTANAPERSONA
 	
+	@Override
+	public void insertGenericLocations() {
+		if (readAll().size() == 0) {
+			
+			LocalidadDTO locAux1 = new LocalidadDTO(1,"Argentina","Buenos Aires","Polvorines");
+			insert(locAux1);
+
+			LocalidadDTO locAux2 = new LocalidadDTO(2,"Argentina","Buenos Aires","San Miguel");
+			insert(locAux2);
+			
+			LocalidadDTO locAux3 = new LocalidadDTO(3,"Argentina","Buenos Aires","Bella Vista");
+			insert(locAux3);
+			
+			LocalidadDTO locAux4 = new LocalidadDTO(4,"Argentina","Tucuman","Simoca");
+			insert(locAux4);
+			
+			LocalidadDTO locAux5 = new LocalidadDTO(5,"Argentina","Cordoba","San Justo");
+			insert(locAux5);
+		}
+	}
 	
 	@Override
 	public boolean insert(LocalidadDTO localidad) {

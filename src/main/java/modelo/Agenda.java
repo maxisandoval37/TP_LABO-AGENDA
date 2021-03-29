@@ -65,6 +65,10 @@ public class Agenda {
 		}
 	}
 	
+	public void insertarLocalidadesGenericas() {
+		this.localidad.insertGenericLocations();
+	}
+	
 	public List<LocalidadDTO> obtenerLocalidades(){
 		return this.localidad.readAll();
 	}

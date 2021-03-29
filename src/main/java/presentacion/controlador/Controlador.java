@@ -47,6 +47,7 @@ public class Controlador implements ActionListener {
 		this.ventanaPersona.getBtnAgregarPersona().addActionListener(w -> guardarPersona(w));
 		this.ventanaPersona.getBtnEditarPersona().addActionListener(p -> editarPersona(p));
 		this.agenda = agenda;
+		agregarLocalidadesGenericas();
 		agregarEtiquetasGenericas();
 		ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
 		ventanaPersona.agregarLocalidadesComboBox(obtenerLocalidades());
@@ -188,6 +189,10 @@ public class Controlador implements ActionListener {
 			this.agenda.borrarPersona(this.personasEnTabla.get(fila));
 		}
 		this.refrescarTablaPersonas();
+	}
+	
+	private void agregarLocalidadesGenericas() {
+		this.agenda.insertarLocalidadesGenericas();
 	}
 	
 	private List<LocalidadDTO> obtenerLocalidades() {
