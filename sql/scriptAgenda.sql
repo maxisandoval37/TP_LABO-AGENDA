@@ -29,6 +29,15 @@ CREATE TABLE `etiquetas`(
   PRIMARY KEY (idEtiqueta)
 );
 
+CREATE TABLE `signo`(
+  idSigno int(11) NOT NULL AUTO_INCREMENT,
+  tipoSigno varchar(45) NOT NULL,
+
+  PRIMARY KEY(idSigno)
+);
+
+
+
 CREATE TABLE `personas`
 (
   `idPersona` int(11) NOT NULL AUTO_INCREMENT,
