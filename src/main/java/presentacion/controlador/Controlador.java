@@ -226,16 +226,45 @@ public class Controlador implements ActionListener {
 		this.refrescarTablaPersonas();
 	}
 	
+	private boolean nuevaLocalidadEsValida(LocalidadDTO nuevaLocalidad) {
+		boolean bandera = true;
+
+		if (nuevaLocalidad.toString().equals(" -  - ")) {
+			JOptionPane.showMessageDialog(null, "Complete los campos restantes");
+			bandera = false;
+		}
+
+		else {
+			for (LocalidadDTO lit : obtenerLocalidades()) {
+				boolean yaExiste = true;
+				yaExiste = yaExiste  && lit.getPais().equalsIgnoreCase(nuevaLocalidad.getPais())
+						&& lit.getProvincia().equalsIgnoreCase(nuevaLocalidad.getProvincia()) 
+					    && lit.getNombreLocalidad().equalsIgnoreCase(nuevaLocalidad.getNombreLocalidad());
+				
+				if (yaExiste) {
+					JOptionPane.showMessageDialog(null, "La localidad ya existe");
+					bandera = false;
+					break;
+				}
+			}
+		}
+		return bandera;
+	}
+	
+	
 	private void guardarLocalidad(ActionEvent a) {
 		String pais = this.ventanaAMLocalidad.getTxtPais().getText();
 		String provincia = this.ventanaAMLocalidad.getTxtProvincia().getText();
 		String localidad = this.ventanaAMLocalidad.getTxtLocalidad().getText();
+
+		LocalidadDTO nuevaLocalidad = new LocalidadDTO(0, pais, provincia, localidad);
 		
-		LocalidadDTO nuevaLocalidad = new LocalidadDTO(0,pais,provincia,localidad);
-		this.agenda.agregarLocalidad(nuevaLocalidad);
-		this.refrescarTablaLocalidades();
-		ventanaPersona.agregarLocalidadesComboBox(obtenerLocalidades());
-		this.ventanaAMLocalidad.resetearVista();
+		if (nuevaLocalidadEsValida(nuevaLocalidad)) {
+			this.agenda.agregarLocalidad(nuevaLocalidad);
+			this.refrescarTablaLocalidades();
+			ventanaPersona.agregarLocalidadesComboBox(obtenerLocalidades());
+			this.ventanaAMLocalidad.resetearVista();
+		}
 	}
 	
 	private void agregarLocalidadesGenericas() {
@@ -246,19 +275,6 @@ public class Controlador implements ActionListener {
 		return this.agenda.obtenerLocalidades();
 	}
 
-	
-	private void guardarEtiqueta(ActionEvent e) {
-		String tipoEtiqueta = this.ventanaAMEtiqueta.getTxtTipoEtiqueta().getText();
-
-		if (nuevaEtiquetaEsValida(tipoEtiqueta)) {
-			EtiquetaDTO nuevaEtiqueta = new EtiquetaDTO(0, tipoEtiqueta);
-			this.agenda.agregarEtiqueta(nuevaEtiqueta);
-			this.refrescarTablaEtiquetas();
-			ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
-			this.ventanaAMEtiqueta.resetearVista();
-		}
-	}
-	
 	private boolean nuevaEtiquetaEsValida(String tipoEtiqueta) {
 		boolean bandera = true;
 
@@ -277,6 +293,18 @@ public class Controlador implements ActionListener {
 			}
 		}
 		return bandera;
+	}
+	
+	private void guardarEtiqueta(ActionEvent e) {
+		String tipoEtiqueta = this.ventanaAMEtiqueta.getTxtTipoEtiqueta().getText();
+
+		if (nuevaEtiquetaEsValida(tipoEtiqueta)) {
+			EtiquetaDTO nuevaEtiqueta = new EtiquetaDTO(0, tipoEtiqueta);
+			this.agenda.agregarEtiqueta(nuevaEtiqueta);
+			this.refrescarTablaEtiquetas();
+			ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
+			this.ventanaAMEtiqueta.resetearVista();
+		}
 	}
 	
 	private void editarEtiqueta(ActionEvent e) {
