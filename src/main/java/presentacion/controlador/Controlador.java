@@ -49,6 +49,7 @@ public class Controlador implements ActionListener {
 		
 		this.ventanaLocalidad.getBtnAgregar().addActionListener(n -> ventanaAgregarLocalidad(n));
 		this.ventanaLocalidad.getBtnEditar().addActionListener(u -> ventanaEditarLocalidad(u));
+		this.ventanaAMLocalidad.getBtnAgregarLocalidad().addActionListener(o -> guardarLocalidad(o));
 		
 		this.ventanaEtiqueta.getBtnAgregar().addActionListener(h -> ventanaAgregarEtiqueta(h));
 		this.ventanaEtiqueta.getBtnEditar().addActionListener(x -> ventanaEditarEtiqueta(x));
@@ -145,13 +146,11 @@ public class Controlador implements ActionListener {
 		try {
 			String nombre = this.ventanaPersona.getTxtNombre().getText();
 			String tel = ventanaPersona.getTxtTelefono().getText();
-			
 			String calle = ventanaPersona.getTxtCalle().getText();
 			int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
 			int piso =  Integer.parseInt(ventanaPersona.getTxtPiso().getText());
 			int departamento =  Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
 			LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
-			System.out.println(localidad.getNombreLocalidad());
 			
 			String email = ventanaPersona.getTxtEmail().getText();
 			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
@@ -225,6 +224,18 @@ public class Controlador implements ActionListener {
 			this.agenda.borrarPersona(this.personasEnTabla.get(fila));
 		}
 		this.refrescarTablaPersonas();
+	}
+	
+	private void guardarLocalidad(ActionEvent a) {
+		String pais = this.ventanaAMLocalidad.getTxtPais().getText();
+		String provincia = this.ventanaAMLocalidad.getTxtProvincia().getText();
+		String localidad = this.ventanaAMLocalidad.getTxtLocalidad().getText();
+		
+		LocalidadDTO nuevaLocalidad = new LocalidadDTO(0,pais,provincia,localidad);
+		this.agenda.agregarLocalidad(nuevaLocalidad);
+		this.refrescarTablaLocalidades();
+		ventanaPersona.agregarLocalidadesComboBox(obtenerLocalidades());
+		this.ventanaAMLocalidad.resetearVista();
 	}
 	
 	private void agregarLocalidadesGenericas() {

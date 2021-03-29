@@ -170,6 +170,7 @@ public class VentanaPersona extends JFrame {
 	}
 	
 	public void agregarLocalidadesComboBox(List<LocalidadDTO> list) {
+		this.jcbLocalidades.removeAllItems();
 		for (LocalidadDTO l: list) {
 			this.jcbLocalidades.addItem(l);
 		}
@@ -191,6 +192,7 @@ public class VentanaPersona extends JFrame {
 	}
 
 	public void agregarEtiquetasComboBox(List<EtiquetaDTO> list) {
+		this.jcbTipoContacto.removeAllItems();
 		for (EtiquetaDTO i : list) {
 			this.jcbTipoContacto.addItem(i);
 		}

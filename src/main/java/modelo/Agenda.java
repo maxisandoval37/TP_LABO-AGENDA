@@ -64,6 +64,9 @@ public class Agenda {
 			return 0;
 		}
 	}
+	public void agregarLocalidad(LocalidadDTO nueva_localidad) {
+		this.localidad.insert(nueva_localidad);
+	}
 	
 	public void insertarLocalidadesGenericas() {
 		this.localidad.insertGenericLocations();
