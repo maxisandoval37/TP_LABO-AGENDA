@@ -71,8 +71,6 @@ public class LocalidadDAOSQL implements LocalidadDAO{
 
 	@Override
 	public boolean delete(LocalidadDTO localidad_a_eliminar) {
-		//deleteFKForPersons(localidad_a_eliminar.getId());
-		
 		PreparedStatement statement2;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isdeleteExitoso = false;
@@ -86,7 +84,7 @@ public class LocalidadDAOSQL implements LocalidadDAO{
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			isdeleteExitoso = false;
 		}
 		return isdeleteExitoso;
 	}

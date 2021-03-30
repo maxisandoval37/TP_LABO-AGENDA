@@ -292,14 +292,25 @@ public class Controlador implements ActionListener {
 	}
 	
 	private void borrarLocalidad(ActionEvent a) {
-		int[] filasSeleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
-		for (int fila : filasSeleccionadas) {
-			this.agenda.borrarLocalidad(this.localidadesEnTabla.get(fila));
+		boolean bandera = false;
+		try {
+			int[] filasSeleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
+			for (int fila : filasSeleccionadas) {
+				bandera = bandera || this.agenda.borrarLocalidad(this.localidadesEnTabla.get(fila));
+			}
+			this.refrescarTablaLocalidades();
+			ventanaPersona.agregarLocalidadesComboBox(obtenerLocalidades());
+			this.refrescarTablaPersonas();
 		}
-		this.refrescarTablaLocalidades();
-		ventanaPersona.agregarLocalidadesComboBox(obtenerLocalidades());
-		this.refrescarTablaPersonas();
+		catch(Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		if (!bandera) {
+			JOptionPane.showMessageDialog(null, "La localidad se encuentra en uso");
+		}
 	}
+
 	
 	private void agregarLocalidadesGenericas() {
 		this.agenda.insertarLocalidadesGenericas();
