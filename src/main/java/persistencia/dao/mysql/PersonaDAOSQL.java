@@ -12,15 +12,21 @@ import persistencia.dao.interfaz.PersonaDAO;
 import dto.DomicilioDTO;
 import dto.EtiquetaDTO;
 import dto.PersonaDTO;
+import dto.SignoZodiacoDTO;
 
 public class PersonaDAOSQL implements PersonaDAO {
+<<<<<<< HEAD
 	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, idDomicilio, idEtiqueta, fechaCumple) VALUES(?, ?, ?, ?, ?, ?, ?)";
 	private static final String deleteAddressInUse = "DELETE FROM domicilios WHERE idDomicilio = ?";
+=======
+	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, idDomicilio, idEtiqueta, fechaCumple, idSigno) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+>>>>>>> 3a9f67d1962964eb51a814055284db14b8e71371
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
-	private static final String update = "UPDATE personas SET Nombre = ?, Telefono = ?, Email = ?, idDomicilio = ?, idEtiqueta = ?, FechaCumple = ? WHERE idPersona = ?";
+	private static final String update = "UPDATE personas SET Nombre = ?, Telefono = ?, Email = ?, idDomicilio = ?, idEtiqueta = ?, FechaCumple = ?, idSigno = ? WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM personas";
 	private static final String findTagFK = "SELECT tipoEtiqueta FROM Etiquetas WHERE idEtiqueta = ?";
 	private static final String findAddressFK = "SELECT * FROM domicilios WHERE idDomicilio = ?";
+	private static final String findSignoFK = "SELECT * FROM signos WHERE idSigno = ?";
 
 	@Override
 	public boolean insert(PersonaDTO persona) {
@@ -36,6 +42,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setInt(5, persona.getDomicilio().getId());
 			statement.setInt(6, persona.getEtiqueta().getId());
 			statement.setString(7, persona.getFechaCumple().toString());
+			statement.setInt(8, persona.getSignoZodiaco().getIdSigno());
 
 			if (statement.executeUpdate() > 0) {
 				conexion.commit();
@@ -102,7 +109,9 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setInt(4, persona_nueva.getDomicilio().getId());
 			statement.setInt(5, persona_nueva.getEtiqueta().getId());
 			statement.setString(6, persona_nueva.getFechaCumple().toString());
-			statement.setInt(7, id_a_editar);
+			statement.setString(7, persona_nueva.getSignoZodiaco().getSigno());
+			statement.setInt(8, id_a_editar);
+			
 
 			if (statement.executeUpdate() > 0) {
 				conexion.commit();
@@ -138,16 +147,16 @@ public class PersonaDAOSQL implements PersonaDAO {
 		String tel = resultSet.getString("Telefono");
 		String fechaCumple = resultSet.getString("FechaCumple");
 		String email = resultSet.getString("Email");
-		
+		SignoZodiacoDTO signo = getSignoZodiacoById(resultSet.getInt("idSigno"));
 		EtiquetaDTO etiqueta = getEtiquetaById(resultSet.getInt("idEtiqueta"));
 		DomicilioDTO domicilio = getDomiciliobyId(resultSet.getInt("idDomicilio")); 
 
 		if (fechaCumple.equals("")) {
-			return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta,null);
+			return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta,null,signo);
 		}
 		
 		LocalDate auxFecha = LocalDate.parse(fechaCumple);
-		return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta,auxFecha);
+		return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta,auxFecha,signo);
 	}
 	
 	private DomicilioDTO getDomiciliobyId(int id) throws SQLException{ 
@@ -195,6 +204,27 @@ public class PersonaDAOSQL implements PersonaDAO {
 		}
 		
 		return etiquetaHallada;
+	}
+	
+	private SignoZodiacoDTO getSignoZodiacoById(int id) throws SQLException{
+		
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		SignoZodiacoDTO signoHallado = null;
+		Conexion conexion = Conexion.getConexion();
+		
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(findSignoFK);
+			statement.setInt(1, id);
+			resultSet = statement.executeQuery();
+			while (resultSet.next() ) {
+				signoHallado = new SignoZodiacoDTO(resultSet.getString("tipoSigno"),id);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return signoHallado;
 	}
 
 }

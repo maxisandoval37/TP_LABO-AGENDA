@@ -11,8 +11,10 @@ public class PersonaDTO {
 	private String email;
 	private EtiquetaDTO etiqueta;
 	private LocalDate fechaCumple;
+	private SignoZodiacoDTO signoZodiaco;
+	
 
-	public PersonaDTO(int idPersona, String nombre, String telefono,DomicilioDTO domicilio,String email,EtiquetaDTO etiqueta,LocalDate fechaCumple) {
+	public PersonaDTO(int idPersona, String nombre, String telefono,DomicilioDTO domicilio,String email,EtiquetaDTO etiqueta,LocalDate fechaCumple, SignoZodiacoDTO signoZodiaco) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
@@ -20,6 +22,8 @@ public class PersonaDTO {
 		this.domicilio  = domicilio;
 		this.email = email;
 		this.etiqueta = etiqueta;
+		this.signoZodiaco = signoZodiaco;
+		
 	}
 
 	public int getIdPersona() {
@@ -81,6 +85,14 @@ public class PersonaDTO {
 
 	public void setFechaCumple(LocalDate fechaCumple) {
 		this.fechaCumple = fechaCumple;
+	}
+
+	public SignoZodiacoDTO getSignoZodiaco() {
+		return signoZodiaco;
+	}
+
+	public void setSignoZodiaco(SignoZodiacoDTO signoZodiaco) {
+		this.signoZodiaco = signoZodiaco;
 	}
 
 }
