@@ -42,7 +42,7 @@ public class PersonaDTO {
 	}
 	
 	public void setTelefono(String telefonoNuevo) {//agregar limite de caracteres
-		if (telefonoNuevo.length() >0)
+		if (telefonoNuevo.length() > 0)
 			this.telefono = telefonoNuevo;
 		else
 			throw new RuntimeException("El telefono no puede ser vacio");
@@ -61,7 +61,10 @@ public class PersonaDTO {
 	}
 	
 	public void setEmail(String emailNuevo) {
-		this.email = emailNuevo;
+		if (emailNuevo.length() > 0)
+			this.email = emailNuevo;
+		else
+			throw new RuntimeException("El telefono no puede ser vacio");
 	}
 
 	public EtiquetaDTO getEtiqueta() {

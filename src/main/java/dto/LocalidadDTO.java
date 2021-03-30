@@ -32,6 +32,8 @@ public class LocalidadDTO {
 
 	@Override
 	public String toString() {
+		if (this.NombreLocalidad.length()==0 && this.Provincia.length()==0 && this.Pais.length()==0)
+			return "";
 		return this.NombreLocalidad + " - " + this.Provincia + " - " + this.Pais;
 	}
 	

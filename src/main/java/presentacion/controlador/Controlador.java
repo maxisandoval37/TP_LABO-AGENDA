@@ -231,7 +231,7 @@ public class Controlador implements ActionListener {
 	private boolean nuevaLocalidadEsValida(LocalidadDTO nuevaLocalidad) {
 		boolean bandera = true;
 
-		if (nuevaLocalidad.toString().equals(" -  - ")) {
+		if (nuevaLocalidad.toString().length() == 0) {
 			JOptionPane.showMessageDialog(null, "Complete los campos restantes");
 			bandera = false;
 		}

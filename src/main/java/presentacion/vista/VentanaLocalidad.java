@@ -125,7 +125,6 @@ public class VentanaLocalidad extends JFrame{
 			Object[] fila = {id,pais,provincia,nombreLocalidad};
 			this.getModelLocalidades().addRow(fila);
 		}
-		
 	}
 
 	public void cerrar() {

@@ -17,9 +17,6 @@ public class LocalidadDAOSQL implements LocalidadDAO{
 	private static final String update = "UPDATE localidades SET Pais = ?, Provincia = ?, NombreLocalidad = ? WHERE idLocalidad = ?";
 	private static final String readall = "SELECT * FROM localidades";
 	
-	//----------NOTAS----------
-	//CONTEMPLAR CUANDO NO HAYAN LOCALIDADES
-	
 	@Override
 	public void insertGenericLocations() {
 		if (readAll().size() == 0) {
