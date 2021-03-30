@@ -27,7 +27,6 @@ public class Agenda {
 		this.localidad = metodo_persistencia.createLocalidadDAO();
 		this.etiqueta = metodo_persistencia.createEtiquetaDAO();
 		this.signoZodiaco = metodo_persistencia.createSignoZodiacoDAO();
-		
 	}
 
 	public void agregarPersona(PersonaDTO nueva_persona) {
@@ -108,15 +107,13 @@ public class Agenda {
 	public List<EtiquetaDTO> obtenerEtiquetas() {
 		return this.etiqueta.readAll();
 	}
-
+	
 	public void insertarSignosGenericos () {
 		this.signoZodiaco.insertGenericSigno();
 	}
 	
 	public List<SignoZodiacoDTO> obtenerSignos () {
 		return this.signoZodiaco.readAll();
-		
 	}
-	
-	
+
 }

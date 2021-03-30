@@ -18,7 +18,7 @@ public class Main {
 		}
 
 		catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "¡Debes iniciar el servicio de MySQL para continuar!");
+			JOptionPane.showMessageDialog(null, "Debes iniciar el servicio de MySQL para continuar!");
 			System.exit(0);
 		}
 

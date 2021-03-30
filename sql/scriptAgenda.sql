@@ -1,6 +1,13 @@
 CREATE DATABASE IF NOT EXISTS `agenda`;
 USE agenda;
 
+CREATE TABLE `signos`(
+  idSigno int(11) NOT NULL AUTO_INCREMENT,
+  tipoSigno varchar(45) NOT NULL,
+
+  PRIMARY KEY(idSigno)
+);
+
 CREATE TABLE `localidades`(
   `idLocalidad` int (11) NOT NULL AUTO_INCREMENT,
   `Pais` varchar(45) NOT NULL,
@@ -29,13 +36,6 @@ CREATE TABLE `etiquetas`(
   PRIMARY KEY (idEtiqueta)
 );
 
-CREATE TABLE `signos`(
-  idSigno int(11) NOT NULL AUTO_INCREMENT,
-  tipoSigno varchar(45) NOT NULL,
-
-  PRIMARY KEY(idSigno)
-);
-
 CREATE TABLE `personas`
 (
   `idPersona` int(11) NOT NULL AUTO_INCREMENT,
@@ -47,10 +47,10 @@ CREATE TABLE `personas`
   `FechaCumple` varchar(20),
   `idSigno` int (11),
 
-  PRIMARY KEY (idPersona),
-  FOREIGN KEY (idSigno) REFERENCES signos(idSigno), 
+  PRIMARY KEY (`idPersona`),
   FOREIGN KEY (idDomicilio) REFERENCES Domicilios(idDomicilio),
-  FOREIGN KEY (idEtiqueta) REFERENCES Etiquetas(idEtiqueta)
+  FOREIGN KEY (idEtiqueta) REFERENCES Etiquetas(idEtiqueta),
+  FOREIGN KEY (idSigno) REFERENCES signos(idSigno)
 );
 
 CREATE USER  IF NOT EXISTS 'montenegro_sandoval'@'localhost' IDENTIFIED BY '1234';

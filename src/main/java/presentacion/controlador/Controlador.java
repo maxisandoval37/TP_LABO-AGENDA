@@ -67,16 +67,18 @@ public class Controlador implements ActionListener {
 		agregarEtiquetasGenericas();
 		agregarSignosGenericos();
 		ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
-<<<<<<< HEAD
 		ventanaPersona.agregarLocalidadesComboBox(obtenerLocalidades());
+		ventanaPersona.agregarSignoZodiaco(obtenerSignos());
+	}
+	
+	public void inicializar() {
+		this.refrescarTablaPersonas();
+		this.vista.show();
 	}
 	
 	private void ventanaABMLocalidad(ActionEvent a) {
 		this.refrescarTablaLocalidades();
 		ventanaLocalidad.mostrarVentana();
-=======
-		ventanaPersona.agregarSignoZodiaco(obtenerSignos());
->>>>>>> 3a9f67d1962964eb51a814055284db14b8e71371
 	}
 	
 	private void ventanaABMEtiqueta(ActionEvent a) {
@@ -168,7 +170,7 @@ public class Controlador implements ActionListener {
 			int IdDom = this.agenda.obtenerUltimoIdDomicilio()+1;
 			DomicilioDTO domicilio = new DomicilioDTO(IdDom,calle, altura, piso, departamento, localidad);
 			this.agenda.agregarDomicilio(domicilio);
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha, signo);
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha,signo);
 
 			this.agenda.agregarPersona(nuevaPersona);
 			this.refrescarTablaPersonas();
@@ -177,7 +179,7 @@ public class Controlador implements ActionListener {
 
 		catch (Exception e) {
 			if (e.getMessage().equals("For input string: \"\""))
-				JOptionPane.showMessageDialog(null, "Complete los campos vacíos");
+				JOptionPane.showMessageDialog(null, "Complete los campos vacï¿½os");
 			else
 				JOptionPane.showMessageDialog(null, e.getMessage());
 		}
@@ -190,15 +192,12 @@ public class Controlador implements ActionListener {
 
 				this.personasEnTabla.get(fila).setNombre(this.ventanaPersona.getTxtNombre().getText());
 				this.personasEnTabla.get(fila).setTelefono(this.ventanaPersona.getTxtTelefono().getText());
-				
 
 				String calle = ventanaPersona.getTxtCalle().getText();
 				int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
 				int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
 				int departamento = Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
 				LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
-				SignoZodiacoDTO signo = ventanaPersona.getSignoZodiacoSeleccionado();
-				this.personasEnTabla.get(fila).setSignoZodiaco(signo);
 				
 				int idDom = this.personasEnTabla.get(fila).getDomicilio().getId();
 				DomicilioDTO domicilio = new DomicilioDTO(idDom,calle, altura, piso, departamento, localidad);
@@ -396,12 +395,6 @@ public class Controlador implements ActionListener {
 	private List<EtiquetaDTO> obtenerEtiquetas() {
 		return this.agenda.obtenerEtiquetas();
 	}
-	
-	private List<SignoZodiacoDTO> obtenerSignos() {
-		return this.agenda.obtenerSignos();
-	}
-	
-
 
 	public EtiquetaDTO obtenerEtiquetaPorID(int id) {
 		for (EtiquetaDTO e : this.agenda.obtenerEtiquetas()) {
@@ -415,13 +408,12 @@ public class Controlador implements ActionListener {
 		this.agenda.insertarEtiquetasGenericas();
 	}
 	
+	private List<SignoZodiacoDTO> obtenerSignos() {
+		return this.agenda.obtenerSignos();
+	}
+	
 	private void agregarSignosGenericos() {
 		this.agenda.insertarSignosGenericos();
-	}
-
-	public void inicializar() {
-		this.refrescarTablaPersonas();
-		this.vista.show();
 	}
 
 	private void refrescarTablaPersonas() {

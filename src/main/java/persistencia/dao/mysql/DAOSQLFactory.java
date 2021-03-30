@@ -21,12 +21,11 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 		return new DomicilioDAOSQL();
 	}
 	
-<<<<<<< HEAD
 	public LocalidadDAO createLocalidadDAO() {
 		return new LocalidadDAOSQL();
-=======
+	}
+	
 	public SignoZodiacoDAO createSignoZodiacoDAO() {
 		return new SignoZodiacoDAOSQL();
->>>>>>> 3a9f67d1962964eb51a814055284db14b8e71371
 	}
 }

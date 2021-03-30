@@ -23,17 +23,19 @@ public class VentanaPersona extends JFrame {
 	private JComboBox<LocalidadDTO> jcbLocalidades;
 	private LocalidadDTO localidadSeleccionada;
 	
+	private JComboBox<EtiquetaDTO> jcbTipoContacto;
+	private EtiquetaDTO etiquetaSeleccionada;
+	
+	private JComboBox<SignoZodiacoDTO> jcbSignoZodiaco;
+	private SignoZodiacoDTO signoZodiacoSeleccionado;
+	
 	private JTextField txtCalle;
 	private JTextField txtAltura;
 	private JTextField txtPiso;
 	private JTextField txtDepartamento;
 	private JTextField txtEmail;
 	private JTextField txtFechaCumple;
-	private JComboBox<EtiquetaDTO> jcbTipoContacto;
-	private JComboBox<SignoZodiacoDTO> jcbSignoZodiaco;
-	private SignoZodiacoDTO signoZodiacoSeleccionado;
-	private EtiquetaDTO etiquetaSeleccionada;
-
+	
 	private JButton btnAgregarPersona;
 	private JButton btnEditarPersona;
 	private static VentanaPersona INSTANCE;
@@ -50,11 +52,7 @@ public class VentanaPersona extends JFrame {
 		super();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-<<<<<<< HEAD
 		setBounds(100, 100, 550, 590);
-=======
-		setBounds(100, 100, 345, 620);
->>>>>>> 3a9f67d1962964eb51a814055284db14b8e71371
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -109,8 +107,6 @@ public class VentanaPersona extends JFrame {
 		lblSignoZodiaco.setBounds(10,lblTipoContacto.getY()+40,113,14);
 		panel.add(lblSignoZodiaco);
 		
-		
-		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(133, 11, 270, 20);
 		panel.add(txtNombre);
@@ -157,20 +153,12 @@ public class VentanaPersona extends JFrame {
 		comboBoxSignoZodiaco(panel);
 		
 		btnAgregarPersona = new JButton("Agregar");
-<<<<<<< HEAD
-		btnAgregarPersona.setBounds(208, jcbTipoContacto.getY()+80, 89, 23);
-=======
-		btnAgregarPersona.setBounds(208, jcbSignoZodiaco.getY()+40, 89, 23);
->>>>>>> 3a9f67d1962964eb51a814055284db14b8e71371
+		btnAgregarPersona.setBounds(208, jcbSignoZodiaco.getY()+80, 89, 23);
 		btnAgregarPersona.setVisible(true);
 		panel.add(btnAgregarPersona);
 		
 		btnEditarPersona = new JButton("Editar");
-<<<<<<< HEAD
-		btnEditarPersona.setBounds(208, jcbTipoContacto.getY()+80, 89, 23);
-=======
-		btnEditarPersona.setBounds(208, jcbSignoZodiaco.getY()+40, 89, 23);
->>>>>>> 3a9f67d1962964eb51a814055284db14b8e71371
+		btnEditarPersona.setBounds(208, jcbSignoZodiaco.getY()+80, 89, 23);
 		btnEditarPersona.setVisible(false);
 		panel.add(btnEditarPersona);
 		
@@ -223,7 +211,7 @@ public class VentanaPersona extends JFrame {
 	
 	private void comboBoxSignoZodiaco(JPanel panel) {
 		jcbSignoZodiaco = new JComboBox<SignoZodiacoDTO>();
-		jcbSignoZodiaco.setBounds(133, jcbTipoContacto.getY()+41, 164, 20);
+		jcbSignoZodiaco.setBounds(133, jcbTipoContacto.getY()+41, 270, 20);
 		panel.add(jcbSignoZodiaco);
 		
 		jcbSignoZodiaco.addActionListener(new ActionListener() {
@@ -237,15 +225,9 @@ public class VentanaPersona extends JFrame {
 	
 	public void agregarSignoZodiaco(List<SignoZodiacoDTO> list) {
 		for (SignoZodiacoDTO i : list) {
-			System.out.println(i.getSigno());
 			jcbSignoZodiaco.addItem(i);
 		}
 	}
-	
-	
-	
-	
-	
 	
 	public void mostrarVentana() {
 		this.setVisible(true);
@@ -320,7 +302,7 @@ public class VentanaPersona extends JFrame {
 	public EtiquetaDTO getEtiquetaSeleccionada() {
 		return etiquetaSeleccionada;
 	}
-
+	
 	public SignoZodiacoDTO getSignoZodiacoSeleccionado() {
 		return signoZodiacoSeleccionado;
 	}

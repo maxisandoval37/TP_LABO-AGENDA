@@ -15,12 +15,8 @@ import dto.PersonaDTO;
 import dto.SignoZodiacoDTO;
 
 public class PersonaDAOSQL implements PersonaDAO {
-<<<<<<< HEAD
-	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, idDomicilio, idEtiqueta, fechaCumple) VALUES(?, ?, ?, ?, ?, ?, ?)";
-	private static final String deleteAddressInUse = "DELETE FROM domicilios WHERE idDomicilio = ?";
-=======
 	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, idDomicilio, idEtiqueta, fechaCumple, idSigno) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
->>>>>>> 3a9f67d1962964eb51a814055284db14b8e71371
+	private static final String deleteAddressInUse = "DELETE FROM domicilios WHERE idDomicilio = ?";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
 	private static final String update = "UPDATE personas SET Nombre = ?, Telefono = ?, Email = ?, idDomicilio = ?, idEtiqueta = ?, FechaCumple = ?, idSigno = ? WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM personas";
@@ -111,7 +107,6 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setString(6, persona_nueva.getFechaCumple().toString());
 			statement.setString(7, persona_nueva.getSignoZodiaco().getSigno());
 			statement.setInt(8, id_a_editar);
-			
 
 			if (statement.executeUpdate() > 0) {
 				conexion.commit();
@@ -147,9 +142,10 @@ public class PersonaDAOSQL implements PersonaDAO {
 		String tel = resultSet.getString("Telefono");
 		String fechaCumple = resultSet.getString("FechaCumple");
 		String email = resultSet.getString("Email");
-		SignoZodiacoDTO signo = getSignoZodiacoById(resultSet.getInt("idSigno"));
+		
 		EtiquetaDTO etiqueta = getEtiquetaById(resultSet.getInt("idEtiqueta"));
-		DomicilioDTO domicilio = getDomiciliobyId(resultSet.getInt("idDomicilio")); 
+		DomicilioDTO domicilio = getDomiciliobyId(resultSet.getInt("idDomicilio"));
+		SignoZodiacoDTO signo = getSignoZodiacoById(resultSet.getInt("idSigno"));
 
 		if (fechaCumple.equals("")) {
 			return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta,null,signo);
@@ -226,5 +222,5 @@ public class PersonaDAOSQL implements PersonaDAO {
 		
 		return signoHallado;
 	}
-
+	
 }
