@@ -15,6 +15,7 @@ import dto.PersonaDTO;
 
 public class PersonaDAOSQL implements PersonaDAO {
 	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, idDomicilio, idEtiqueta, fechaCumple) VALUES(?, ?, ?, ?, ?, ?, ?)";
+	private static final String deleteAddressInUse = "DELETE FROM domicilios WHERE idDomicilio = ?";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
 	private static final String update = "UPDATE personas SET Nombre = ?, Telefono = ?, Email = ?, idDomicilio = ?, idEtiqueta = ?, FechaCumple = ? WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM personas";
@@ -51,6 +52,21 @@ public class PersonaDAOSQL implements PersonaDAO {
 
 		return isInsertExitoso;
 	}
+	
+	private void deleteAddressInUse(int id) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+
+		try {
+			statement = conexion.prepareStatement(deleteAddressInUse);
+			statement.setInt(1, id);
+			if (statement.executeUpdate() > 0) {
+				conexion.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public boolean delete(PersonaDTO persona_a_eliminar) {
 		PreparedStatement statement;
@@ -66,6 +82,8 @@ public class PersonaDAOSQL implements PersonaDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		deleteAddressInUse(persona_a_eliminar.getDomicilio().getId());
 		return isdeleteExitoso;
 	}
 
