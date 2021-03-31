@@ -18,7 +18,7 @@ public class GenerarBD {
 
 		try {
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda", "montenegro_sandoval","1234");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306", "root","");
 			ScriptRunner sr = new ScriptRunner(connection);
 			Reader reader = new BufferedReader(new FileReader("sql/scriptAgenda.sql"));
 			sr.runScript(reader);
