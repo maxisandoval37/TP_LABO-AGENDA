@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import dto.EtiquetaDTO;
 import dto.SignoZodiacoDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.SignoZodiacoDAO;
@@ -15,8 +13,6 @@ import persistencia.dao.interfaz.SignoZodiacoDAO;
 public class SignoZodiacoDAOSQL implements SignoZodiacoDAO {
 	private static final String insert = "INSERT INTO signos(idSigno, tipoSigno) VALUES(?, ?)";
 	private static final String readall = "SELECT * FROM signos";
-	
-	
 	
 	@Override
 	public boolean insert(SignoZodiacoDTO signo) {

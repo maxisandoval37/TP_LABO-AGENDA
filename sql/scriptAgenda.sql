@@ -1,14 +1,14 @@
 CREATE DATABASE IF NOT EXISTS `agenda`;
 USE agenda;
 
-CREATE TABLE `signos`(
+CREATE TABLE IF NOT EXISTS `signos`(
   idSigno int(11) NOT NULL AUTO_INCREMENT,
   tipoSigno varchar(45) NOT NULL,
 
   PRIMARY KEY(idSigno)
 );
 
-CREATE TABLE `localidades`(
+CREATE TABLE IF NOT EXISTS `localidades`(
   `idLocalidad` int (11) NOT NULL AUTO_INCREMENT,
   `Pais` varchar(45) NOT NULL,
   `Provincia` varchar(45) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE `localidades`(
   PRIMARY KEY(idLocalidad)
 );
 
-CREATE TABLE `domicilios`(
+CREATE TABLE IF NOT EXISTS `domicilios`(
   `idDomicilio` int(11) NOT NULL AUTO_INCREMENT,
   `Calle` varchar(20),
   `Altura` int(8),
@@ -29,14 +29,14 @@ CREATE TABLE `domicilios`(
    FOREIGN KEY (idLocalidad) REFERENCES localidades (idLocalidad)  	
 );
 
-CREATE TABLE `etiquetas`(
+CREATE TABLE IF NOT EXISTS `etiquetas`(
   idEtiqueta int(11) NOT NULL AUTO_INCREMENT,
   tipoEtiqueta varchar(45) NOT NULL,
 
   PRIMARY KEY (idEtiqueta)
 );
 
-CREATE TABLE `personas`
+CREATE TABLE IF NOT EXISTS `personas`
 (
   `idPersona` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(45) NOT NULL,

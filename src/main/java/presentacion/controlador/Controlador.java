@@ -68,7 +68,7 @@ public class Controlador implements ActionListener {
 		agregarSignosGenericos();
 		ventanaPersona.agregarEtiquetasComboBox(obtenerEtiquetas());
 		ventanaPersona.agregarLocalidadesComboBox(obtenerLocalidades());
-		ventanaPersona.agregarSignoZodiaco(obtenerSignos());
+		ventanaPersona.agregarSignoZodiacoComboBox(obtenerSignos());
 	}
 	
 	public void inicializar() {

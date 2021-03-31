@@ -150,7 +150,7 @@ public class VentanaPersona extends JFrame {
 		txtFechaCumple.setColumns(10);
 		
 		comboBoxTipoContacto(panel);
-		comboBoxSignoZodiaco(panel);
+		comboBoxTipoSignoZodiaco(panel);
 		
 		btnAgregarPersona = new JButton("Agregar");
 		btnAgregarPersona.setBounds(208, jcbSignoZodiaco.getY()+80, 89, 23);
@@ -209,7 +209,7 @@ public class VentanaPersona extends JFrame {
 		this.jcbTipoContacto.repaint();
 	}
 	
-	private void comboBoxSignoZodiaco(JPanel panel) {
+	private void comboBoxTipoSignoZodiaco(JPanel panel) {
 		jcbSignoZodiaco = new JComboBox<SignoZodiacoDTO>();
 		jcbSignoZodiaco.setBounds(133, jcbTipoContacto.getY()+41, 270, 20);
 		panel.add(jcbSignoZodiaco);
@@ -223,7 +223,7 @@ public class VentanaPersona extends JFrame {
 		});
 	}
 	
-	public void agregarSignoZodiaco(List<SignoZodiacoDTO> list) {
+	public void agregarSignoZodiacoComboBox(List<SignoZodiacoDTO> list) {
 		for (SignoZodiacoDTO i : list) {
 			jcbSignoZodiaco.addItem(i);
 		}
