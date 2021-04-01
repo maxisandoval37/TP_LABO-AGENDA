@@ -24,7 +24,7 @@ public class Vista {
 	private JButton btnLocalidades;
 	private JButton btnEtiquetas;
 	private DefaultTableModel modelPersonas;
-	private String[] nombreColumnas = { "Nombre y apellido", "Telefono", "Localidad", "Provincia", "Pais", "Calle", "Altura", "Piso","Departamento", "Email", "Nacimiento", "Tipo de contacto" };
+	private String[] nombreColumnas = { "Nombre y apellido", "Telefono", "Localidad", "Provincia", "Pais", "Calle", "Altura", "Piso","Departamento", "Email", "Nacimiento", "Tipo de contacto", "Signo Zodiaco" };
 
 	public Vista() {
 		super();
@@ -156,8 +156,9 @@ public class Vista {
 			String email = p.getEmail();
 			String fechaCumple = p.getFechaCumple().toString();
 			String etiq = p.getEtiqueta().getTipoEtiqueta();
+			String zodiaco = p.getSignoZodiaco().getSigno();
 
-			Object[] fila = { nombre, tel, localidad,provincia,pais, calle, altura, piso, depa, email, fechaCumple, etiq };
+			Object[] fila = { nombre, tel, localidad,provincia,pais, calle, altura, piso, depa, email, fechaCumple, etiq, zodiaco };
 			this.getModelPersonas().addRow(fila);
 		}
 	}
