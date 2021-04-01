@@ -123,7 +123,6 @@ public class VentanaEtiqueta extends JFrame {
 			Object[] fila = {id,nombre};
 			this.getModelEtiquetas().addRow(fila);
 		}
-		
 	}
 
 	public void cerrar() {

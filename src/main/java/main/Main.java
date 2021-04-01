@@ -22,6 +22,5 @@ public class Main {
 			JOptionPane.showMessageDialog(null, "Debes iniciar el servicio de MySQL para continuar!");
 			System.exit(0);
 		}
-
 	}
 }

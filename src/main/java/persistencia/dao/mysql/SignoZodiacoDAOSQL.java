@@ -103,5 +103,4 @@ public class SignoZodiacoDAOSQL implements SignoZodiacoDAO {
 		return new SignoZodiacoDTO(resultSet.getString("tipoSigno"),resultSet.getInt("idSigno"));
 	}
 
-
 }

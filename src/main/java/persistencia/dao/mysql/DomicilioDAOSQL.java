@@ -13,12 +13,12 @@ import persistencia.dao.interfaz.DomicilioDAO;
 
 public class DomicilioDAOSQL implements DomicilioDAO{
 	
-	private static final String insert = "INSERT INTO domicilios(idDomicilio, Calle, Altura, Piso, Departamento, idLocalidad) VALUES(?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO domicilios(idDomicilio, Calle, Altura, Piso, Departamento, codPostal) VALUES(?, ?, ?, ?, ?, ?)";
 	private static final String deleteFKForPersons = "UPDATE personas SET idDomicilio = ? WHERE idDomicilio = ?;";
 	private static final String delete = "DELETE FROM domicilios WHERE idDomicilio = ?";
-	private static final String update = "UPDATE domicilios SET Calle = ?, Altura = ?, Piso = ?, Departamento = ?, idLocalidad = ? WHERE idDomicilio = ?";
+	private static final String update = "UPDATE domicilios SET Calle = ?, Altura = ?, Piso = ?, Departamento = ?, codPostal = ? WHERE idDomicilio = ?";
 	private static final String readall = "SELECT * FROM domicilios";
-	private static final String findLocationFK = "SELECT * FROM Localidades WHERE idLocalidad = ?";
+	private static final String findLocationFK = "SELECT * FROM Localidades WHERE codPostal = ?";
 	
 	@Override
 	public boolean insert(DomicilioDTO domicilio) {
@@ -32,7 +32,7 @@ public class DomicilioDAOSQL implements DomicilioDAO{
 			statement.setInt(3, domicilio.getAltura());
 			statement.setInt(4, domicilio.getPiso());
 			statement.setInt(5, domicilio.getDepto());
-			statement.setInt(6, domicilio.getLocalidad().getIdLocalidad());
+			statement.setInt(6, domicilio.getLocalidad().getIdCodPostal());
 
 			if (statement.executeUpdate() > 0) {
 				conexion.commit();
@@ -103,7 +103,7 @@ public class DomicilioDAOSQL implements DomicilioDAO{
 			statement.setInt(2, domicilio_nuevo.getAltura());
 			statement.setInt(3, domicilio_nuevo.getPiso());
 			statement.setInt(4, domicilio_nuevo.getDepto());
-			statement.setInt(5, domicilio_nuevo.getLocalidad().getIdLocalidad());
+			statement.setInt(5, domicilio_nuevo.getLocalidad().getIdCodPostal());
 			statement.setInt(6, id_a_editar);
 
 			if (statement.executeUpdate() > 0) {
@@ -142,7 +142,7 @@ public class DomicilioDAOSQL implements DomicilioDAO{
 		int piso = resultSet.getInt("Piso");
 		int depa = resultSet.getInt("Departamento");
 
-		DomicilioDTO domicilio = new DomicilioDTO(idDomicilio,calle,altura,piso,depa,getLocalidadById(resultSet.getInt("idLocalidad")));
+		DomicilioDTO domicilio = new DomicilioDTO(idDomicilio,calle,altura,piso,depa,getLocalidadById(resultSet.getInt("codPostal")));
 		return domicilio;
 	}
 	

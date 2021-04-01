@@ -32,7 +32,7 @@ public class PersonaDTO {
 		return this.nombre;
 	}
 	
-	public void setNombre(String nombreNuevo) {//agregar limite de caracteres
+	public void setNombre(String nombreNuevo) {
 		if (nombreNuevo.length() >0)
 			this.nombre = nombreNuevo;
 		else
@@ -43,7 +43,7 @@ public class PersonaDTO {
 		return this.telefono;
 	}
 	
-	public void setTelefono(String telefonoNuevo) {//agregar limite de caracteres
+	public void setTelefono(String telefonoNuevo) {
 		if (telefonoNuevo.length() > 0)
 			this.telefono = telefonoNuevo;
 		else

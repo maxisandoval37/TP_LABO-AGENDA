@@ -9,12 +9,12 @@ CREATE TABLE IF NOT EXISTS `signos`(
 );
 
 CREATE TABLE IF NOT EXISTS `localidades`(
-  `idLocalidad` int (11) NOT NULL AUTO_INCREMENT,
+  `codPostal` int (4) NOT NULL,
   `Pais` varchar(45) NOT NULL,
   `Provincia` varchar(45) NOT NULL,
   `nombreLocalidad` varchar(45) NOT NULL,
   
-  PRIMARY KEY(idLocalidad)
+  PRIMARY KEY(codPostal)
 );
 
 CREATE TABLE IF NOT EXISTS `domicilios`(
@@ -23,10 +23,10 @@ CREATE TABLE IF NOT EXISTS `domicilios`(
   `Altura` int(8),
   `Piso` int(4),
   `Departamento` int(4),
-  `idLocalidad` int(11) NOT NULL,
+  `codPostal` int(11) NOT NULL,
 
    PRIMARY KEY(idDomicilio),
-   FOREIGN KEY (idLocalidad) REFERENCES localidades (idLocalidad)  	
+   FOREIGN KEY (codPostal) REFERENCES localidades (codPostal)  	
 );
 
 CREATE TABLE IF NOT EXISTS `etiquetas`(

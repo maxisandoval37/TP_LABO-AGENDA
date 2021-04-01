@@ -1,7 +1,6 @@
 package presentacion.vista;
 
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,7 +20,7 @@ public class VentanaLocalidad extends JFrame{
 	private JButton btnBorrar;
 	private JButton btnEditar;
 	private DefaultTableModel modelLocalidades;
-	private String[] nombreColumnas = {" Id ","Pais", "Provincia", "Nombre Localidad"};
+	private String[] nombreColumnas = {"Codigo Postal","Pais", "Provincia", "Nombre Localidad"};
 	
 	public static VentanaLocalidad getInstance() {
 		if (INSTANCE == null) {
@@ -117,7 +116,7 @@ public class VentanaLocalidad extends JFrame{
 		this.getModelLocalidades().setColumnIdentifiers(this.getNombreColumnas());
 
 		for (LocalidadDTO loc : localidadesEnTabla){
-			String id = Integer.toString(loc.getIdLocalidad());
+			String id = Integer.toString(loc.getIdCodPostal());
 			String pais = loc.getPais();
 			String provincia = loc.getProvincia();
 			String nombreLocalidad = loc.getNombreLocalidad();

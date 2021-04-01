@@ -288,8 +288,8 @@ public class Controlador implements ActionListener {
 			
 			int[] filasSeleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
 			for (int fila : filasSeleccionadas) {
-				int idLocalidadClick = this.localidadesEnTabla.get(fila).getIdLocalidad();
-				this.agenda.editarLocalidad(idLocalidadClick, nuevaLocalidad);
+				int idCPLocalidadClick = this.localidadesEnTabla.get(fila).getIdCodPostal();
+				this.agenda.editarLocalidad(idCPLocalidadClick, nuevaLocalidad);
 
 				this.refrescarTablaLocalidades();
 				this.refrescarTablaPersonas();

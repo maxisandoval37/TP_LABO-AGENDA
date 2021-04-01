@@ -12,9 +12,9 @@ import persistencia.dao.interfaz.LocalidadDAO;
 
 public class LocalidadDAOSQL implements LocalidadDAO{
 
-	private static final String insert = "INSERT INTO localidades(idLocalidad, Pais, Provincia, nombreLocalidad) VALUES(?, ?, ?, ?)";
-	private static final String delete = "DELETE FROM localidades WHERE idLocalidad = ?";
-	private static final String update = "UPDATE localidades SET Pais = ?, Provincia = ?, NombreLocalidad = ? WHERE idLocalidad = ?";
+	private static final String insert = "INSERT INTO localidades(codPostal, Pais, Provincia, nombreLocalidad) VALUES(?, ?, ?, ?)";
+	private static final String delete = "DELETE FROM localidades WHERE codPostal = ?";
+	private static final String update = "UPDATE localidades SET Pais = ?, Provincia = ?, NombreLocalidad = ? WHERE codPostal = ?";
 	private static final String readall = "SELECT * FROM localidades";
 	
 	@Override
@@ -45,7 +45,7 @@ public class LocalidadDAOSQL implements LocalidadDAO{
 		boolean isInsertExitoso = false;
 		try {
 			statement = conexion.prepareStatement(insert);
-			statement.setInt(1, localidad.getIdLocalidad());
+			statement.setInt(1, localidad.getIdCodPostal());
 			statement.setString(2, localidad.getPais());
 			statement.setString(3, localidad.getProvincia());
 			statement.setString(4, localidad.getNombreLocalidad());
@@ -73,7 +73,7 @@ public class LocalidadDAOSQL implements LocalidadDAO{
 		boolean isdeleteExitoso = false;
 		try {
 			statement2 = conexion.prepareStatement(delete);
-			statement2.setString(1, Integer.toString(localidad_a_eliminar.getIdLocalidad()));
+			statement2.setString(1, Integer.toString(localidad_a_eliminar.getIdCodPostal()));
 			
 			if (statement2.executeUpdate() > 0) {
 				conexion.commit();
@@ -129,7 +129,7 @@ public class LocalidadDAOSQL implements LocalidadDAO{
 	}
 	
 	private LocalidadDTO getLocalidadDTO(ResultSet resultSet) throws SQLException {
-		int id = resultSet.getInt("idLocalidad");
+		int id = resultSet.getInt("codPostal");
 		String pais = resultSet.getString("Pais");
 		String provincia = resultSet.getString("Provincia");
 		String nombreLocalidad = resultSet.getString("nombreLocalidad");

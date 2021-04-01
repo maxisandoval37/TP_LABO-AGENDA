@@ -12,7 +12,7 @@ public class Conexion {
 
 	private Conexion() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver"); // quitar si no es necesario
+			Class.forName("com.mysql.jdbc.Driver");
 			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda", "montenegro_sandoval","1234");
 			this.connection.setAutoCommit(false);
 			log.info("Conexion exitosa");

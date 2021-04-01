@@ -11,7 +11,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import dto.PersonaDTO;
 import javax.swing.JButton;
-
 import persistencia.conexion.Conexion;
 
 public class Vista {
@@ -24,7 +23,7 @@ public class Vista {
 	private JButton btnLocalidades;
 	private JButton btnEtiquetas;
 	private DefaultTableModel modelPersonas;
-	private String[] nombreColumnas = { "Nombre y apellido", "Telefono", "Localidad", "Provincia", "Pais", "Calle", "Altura", "Piso","Departamento", "Email", "Nacimiento", "Tipo de contacto", "Signo Zodiaco" };
+	private String[] nombreColumnas = { "Nombre y apellido", "Telefono", "Localidad","Cod Postal", "Provincia", "Pais", "Calle", "Altura", "Piso","Departamento", "Email", "Nacimiento", "Tipo de contacto", "Signo Zodiaco" };
 
 	public Vista() {
 		super();
@@ -139,7 +138,7 @@ public class Vista {
 	}
 
 	public void llenarTabla(List<PersonaDTO> personasEnTabla) {
-		this.getModelPersonas().setRowCount(0); // Para vaciar la tabla
+		this.getModelPersonas().setRowCount(0);
 		this.getModelPersonas().setColumnCount(0);
 		this.getModelPersonas().setColumnIdentifiers(this.getNombreColumnas());
 
@@ -147,6 +146,7 @@ public class Vista {
 			String nombre = p.getNombre();
 			String tel = p.getTelefono();
 			String localidad = p.getDomicilio().getLocalidad().getNombreLocalidad();
+			int codPostal = p.getDomicilio().getLocalidad().getIdCodPostal();
 			String provincia = p.getDomicilio().getLocalidad().getProvincia();
 			String pais = p.getDomicilio().getLocalidad().getPais();
 			String calle = p.getDomicilio().getCalle();
@@ -158,9 +158,8 @@ public class Vista {
 			String etiq = p.getEtiqueta().getTipoEtiqueta();
 			String zodiaco = p.getSignoZodiaco().getSigno();
 
-			Object[] fila = { nombre, tel, localidad,provincia,pais, calle, altura, piso, depa, email, fechaCumple, etiq, zodiaco };
+			Object[] fila = { nombre, tel, localidad,codPostal,provincia,pais, calle, altura, piso, depa, email, fechaCumple, etiq, zodiaco };
 			this.getModelPersonas().addRow(fila);
 		}
 	}
-	
 }

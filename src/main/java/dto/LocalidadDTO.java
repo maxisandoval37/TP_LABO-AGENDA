@@ -2,20 +2,20 @@ package dto;
 
 public class LocalidadDTO {
 
-	private int idLocalidad;
+	private int idCodPostal;
 	private String Pais;
 	private String Provincia;
 	private String NombreLocalidad;
 	
-	public LocalidadDTO(int idLocalidad, String Pais,String Provincia, String NombreLocalidad) {
-		this.idLocalidad = idLocalidad;
+	public LocalidadDTO(int codPostal, String Pais,String Provincia, String NombreLocalidad) {
+		this.idCodPostal = codPostal;
 		this.Pais = Pais;
 		this.Provincia = Provincia;
 		this.NombreLocalidad = NombreLocalidad;
 	}
 
-	public int getIdLocalidad() {
-		return idLocalidad;
+	public int getIdCodPostal() {
+		return idCodPostal;
 	}
 
 	public String getPais() {

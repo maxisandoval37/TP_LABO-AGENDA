@@ -12,7 +12,4 @@ public interface SignoZodiacoDAO {
 	public List<SignoZodiacoDTO> readAll();
 
 	public boolean insert(SignoZodiacoDTO signo);
-
-	
-
 }
