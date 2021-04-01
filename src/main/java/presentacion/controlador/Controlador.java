@@ -99,8 +99,9 @@ public class Controlador implements ActionListener {
 		this.ventanaAMLocalidad.getBtnAgregarLocalidad().setVisible(false);
 		this.ventanaAMLocalidad.getBtnEditarLocalidad().setVisible(true);
 		this.ventanaAMLocalidad.mostrarVentana();
-		
+
 		for (int fila : filasSeleccionadas) {
+			this.ventanaAMLocalidad.getTxtCodPostal().setText(""+this.localidadesEnTabla.get(fila).getIdCodPostal());
 			this.ventanaAMLocalidad.getTxtPais().setText(this.localidadesEnTabla.get(fila).getPais());
 			this.ventanaAMLocalidad.getTxtProvincia().setText(this.localidadesEnTabla.get(fila).getProvincia());
 			this.ventanaAMLocalidad.getTxtLocalidad().setText(this.localidadesEnTabla.get(fila).getNombreLocalidad());
@@ -264,11 +265,12 @@ public class Controlador implements ActionListener {
 	
 	
 	private void guardarLocalidad(ActionEvent a) {
+		int cp = Integer.parseInt(this.ventanaAMLocalidad.getTxtCodPostal().getText());
 		String pais = this.ventanaAMLocalidad.getTxtPais().getText();
 		String provincia = this.ventanaAMLocalidad.getTxtProvincia().getText();
 		String localidad = this.ventanaAMLocalidad.getTxtLocalidad().getText();
 
-		LocalidadDTO nuevaLocalidad = new LocalidadDTO(0, pais, provincia, localidad);
+		LocalidadDTO nuevaLocalidad = new LocalidadDTO(cp, pais, provincia, localidad);
 		
 		if (nuevaLocalidadEsValida(nuevaLocalidad)) {
 			this.agenda.agregarLocalidad(nuevaLocalidad);
@@ -279,10 +281,11 @@ public class Controlador implements ActionListener {
 	}
 	
 	private void editarLocalidad(ActionEvent a) {
+		int cp = Integer.parseInt(this.ventanaAMLocalidad.getTxtCodPostal().getText());
 		String pais = this.ventanaAMLocalidad.getTxtPais().getText();
 		String provincia = this.ventanaAMLocalidad.getTxtProvincia().getText();
 		String localidad = this.ventanaAMLocalidad.getTxtLocalidad().getText();
-		LocalidadDTO nuevaLocalidad = new LocalidadDTO(0, pais, provincia, localidad);
+		LocalidadDTO nuevaLocalidad = new LocalidadDTO(cp, pais, provincia, localidad);
 		
 		if (nuevaLocalidadEsValida(nuevaLocalidad)) {
 			

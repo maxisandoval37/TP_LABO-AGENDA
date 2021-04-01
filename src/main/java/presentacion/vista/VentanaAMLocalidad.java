@@ -12,6 +12,7 @@ public class VentanaAMLocalidad extends JFrame{
 	private JPanel contentPane;
 	private static VentanaAMLocalidad INSTANCE;
 	
+	private JTextField txtCP;
 	private JTextField txtPais;
 	private JTextField txtProvincia;
 	private JTextField txtLocalidad;
@@ -53,30 +54,39 @@ public class VentanaAMLocalidad extends JFrame{
 	
 	private void inicializarElemsVisuales(JPanel panel) {
 
+		JLabel lbcp = new JLabel("Cod Postal");
+		lbcp.setBounds(10, 10, 113, 14);
+		panel.add(lbcp);
+		
 		JLabel lbPais = new JLabel("Pais");
-		lbPais.setBounds(10, 11, 113, 14);
+		lbPais.setBounds(10, lbcp.getY()+60, 113, 14);
 		panel.add(lbPais);
 		
 		JLabel lbProvincia = new JLabel("Provincia");
-		lbProvincia.setBounds(10, lbPais.getY()+100, 113, 14);
+		lbProvincia.setBounds(10, lbPais.getY()+60, 113, 14);
 		panel.add(lbProvincia);
 		
 		JLabel lbLocalidad = new JLabel("Localidad");
-		lbLocalidad.setBounds(10, lbProvincia.getY()+100, 113, 14);
+		lbLocalidad.setBounds(10, lbProvincia.getY()+60, 113, 14);
 		panel.add(lbLocalidad);
-
+		
+		this.txtCP = new JTextField();
+		this.txtCP.setBounds(133, 10, 164, 20);
+		panel.add(this.txtCP);
+		this.txtCP.setColumns(10);
+		
 		this.txtPais = new JTextField();
-		this.txtPais.setBounds(133, 10, 164, 20);
+		this.txtPais.setBounds(133, txtCP.getY()+60, 164, 20);
 		panel.add(this.txtPais);
 		this.txtPais.setColumns(10);
 		
 		this.txtProvincia = new JTextField();
-		this.txtProvincia.setBounds(133, txtPais.getY()+100, 164, 20);
+		this.txtProvincia.setBounds(133, txtPais.getY()+60, 164, 20);
 		panel.add(this.txtProvincia);
 		this.txtProvincia.setColumns(10);
 		
 		this.txtLocalidad = new JTextField();
-		this.txtLocalidad.setBounds(133, txtProvincia.getY()+100, 164, 20);
+		this.txtLocalidad.setBounds(133, txtProvincia.getY()+60, 164, 20);
 		panel.add(this.txtLocalidad);
 		this.txtLocalidad.setColumns(10);
 
@@ -89,6 +99,10 @@ public class VentanaAMLocalidad extends JFrame{
 		btnEditarLocalidad.setBounds(150, 300, 90, 23);
 		btnEditarLocalidad.setVisible(false);
 		panel.add(btnEditarLocalidad);
+	}
+	
+	public JTextField getTxtCodPostal() {
+		return txtCP;
 	}
 	
 	public JTextField getTxtPais() {

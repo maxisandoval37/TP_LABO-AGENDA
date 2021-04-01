@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `domicilios`(
   `Altura` int(8),
   `Piso` int(4),
   `Departamento` int(4),
-  `codPostal` int(11) NOT NULL,
+  `codPostal` int(4) NOT NULL,
 
    PRIMARY KEY(idDomicilio),
    FOREIGN KEY (codPostal) REFERENCES localidades (codPostal)  	
