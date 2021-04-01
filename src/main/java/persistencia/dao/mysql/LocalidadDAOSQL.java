@@ -33,7 +33,7 @@ public class LocalidadDAOSQL implements LocalidadDAO{
 			LocalidadDTO locAux4 = new LocalidadDTO(4172,"Argentina","Tucuman","Simoca");
 			insert(locAux4);
 			
-			LocalidadDTO locAux5 = new LocalidadDTO(3342,"Argentina","Cordoba","San Justo");
+			LocalidadDTO locAux5 = new LocalidadDTO(5949,"Argentina","Cordoba","Alicia");
 			insert(locAux5);
 		}
 	}

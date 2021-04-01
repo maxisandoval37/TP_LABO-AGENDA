@@ -170,9 +170,9 @@ public class PersonaDAOSQL implements PersonaDAO {
 				int altura = resultSet.getInt("Altura");
 				int piso = resultSet.getInt("Piso");;
 				int departamento = resultSet.getInt("Departamento");
-				int idLocalidad = resultSet.getInt("idLocalidad");
+				int idCodPostal = resultSet.getInt("codPostal");
 				
-				DomHallado = new DomicilioDTO(id,calle,altura,piso,departamento,DomicilioDAOSQL.getLocalidadById(idLocalidad));
+				DomHallado = new DomicilioDTO(id,calle,altura,piso,departamento,DomicilioDAOSQL.getLocalidadById(idCodPostal));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

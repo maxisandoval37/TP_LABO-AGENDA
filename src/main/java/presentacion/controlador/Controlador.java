@@ -263,17 +263,18 @@ public class Controlador implements ActionListener {
 		return bandera;
 	}
 	
-	
-	private void guardarLocalidad(ActionEvent a) {
+	private LocalidadDTO generarLocalidadNueva() {
 		int cp = Integer.parseInt(this.ventanaAMLocalidad.getTxtCodPostal().getText());
 		String pais = this.ventanaAMLocalidad.getTxtPais().getText();
 		String provincia = this.ventanaAMLocalidad.getTxtProvincia().getText();
 		String localidad = this.ventanaAMLocalidad.getTxtLocalidad().getText();
 
-		LocalidadDTO nuevaLocalidad = new LocalidadDTO(cp, pais, provincia, localidad);
-		
-		if (nuevaLocalidadEsValida(nuevaLocalidad)) {
-			this.agenda.agregarLocalidad(nuevaLocalidad);
+		return new LocalidadDTO(cp, pais, provincia, localidad);
+	}
+	
+	private void guardarLocalidad(ActionEvent a) {
+		if (nuevaLocalidadEsValida(generarLocalidadNueva())) {
+			this.agenda.agregarLocalidad(generarLocalidadNueva());
 			this.refrescarTablaLocalidades();
 			ventanaPersona.agregarLocalidadesComboBox(obtenerLocalidades());
 			this.ventanaAMLocalidad.resetearVista();
@@ -281,18 +282,13 @@ public class Controlador implements ActionListener {
 	}
 	
 	private void editarLocalidad(ActionEvent a) {
-		int cp = Integer.parseInt(this.ventanaAMLocalidad.getTxtCodPostal().getText());
-		String pais = this.ventanaAMLocalidad.getTxtPais().getText();
-		String provincia = this.ventanaAMLocalidad.getTxtProvincia().getText();
-		String localidad = this.ventanaAMLocalidad.getTxtLocalidad().getText();
-		LocalidadDTO nuevaLocalidad = new LocalidadDTO(cp, pais, provincia, localidad);
 		
-		if (nuevaLocalidadEsValida(nuevaLocalidad)) {
+		if (nuevaLocalidadEsValida(generarLocalidadNueva())) {
 			
 			int[] filasSeleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
 			for (int fila : filasSeleccionadas) {
 				int idCPLocalidadClick = this.localidadesEnTabla.get(fila).getIdCodPostal();
-				this.agenda.editarLocalidad(idCPLocalidadClick, nuevaLocalidad);
+				this.agenda.editarLocalidad(idCPLocalidadClick, generarLocalidadNueva());
 
 				this.refrescarTablaLocalidades();
 				this.refrescarTablaPersonas();
