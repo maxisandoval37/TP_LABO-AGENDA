@@ -248,12 +248,7 @@ public class Controlador implements ActionListener {
 
 		else {
 			for (LocalidadDTO lit : obtenerLocalidades()) {
-				boolean yaExiste = true;
-				yaExiste = yaExiste  && lit.getPais().equalsIgnoreCase(nuevaLocalidad.getPais())
-						&& lit.getProvincia().equalsIgnoreCase(nuevaLocalidad.getProvincia()) 
-					    && lit.getNombreLocalidad().equalsIgnoreCase(nuevaLocalidad.getNombreLocalidad());
-				
-				if (yaExiste) {
+				if (lit.getPais().equalsIgnoreCase(nuevaLocalidad.getPais()) && lit.getIdCodPostal()==nuevaLocalidad.getIdCodPostal()) {
 					JOptionPane.showMessageDialog(null, "La localidad ya existe");
 					bandera = false;
 					break;
@@ -319,7 +314,6 @@ public class Controlador implements ActionListener {
 		}
 	}
 
-	
 	private void agregarLocalidadesGenericas() {
 		this.agenda.insertarLocalidadesGenericas();
 	}
