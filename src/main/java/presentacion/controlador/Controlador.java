@@ -239,37 +239,23 @@ public class Controlador implements ActionListener {
 		this.refrescarTablaPersonas();
 	}
 	
-	private boolean nuevaLocalidadEsValida(LocalidadDTO nuevaLocalidad) {
-		boolean bandera = true;
-
-		if (nuevaLocalidad.toString().length() == 0) {
-			JOptionPane.showMessageDialog(null, "Complete los campos restantes");
-			bandera = false;
-		}
-
-		else {
-			for (LocalidadDTO lit : obtenerLocalidades()) {
-				if (lit.getPais().equalsIgnoreCase(nuevaLocalidad.getPais()) && lit.getIdCodPostal()==nuevaLocalidad.getIdCodPostal()) {
-					JOptionPane.showMessageDialog(null, "La localidad ya existe");
-					bandera = false;
-					break;
-				}
-			}
-		}
-		return bandera;
-	}
-	
 	private LocalidadDTO generarLocalidadNueva() {
-		int cp = Integer.parseInt(this.ventanaAMLocalidad.getTxtCodPostal().getText());
-		String pais = this.ventanaAMLocalidad.getTxtPais().getText();
-		String provincia = this.ventanaAMLocalidad.getTxtProvincia().getText();
-		String localidad = this.ventanaAMLocalidad.getTxtLocalidad().getText();
+		if (this.ventanaAMLocalidad.getTxtCodPostal().getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Complete el codigo postal");
+			return null;
+		}
+		else {
+			Integer cp = Integer.parseInt(this.ventanaAMLocalidad.getTxtCodPostal().getText());
+			String pais = this.ventanaAMLocalidad.getTxtPais().getText();
+			String provincia = this.ventanaAMLocalidad.getTxtProvincia().getText();
+			String localidad = this.ventanaAMLocalidad.getTxtLocalidad().getText();
 
-		return new LocalidadDTO(cp, pais, provincia, localidad);
+			return new LocalidadDTO(cp, pais, provincia, localidad);
+		}
 	}
 	
 	private void guardarLocalidad(ActionEvent a) {
-		if (nuevaLocalidadEsValida(generarLocalidadNueva())) {
+		if (ValidadorObjetosDTO.nuevaLocalidadEsValida(generarLocalidadNueva(),obtenerLocalidades())) {
 			this.agenda.agregarLocalidad(generarLocalidadNueva());
 			this.refrescarTablaLocalidades();
 			ventanaPersona.agregarLocalidadesComboBox(obtenerLocalidades());
@@ -278,8 +264,7 @@ public class Controlador implements ActionListener {
 	}
 	
 	private void editarLocalidad(ActionEvent a) {
-		
-		if (nuevaLocalidadEsValida(generarLocalidadNueva())) {
+		if (ValidadorObjetosDTO.nuevaLocalidadEsValida(generarLocalidadNueva(),obtenerLocalidades())) {
 			
 			int[] filasSeleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
 			for (int fila : filasSeleccionadas) {

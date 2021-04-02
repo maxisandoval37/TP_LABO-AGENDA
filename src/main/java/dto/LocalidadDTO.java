@@ -2,19 +2,19 @@ package dto;
 
 public class LocalidadDTO {
 
-	private int idCodPostal;
+	private Integer idCodPostal;
 	private String Pais;
 	private String Provincia;
 	private String NombreLocalidad;
 	
-	public LocalidadDTO(int codPostal, String Pais,String Provincia, String NombreLocalidad) {
+	public LocalidadDTO(Integer codPostal, String Pais,String Provincia, String NombreLocalidad) {
 		this.idCodPostal = codPostal;
 		this.Pais = Pais;
 		this.Provincia = Provincia;
 		this.NombreLocalidad = NombreLocalidad;
 	}
 
-	public int getIdCodPostal() {
+	public Integer getIdCodPostal() {
 		return idCodPostal;
 	}
 
@@ -32,7 +32,7 @@ public class LocalidadDTO {
 
 	@Override
 	public String toString() {
-		if (this.NombreLocalidad.length()==0 && this.Provincia.length()==0 && this.Pais.length()==0)
+		if ((this.idCodPostal+"").length()==0 || this.NombreLocalidad.length()==0 || this.Provincia.length()==0 || this.Pais.length()==0)
 			return "";
 		return this.NombreLocalidad + " - " + this.Provincia + " - " + this.Pais;
 	}
