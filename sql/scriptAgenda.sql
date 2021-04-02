@@ -10,9 +10,9 @@ CREATE TABLE IF NOT EXISTS `signos`(
 
 CREATE TABLE IF NOT EXISTS `localidades`(
   `codPostal` int (4) NOT NULL,
-  `Pais` varchar(45) NOT NULL,
-  `Provincia` varchar(45) NOT NULL,
-  `nombreLocalidad` varchar(45) NOT NULL,
+  `Pais` varchar(20) NOT NULL,
+  `Provincia` varchar(20) NOT NULL,
+  `nombreLocalidad` varchar(20) NOT NULL,
   
   PRIMARY KEY(codPostal)
 );

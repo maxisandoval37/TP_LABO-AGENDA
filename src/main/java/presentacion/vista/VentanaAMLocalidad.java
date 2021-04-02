@@ -6,6 +6,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.regex.Pattern;
 
 public class VentanaAMLocalidad extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -99,6 +102,27 @@ public class VentanaAMLocalidad extends JFrame{
 		btnEditarLocalidad.setBounds(150, 300, 90, 23);
 		btnEditarLocalidad.setVisible(false);
 		panel.add(btnEditarLocalidad);
+		
+		aplicarKeyListener(this.txtCP,"\\d",4);
+		aplicarKeyListener(this.txtLocalidad,"\\w",20);
+		aplicarKeyListener(this.txtProvincia,"\\w",20);
+		aplicarKeyListener(this.txtPais,"\\w",20);
+	}
+	
+	private void aplicarKeyListener(JTextField jtf, String regex, int limiteDeCaracteres) {
+		jtf.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char caracter = e.getKeyChar();
+				Pattern pattern2 = Pattern.compile(regex);
+				if (!pattern2.matcher(""+caracter).matches()) {
+					e.consume();
+				}
+				else {
+					if (jtf.getText().length()>=limiteDeCaracteres)
+						e.consume();
+				}
+			}
+		});
 	}
 	
 	public JTextField getTxtCodPostal() {

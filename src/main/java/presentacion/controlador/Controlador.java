@@ -255,7 +255,7 @@ public class Controlador implements ActionListener {
 	}
 	
 	private void guardarLocalidad(ActionEvent a) {
-		if (ValidadorObjetosDTO.nuevaLocalidadEsValida(generarLocalidadNueva(),obtenerLocalidades())) {
+		if (ValidadorObjetos.nuevaLocalidadEsValida(generarLocalidadNueva(),obtenerLocalidades())) {
 			this.agenda.agregarLocalidad(generarLocalidadNueva());
 			this.refrescarTablaLocalidades();
 			ventanaPersona.agregarLocalidadesComboBox(obtenerLocalidades());
@@ -264,7 +264,7 @@ public class Controlador implements ActionListener {
 	}
 	
 	private void editarLocalidad(ActionEvent a) {
-		if (ValidadorObjetosDTO.nuevaLocalidadEsValida(generarLocalidadNueva(),obtenerLocalidades())) {
+		if (ValidadorObjetos.nuevaLocalidadEsValida(generarLocalidadNueva(),obtenerLocalidades())) {
 			
 			int[] filasSeleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
 			for (int fila : filasSeleccionadas) {

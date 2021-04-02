@@ -4,7 +4,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import dto.LocalidadDTO;
 
-public class ValidadorObjetosDTO {
+public class ValidadorObjetos {
 	
 	public static boolean nuevaLocalidadEsValida(LocalidadDTO nuevaLocalidad,List<LocalidadDTO> localidadesExistentes) {
 		boolean bandera = true;
