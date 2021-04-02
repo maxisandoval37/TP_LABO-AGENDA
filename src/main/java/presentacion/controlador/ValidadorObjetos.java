@@ -3,6 +3,7 @@ package presentacion.controlador;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
@@ -27,6 +28,13 @@ public class ValidadorObjetos {
 				}
 			}
 		});
+	}
+	
+	public static boolean formatoMailValido(String cad) {
+		Pattern pattern2 = Pattern.compile("\\w+@\\w+(\\.\\w+)+");
+		Matcher matcher = pattern2.matcher(cad);
+		
+		return matcher.matches();
 	}
 	
 	public static boolean nuevaLocalidadEsValida(LocalidadDTO nuevaLocalidad,List<LocalidadDTO> localidadesExistentes) {

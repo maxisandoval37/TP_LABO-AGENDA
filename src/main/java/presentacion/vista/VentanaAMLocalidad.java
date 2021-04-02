@@ -6,12 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
 import presentacion.controlador.ValidadorObjetos;
-
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.regex.Pattern;
 
 public class VentanaAMLocalidad extends JFrame{
 	private static final long serialVersionUID = 1L;

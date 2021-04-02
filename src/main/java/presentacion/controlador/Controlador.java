@@ -152,7 +152,7 @@ public class Controlador implements ActionListener {
 			ventanaPersona.getTxtFechaCumple().setText(personasEnTabla.get(fila).getFechaCumple().toString());
 		}
 	}
-
+	
 	private void guardarPersona(ActionEvent p) {
 		try {
 			String nombre = this.ventanaPersona.getTxtNombre().getText();
@@ -164,18 +164,24 @@ public class Controlador implements ActionListener {
 			LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
 			
 			String email = ventanaPersona.getTxtEmail().getText();
-			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
-			LocalDate auxFecha = LocalDate.parse(fechaCumple);
-			SignoZodiacoDTO signo = ventanaPersona.getSignoZodiacoSeleccionado();
-				
-			int IdDom = this.agenda.obtenerUltimoIdDomicilio()+1;
-			DomicilioDTO domicilio = new DomicilioDTO(IdDom,calle, altura, piso, departamento, localidad);
-			this.agenda.agregarDomicilio(domicilio);
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha,signo);
+			if (ValidadorObjetos.formatoMailValido(email)) {
+				String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
+				LocalDate auxFecha = LocalDate.parse(fechaCumple);
+				SignoZodiacoDTO signo = ventanaPersona.getSignoZodiacoSeleccionado();
+					
+				int IdDom = this.agenda.obtenerUltimoIdDomicilio()+1;
+				DomicilioDTO domicilio = new DomicilioDTO(IdDom,calle, altura, piso, departamento, localidad);
+				this.agenda.agregarDomicilio(domicilio);
+				PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha,signo);
 
-			this.agenda.agregarPersona(nuevaPersona);
-			this.refrescarTablaPersonas();
-			this.ventanaPersona.resetearVista();
+				this.agenda.agregarPersona(nuevaPersona);
+				this.refrescarTablaPersonas();
+				this.ventanaPersona.resetearVista();
+			}
+			else {
+				System.out.println("es invalido");
+			}
+			
 		}
 
 		catch (Exception e) {
