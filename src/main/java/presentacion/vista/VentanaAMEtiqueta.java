@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import presentacion.controlador.ValidadorObjetos;
+
 public class VentanaAMEtiqueta extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -41,6 +43,7 @@ public class VentanaAMEtiqueta extends JFrame{
 		
 		inicializarElemsVisuales(panel);
 		
+		
 		this.setVisible(false);
 	}
 	
@@ -68,6 +71,10 @@ public class VentanaAMEtiqueta extends JFrame{
 		btnEditarEtiqueta.setBounds(110, 200, 89, 23);
 		btnEditarEtiqueta.setVisible(false);
 		panel.add(btnEditarEtiqueta);
+		
+		ValidadorObjetos.aplicarKeyListener(this.txtTipoEtiqueta,"\\w",20);
+		
+		
 	}
 	
 	public JTextField getTxtTipoEtiqueta() {

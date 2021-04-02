@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `domicilios`(
 
 CREATE TABLE IF NOT EXISTS `etiquetas`(
   idEtiqueta int(11) NOT NULL AUTO_INCREMENT,
-  tipoEtiqueta varchar(45) NOT NULL,
+  tipoEtiqueta varchar(20) NOT NULL,
 
   PRIMARY KEY (idEtiqueta)
 );

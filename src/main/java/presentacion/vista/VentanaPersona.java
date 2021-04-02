@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import dto.EtiquetaDTO;
 import dto.LocalidadDTO;
 import dto.SignoZodiacoDTO;
+import presentacion.controlador.ValidadorObjetos;
 
 public class VentanaPersona extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -163,6 +164,13 @@ public class VentanaPersona extends JFrame {
 		panel.add(btnEditarPersona);
 		
 		this.setVisible(false);
+		
+		ValidadorObjetos.aplicarKeyListener(this.txtCalle,"\\w",20);
+		ValidadorObjetos.aplicarKeyListener(this.txtAltura,"\\d",8);
+		ValidadorObjetos.aplicarKeyListener(this.txtPiso,"\\d",4);
+		ValidadorObjetos.aplicarKeyListener(this.txtDepartamento,"\\d",4);
+		//ValidadorObjetos.aplicarKeyListener(this.txtEmail,"[^@]+@[^@]+\\.[a-zA-Z]{2,}",20);
+		//ValidadorObjetos.aplicarKeyListener(this.txtFechaCumple,"\\d{4}/\\d{1,2}/\\d{1,2}",20);
 	}
 	
 	private void comboboxTipoDireccion(JPanel panel) {

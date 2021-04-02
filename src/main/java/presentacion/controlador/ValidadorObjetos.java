@@ -1,11 +1,33 @@
 package presentacion.controlador;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.List;
+import java.util.regex.Pattern;
+
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 import dto.EtiquetaDTO;
 import dto.LocalidadDTO;
 
 public class ValidadorObjetos {
+	
+	public static void aplicarKeyListener(JTextField jtf, String regex, int limiteDeCaracteres) {
+		jtf.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char caracter = e.getKeyChar();
+				Pattern pattern2 = Pattern.compile(regex);
+				if (!pattern2.matcher(""+caracter).matches()) {
+					e.consume();
+				}
+				else {
+					if (jtf.getText().length()>=limiteDeCaracteres)
+						e.consume();
+				}
+			}
+		});
+	}
 	
 	public static boolean nuevaLocalidadEsValida(LocalidadDTO nuevaLocalidad,List<LocalidadDTO> localidadesExistentes) {
 		boolean bandera = true;
