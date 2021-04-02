@@ -308,30 +308,10 @@ public class Controlador implements ActionListener {
 		return this.agenda.obtenerLocalidades();
 	}
 
-	private boolean nuevaEtiquetaEsValida(String tipoEtiqueta) {
-		boolean bandera = true;
-
-		if (tipoEtiqueta.equals("")) {
-			JOptionPane.showMessageDialog(null, "Complete el tipo de Etiqueta");
-			bandera = false;
-		}
-
-		else {
-			for (EtiquetaDTO eit : obtenerEtiquetas()) {
-				if (eit.getTipoEtiqueta().equalsIgnoreCase(tipoEtiqueta)) {
-					JOptionPane.showMessageDialog(null, "La etiqueta ya existe");
-					bandera = false;
-					break;
-				}
-			}
-		}
-		return bandera;
-	}
-	
 	private void guardarEtiqueta(ActionEvent e) {
 		String tipoEtiqueta = this.ventanaAMEtiqueta.getTxtTipoEtiqueta().getText();
 
-		if (nuevaEtiquetaEsValida(tipoEtiqueta)) {
+		if (ValidadorObjetos.nuevaEtiquetaEsValida(tipoEtiqueta,obtenerEtiquetas())) {
 			EtiquetaDTO nuevaEtiqueta = new EtiquetaDTO(0, tipoEtiqueta);
 			this.agenda.agregarEtiqueta(nuevaEtiqueta);
 			this.refrescarTablaEtiquetas();
@@ -343,7 +323,7 @@ public class Controlador implements ActionListener {
 	private void editarEtiqueta(ActionEvent e) {
 		String tipoEtiqueta = this.ventanaAMEtiqueta.getTxtTipoEtiqueta().getText();
 		
-		if (nuevaEtiquetaEsValida(tipoEtiqueta)) {
+		if (ValidadorObjetos.nuevaEtiquetaEsValida(tipoEtiqueta,obtenerEtiquetas())) {
 			
 			int[] filasSeleccionadas = this.ventanaEtiqueta.getTablaEtiquetas().getSelectedRows();
 			for (int fila : filasSeleccionadas) {
