@@ -207,6 +207,7 @@ public class Controlador implements ActionListener {
 				
 				this.personasEnTabla.get(fila).setEmail(ventanaPersona.getTxtEmail().getText());
 				this.personasEnTabla.get(fila).setEtiqueta(ventanaPersona.getEtiquetaSeleccionada());
+				this.personasEnTabla.get(fila).setSignoZodiaco(ventanaPersona.getSignoZodiacoSeleccionado());
 				String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 				LocalDate auxFecha = LocalDate.parse(fechaCumple);
 				this.personasEnTabla.get(fila).setFechaCumple(auxFecha);

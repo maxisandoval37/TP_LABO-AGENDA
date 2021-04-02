@@ -105,7 +105,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setInt(4, persona_nueva.getDomicilio().getId());
 			statement.setInt(5, persona_nueva.getEtiqueta().getId());
 			statement.setString(6, persona_nueva.getFechaCumple().toString());
-			statement.setString(7, persona_nueva.getSignoZodiaco().getSigno());
+			statement.setInt(7, persona_nueva.getSignoZodiaco().getIdSigno());
 			statement.setInt(8, id_a_editar);
 
 			if (statement.executeUpdate() > 0) {
