@@ -144,16 +144,24 @@ public class Controlador implements ActionListener {
 		for (int fila : filasSeleccionadas) {
 			ventanaPersona.getTxtNombre().setText(personasEnTabla.get(fila).getNombre());
 			ventanaPersona.getTxtTelefono().setText(personasEnTabla.get(fila).getTelefono());
-			ventanaPersona.getTxtAltura().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getAltura()));
-			ventanaPersona.getTxtCalle().setText(personasEnTabla.get(fila).getDomicilio().getCalle());
-			ventanaPersona.getTxtDepartamento().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getDepto()));
 			ventanaPersona.getTxtEmail().setText(personasEnTabla.get(fila).getEmail());
-			ventanaPersona.getTxtPiso().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getPiso()));
 			ventanaPersona.getTxtFechaCumple().setText(personasEnTabla.get(fila).getFechaCumple().toString());
+			
+			try {
+				ventanaPersona.getTxtAltura().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getAltura()));
+				ventanaPersona.getTxtCalle().setText(personasEnTabla.get(fila).getDomicilio().getCalle());
+				ventanaPersona.getTxtDepartamento().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getDepto()));
+				ventanaPersona.getTxtPiso().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getPiso()));
+			}
+			
+			catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
 		}
 	}
 	
-	private void generarPersonaNueva() {
+	private void generarPersonaNuevaConDomicilio() {
 		String nombre = this.ventanaPersona.getTxtNombre().getText();
 		String tel = ventanaPersona.getTxtTelefono().getText();
 		String calle = ventanaPersona.getTxtCalle().getText();
@@ -176,20 +184,34 @@ public class Controlador implements ActionListener {
 		this.ventanaPersona.resetearVista();
 	}
 	
+	private void generarPersonaNuevaSinDomicilio() {
+		String nombre = this.ventanaPersona.getTxtNombre().getText();
+		String tel = ventanaPersona.getTxtTelefono().getText();
+		String email = ventanaPersona.getTxtEmail().getText();
+		String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
+		LocalDate auxFecha = LocalDate.parse(fechaCumple);
+		SignoZodiacoDTO signo = ventanaPersona.getSignoZodiacoSeleccionado();
+		
+		PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, null, email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha,signo);
+
+		this.agenda.agregarPersona(nuevaPersona);
+		this.refrescarTablaPersonas();
+		this.ventanaPersona.resetearVista();
+	}
+	
 	private void guardarPersona(ActionEvent p) {
-		try {
+		
+		if (ventanaPersona.getLocalidadSeleccionada() != null) {
 			if (ValidadorObjetos.formatoMailValido(ventanaPersona.getTxtEmail().getText()))
-				generarPersonaNueva();
-			else 
+				generarPersonaNuevaConDomicilio();
+			else
 				JOptionPane.showMessageDialog(null, "El formato del E-Mail no es valido");
 		}
-
-		catch (Exception e) {
-			if (e.getMessage().equals("For input string: \"\""))
-				JOptionPane.showMessageDialog(null, "Complete los campos vacios");
-			else
-				JOptionPane.showMessageDialog(null, e.getMessage());
+		else {
+			generarPersonaNuevaSinDomicilio();
 		}
+		
+		// JOptionPane.showMessageDialog(null, "Asegurese de completar el Nombre, Tel y Email");
 	}
 
 	private void editarPersona(ActionEvent p) {

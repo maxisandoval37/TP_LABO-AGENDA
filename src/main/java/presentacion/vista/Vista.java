@@ -145,21 +145,28 @@ public class Vista {
 		for (PersonaDTO p : personasEnTabla) {
 			String nombre = p.getNombre();
 			String tel = p.getTelefono();
-			String localidad = p.getDomicilio().getLocalidad().getNombreLocalidad();
-			int codPostal = p.getDomicilio().getLocalidad().getIdCodPostal();
-			String provincia = p.getDomicilio().getLocalidad().getProvincia();
-			String pais = p.getDomicilio().getLocalidad().getPais();
-			String calle = p.getDomicilio().getCalle();
-			int altura = p.getDomicilio().getAltura();
-			int piso = p.getDomicilio().getPiso();
-			int depa = p.getDomicilio().getDepto();
 			String email = p.getEmail();
 			String fechaCumple = p.getFechaCumple().toString();
 			String etiq = p.getEtiqueta().getTipoEtiqueta();
 			String zodiaco = p.getSignoZodiaco().getSigno();
-
-			Object[] fila = { nombre, tel, localidad,codPostal,provincia,pais, calle, altura, piso, depa, email, fechaCumple, etiq, zodiaco };
-			this.getModelPersonas().addRow(fila);
+			
+			try {
+				String localidad = p.getDomicilio().getLocalidad().getNombreLocalidad();
+				int codPostal = p.getDomicilio().getLocalidad().getIdCodPostal();
+				String provincia = p.getDomicilio().getLocalidad().getProvincia();
+				String pais = p.getDomicilio().getLocalidad().getPais();
+				String calle = p.getDomicilio().getCalle();
+				int altura = p.getDomicilio().getAltura();
+				int piso = p.getDomicilio().getPiso();
+				int depa = p.getDomicilio().getDepto();
+				
+				Object[] fila = { nombre, tel, localidad,codPostal,provincia,pais, calle, altura, piso, depa, email, fechaCumple, etiq, zodiaco };
+				this.getModelPersonas().addRow(fila);
+			}
+			catch(Exception e) {
+				Object[] fila = { nombre, tel, "","","","","","","","", email, fechaCumple, etiq, zodiaco };
+				this.getModelPersonas().addRow(fila);
+			}
 		}
 	}
 }

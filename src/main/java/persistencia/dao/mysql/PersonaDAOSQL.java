@@ -35,7 +35,12 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setString(2, persona.getNombre());
 			statement.setString(3, persona.getTelefono());
 			statement.setString(4, persona.getEmail());
-			statement.setInt(5, persona.getDomicilio().getId());
+			try {
+				statement.setInt(5, persona.getDomicilio().getId());
+			}
+			catch (Exception e) {
+				statement.setString(5, null);
+			}
 			statement.setInt(6, persona.getEtiqueta().getId());
 			statement.setString(7, persona.getFechaCumple().toString());
 			statement.setInt(8, persona.getSignoZodiaco().getIdSigno());
@@ -86,7 +91,11 @@ public class PersonaDAOSQL implements PersonaDAO {
 			e.printStackTrace();
 		}
 		
-		deleteAddressInUse(persona_a_eliminar.getDomicilio().getId());
+		try {
+			deleteAddressInUse(persona_a_eliminar.getDomicilio().getId());	
+		}
+		catch (Exception e) {}
+		
 		return isdeleteExitoso;
 	}
 
