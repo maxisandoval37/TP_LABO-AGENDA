@@ -42,4 +42,13 @@ public class DomicilioDTO {
 		return localidad;
 	}
 
+	@Override
+	public String toString() {
+		if (this.calle.isEmpty() && (this.altura+"").toString().isEmpty() && (this.piso+"").toString().isEmpty() && 
+				(this.depto+"").toString().isEmpty() && localidad == null) {
+			return "";
+		}
+		return idDomicilio + " - " + calle + " - " + altura + " - " + piso +  "- " + depto + " - " + localidad;
+	}
+
 }

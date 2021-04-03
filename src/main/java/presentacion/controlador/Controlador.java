@@ -159,24 +159,30 @@ public class Controlador implements ActionListener {
 	}
 	
 	private void generarPersonaNuevaConDomicilio() {
-		String nombre = this.ventanaPersona.getTxtNombre().getText();
-		String tel = ventanaPersona.getTxtTelefono().getText();
-		String calle = ventanaPersona.getTxtCalle().getText();
-		int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
-		int piso =  Integer.parseInt(ventanaPersona.getTxtPiso().getText());
-		int departamento =  Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
-		LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
-		String email = ventanaPersona.getTxtEmail().getText();
-		String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
-		LocalDate auxFecha = LocalDate.parse(fechaCumple);
-		SignoZodiacoDTO signo = ventanaPersona.getSignoZodiacoSeleccionado();
+		try {
+			String nombre = this.ventanaPersona.getTxtNombre().getText();
+			String tel = ventanaPersona.getTxtTelefono().getText();
+			String calle = ventanaPersona.getTxtCalle().getText();
+			int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
+			int piso =  Integer.parseInt(ventanaPersona.getTxtPiso().getText());
+			int departamento =  Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
+			LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
+			String email = ventanaPersona.getTxtEmail().getText();
+			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
+			LocalDate auxFecha = LocalDate.parse(fechaCumple);
+			SignoZodiacoDTO signo = ventanaPersona.getSignoZodiacoSeleccionado();
+				
+			int IdDom = this.agenda.obtenerUltimoIdDomicilio()+1;
+			DomicilioDTO domicilio = new DomicilioDTO(IdDom,calle, altura, piso, departamento, localidad);
 			
-		int IdDom = this.agenda.obtenerUltimoIdDomicilio()+1;
-		DomicilioDTO domicilio = new DomicilioDTO(IdDom,calle, altura, piso, departamento, localidad);
-		this.agenda.agregarDomicilio(domicilio);
-		
-		PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha,signo);
-		this.agenda.agregarPersona(nuevaPersona);
+			this.agenda.agregarDomicilio(domicilio);
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha,signo);
+			this.agenda.agregarPersona(nuevaPersona);
+		}
+
+		catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "Complete todos los datos del domicilio");	
+		}
 	}
 	
 	private void generarPersonaNuevaSinDomicilio() {
@@ -186,13 +192,12 @@ public class Controlador implements ActionListener {
 		String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 		LocalDate auxFecha = LocalDate.parse(fechaCumple);
 		SignoZodiacoDTO signo = ventanaPersona.getSignoZodiacoSeleccionado();
-		
 		PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, null, email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha,signo);
 		this.agenda.agregarPersona(nuevaPersona);
 	}
 	
 	private void guardarPersona(ActionEvent p) {
-		if (ventanaPersona.getLocalidadSeleccionada() != null) {
+		if (ventanaPersona.getLocalidadSeleccionada() != null && ventanaPersona.getEstadoCheckBoxDireccion()) {
 			if (ValidadorObjetos.formatoMailValido(ventanaPersona.getTxtEmail().getText()))
 				generarPersonaNuevaConDomicilio();
 			else
@@ -209,31 +214,44 @@ public class Controlador implements ActionListener {
 	private void editarDatosPersonaConDomicilioExistente(int fila) {
 		editarDatosBasesPersonaSinDomicilio(fila);
 		
-		String calle = ventanaPersona.getTxtCalle().getText();
-		int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
-		int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
-		int departamento = Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
-		LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
-		
-		int idDom = this.personasEnTabla.get(fila).getDomicilio().getId();
-		DomicilioDTO domicilio = new DomicilioDTO(idDom,calle, altura, piso, departamento, localidad);
-		this.personasEnTabla.get(fila).setDomicilio(domicilio);
-		this.agenda.editarDomicilio(idDom, domicilio);
+		try {
+			String calle = ventanaPersona.getTxtCalle().getText();
+			int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
+			int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
+			int departamento = Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
+			LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
+			
+			int idDom = this.personasEnTabla.get(fila).getDomicilio().getId();
+			DomicilioDTO domicilio = new DomicilioDTO(idDom,calle, altura, piso, departamento, localidad);
+
+			this.personasEnTabla.get(fila).setDomicilio(domicilio);
+			this.agenda.editarDomicilio(idDom, domicilio);
+		}
+
+		catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "Complete todos los datos del domicilio");	
+		}
 	}
 	
 	private void editarDatosPersonaYcrearDomicilio(int fila) {
 		editarDatosBasesPersonaSinDomicilio(fila);
+		try {
+			String calle = ventanaPersona.getTxtCalle().getText();
+			int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
+			int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
+			int departamento = Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
+			LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
+			
+			int idDom = agenda.obtenerUltimoIdDomicilio()+1;
+			DomicilioDTO domicilio = new DomicilioDTO(idDom,calle, altura, piso, departamento, localidad);
+			
+			this.personasEnTabla.get(fila).setDomicilio(domicilio);
+			this.agenda.agregarDomicilio(domicilio);
+		}
 		
-		String calle = ventanaPersona.getTxtCalle().getText();
-		int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
-		int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
-		int departamento = Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
-		LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
-		
-		int idDom = agenda.obtenerUltimoIdDomicilio()+1;
-		DomicilioDTO domicilio = new DomicilioDTO(idDom,calle, altura, piso, departamento, localidad);
-		this.personasEnTabla.get(fila).setDomicilio(domicilio);
-		this.agenda.agregarDomicilio(domicilio);
+		catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "Complete todos los datos del domicilio");	
+		}
 	}
 	
 	private void editarDatosBasesPersonaSinDomicilio(int fila) {
@@ -253,7 +271,7 @@ public class Controlador implements ActionListener {
 			try {
 				editarDatosPersonaConDomicilioExistente(fila);
 			} catch (Exception e) {
-				if (ventanaPersona.getLocalidadSeleccionada() != null)
+				if (ventanaPersona.getLocalidadSeleccionada() != null && ventanaPersona.getEstadoCheckBoxDireccion())
 					editarDatosPersonaYcrearDomicilio(fila);
 				else
 					editarDatosBasesPersonaSinDomicilio(fila);

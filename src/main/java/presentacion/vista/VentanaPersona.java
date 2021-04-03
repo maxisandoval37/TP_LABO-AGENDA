@@ -21,6 +21,7 @@ public class VentanaPersona extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtNombre;
 	private JTextField txtTelefono;
+	JCheckBox checkboxDomicilio;
 	
 	private JComboBox<LocalidadDTO> jcbLocalidades;
 	private LocalidadDTO localidadSeleccionada;
@@ -178,15 +179,15 @@ public class VentanaPersona extends JFrame {
 	}
 	
 	private void gestionarCheckBoxDireccion(JPanel panel) {
-		JCheckBox checkbox = new JCheckBox("Cargar Direccion");
-		checkbox.setBounds(jcbLocalidades.getX()+300,jcbLocalidades.getY(), 20, 20);
-		panel.add(checkbox);
+		checkboxDomicilio = new JCheckBox("Cargar Direccion");
+		checkboxDomicilio.setBounds(jcbLocalidades.getX()+300,jcbLocalidades.getY(), 20, 20);
+		panel.add(checkboxDomicilio);
 		
-		checkbox.setSelected(false);
-		checkbox.addActionListener(new ActionListener() {
+		checkboxDomicilio.setSelected(false);
+		checkboxDomicilio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent l) {
-				if (checkbox.isSelected()) {
+				if (checkboxDomicilio.isSelected()) {
 					cambiarUsabilidadElemsDireccion(true);
 				} else {
 					cambiarUsabilidadElemsDireccion(false);
@@ -300,6 +301,7 @@ public class VentanaPersona extends JFrame {
 		this.txtDepartamento.setText(null);
 		this.txtEmail.setText(null);
 		this.txtFechaCumple.setText(null);
+		this.checkboxDomicilio.setSelected(false);
 		btnEditarPersona.setVisible(false);
 		btnAgregarPersona.setVisible(true);
 		this.dispose();
@@ -331,6 +333,10 @@ public class VentanaPersona extends JFrame {
 
 	public JTextField getTxtFechaCumple() {
 		return txtFechaCumple;
+	}
+	
+	public boolean getEstadoCheckBoxDireccion() {
+		return checkboxDomicilio.isSelected();
 	}
 	
 	public LocalidadDTO getLocalidadSeleccionada() {
