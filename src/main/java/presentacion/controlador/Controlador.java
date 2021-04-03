@@ -213,24 +213,20 @@ public class Controlador implements ActionListener {
 	
 	private void editarDatosPersonaConDomicilioExistente(int fila) {
 		editarDatosBasesPersonaSinDomicilio(fila);
-		
-		try {
-			String calle = ventanaPersona.getTxtCalle().getText();
-			int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
-			int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
-			int departamento = Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
-			LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
-			
-			int idDom = this.personasEnTabla.get(fila).getDomicilio().getId();
-			DomicilioDTO domicilio = new DomicilioDTO(idDom,calle, altura, piso, departamento, localidad);
 
-			this.personasEnTabla.get(fila).setDomicilio(domicilio);
-			this.agenda.editarDomicilio(idDom, domicilio);
-		}
+		String calle = ventanaPersona.getTxtCalle().getText();
+		int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
+		int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
+		int departamento = Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
+		LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
 
-		catch(Exception e) {
-			JOptionPane.showMessageDialog(null, "Complete todos los datos del domicilio");	
-		}
+		int idDom = this.personasEnTabla.get(fila).getDomicilio().getId();
+		DomicilioDTO domicilio = new DomicilioDTO(idDom, calle, altura, piso, departamento, localidad);
+
+		this.personasEnTabla.get(fila).setDomicilio(domicilio);
+		this.agenda.editarDomicilio(idDom, domicilio);
+		auxEditarPersonaYcargarVista(fila);
+		this.ventanaPersona.resetearVista();
 	}
 	
 	private void editarDatosPersonaYcrearDomicilio(int fila) {
@@ -247,10 +243,11 @@ public class Controlador implements ActionListener {
 			
 			this.personasEnTabla.get(fila).setDomicilio(domicilio);
 			this.agenda.agregarDomicilio(domicilio);
+			auxEditarPersonaYcargarVista(fila);
+			this.ventanaPersona.resetearVista();
 		}
-		
 		catch(Exception e) {
-			JOptionPane.showMessageDialog(null, "Complete todos los datos del domicilio");	
+			JOptionPane.showMessageDialog(null, "Complete todos los datos del domicilio");
 		}
 	}
 	
@@ -263,6 +260,13 @@ public class Controlador implements ActionListener {
 		String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 		LocalDate auxFecha = LocalDate.parse(fechaCumple);
 		this.personasEnTabla.get(fila).setFechaCumple(auxFecha);
+		auxEditarPersonaYcargarVista(fila);
+	}
+	
+	private void auxEditarPersonaYcargarVista(int fila){
+		int idPersonaClick = this.personasEnTabla.get(fila).getIdPersona();
+		this.agenda.editarPersona(idPersonaClick, this.personasEnTabla.get(fila));
+		this.refrescarTablaPersonas();
 	}
 
 	private void editarPersona(ActionEvent p) {
@@ -273,15 +277,11 @@ public class Controlador implements ActionListener {
 			} catch (Exception e) {
 				if (ventanaPersona.getLocalidadSeleccionada() != null && ventanaPersona.getEstadoCheckBoxDireccion())
 					editarDatosPersonaYcrearDomicilio(fila);
-				else
+				else {
 					editarDatosBasesPersonaSinDomicilio(fila);
+					this.ventanaPersona.resetearVista();
+				}
 			}
-
-			int idPersonaClick = this.personasEnTabla.get(fila).getIdPersona();
-			this.agenda.editarPersona(idPersonaClick, this.personasEnTabla.get(fila));
-			
-			this.refrescarTablaPersonas();
-			this.ventanaPersona.resetearVista();
 			break;
 		}
 	}
