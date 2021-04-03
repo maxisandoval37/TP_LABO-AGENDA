@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -152,6 +153,7 @@ public class VentanaPersona extends JFrame {
 		
 		comboBoxTipoContacto(panel);
 		comboBoxTipoSignoZodiaco(panel);
+		gestionarCheckBoxDireccion(panel);
 		
 		btnAgregarPersona = new JButton("Agregar");
 		btnAgregarPersona.setBounds(208, jcbSignoZodiaco.getY()+80, 89, 23);
@@ -164,6 +166,7 @@ public class VentanaPersona extends JFrame {
 		panel.add(btnEditarPersona);
 		
 		this.setVisible(false);
+		cambiarUsabilidadElemsDireccion(false);
 		
 		ValidadorObjetos.aplicarKeyListener(this.txtNombre,"\\w|\\ |\\.",30);
 		ValidadorObjetos.aplicarKeyListener(this.txtTelefono,"\\d|\\+|\\(|\\)|\\*|\\#",20);
@@ -172,6 +175,32 @@ public class VentanaPersona extends JFrame {
 		ValidadorObjetos.aplicarKeyListener(this.txtPiso,"\\d",4);
 		ValidadorObjetos.aplicarKeyListener(this.txtDepartamento,"\\d",4);
 		ValidadorObjetos.aplicarKeyListener(this.txtEmail,"\\w|\\W",30);
+	}
+	
+	private void gestionarCheckBoxDireccion(JPanel panel) {
+		JCheckBox checkbox = new JCheckBox("Cargar Direccion");
+		checkbox.setBounds(jcbLocalidades.getX()+300,jcbLocalidades.getY(), 20, 20);
+		panel.add(checkbox);
+		
+		checkbox.setSelected(false);
+		checkbox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent l) {
+				if (checkbox.isSelected()) {
+					cambiarUsabilidadElemsDireccion(true);
+				} else {
+					cambiarUsabilidadElemsDireccion(false);
+				}
+			}
+		});
+	}
+	
+	private void cambiarUsabilidadElemsDireccion(boolean visibilidad) {
+		jcbLocalidades.setEnabled(visibilidad);
+		txtCalle.setEnabled(visibilidad);
+		txtAltura.setEnabled(visibilidad);
+		txtPiso.setEnabled(visibilidad);
+		txtDepartamento.setEnabled(visibilidad);
 	}
 	
 	private void comboboxTipoDireccion(JPanel panel) {

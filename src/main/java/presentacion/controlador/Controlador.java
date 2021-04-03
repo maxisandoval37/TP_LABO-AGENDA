@@ -154,10 +154,7 @@ public class Controlador implements ActionListener {
 				ventanaPersona.getTxtPiso().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getPiso()));
 			}
 			
-			catch(Exception e) {
-				System.out.println(e.getMessage());
-			}
-			
+			catch(Exception e) {}
 		}
 	}
 	
