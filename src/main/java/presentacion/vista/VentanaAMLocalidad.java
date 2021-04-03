@@ -102,12 +102,10 @@ public class VentanaAMLocalidad extends JFrame{
 		panel.add(btnEditarLocalidad);
 		
 		ValidadorObjetos.aplicarKeyListener(this.txtCP,"\\d",4);
-		ValidadorObjetos.aplicarKeyListener(this.txtLocalidad,"\\w",20);
-		ValidadorObjetos.aplicarKeyListener(this.txtProvincia,"\\w",20);
-		ValidadorObjetos.aplicarKeyListener(this.txtPais,"\\w",20);
+		ValidadorObjetos.aplicarKeyListener(this.txtLocalidad,"\\w|\\ |\\.",20);
+		ValidadorObjetos.aplicarKeyListener(this.txtProvincia,"\\w|\\ |\\.",20);
+		ValidadorObjetos.aplicarKeyListener(this.txtPais,"\\w|\\ |\\.",20);
 	}
-	
-	
 	
 	public JTextField getTxtCodPostal() {
 		return txtCP;

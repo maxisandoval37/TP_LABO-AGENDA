@@ -209,10 +209,9 @@ public class Controlador implements ActionListener {
 		// JOptionPane.showMessageDialog(null, "Asegurese de completar el Nombre, Tel y Email");
 	}
 	
-	private void editarPersonaConDomicilioExistente(int fila) {
-		this.personasEnTabla.get(fila).setNombre(this.ventanaPersona.getTxtNombre().getText());
-		this.personasEnTabla.get(fila).setTelefono(this.ventanaPersona.getTxtTelefono().getText());
-
+	private void editarDatosPersonaConDomicilioExistente(int fila) {
+		editarDatosBasesPersonaSinDomicilio(fila);
+		
 		String calle = ventanaPersona.getTxtCalle().getText();
 		int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
 		int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
@@ -223,22 +222,11 @@ public class Controlador implements ActionListener {
 		DomicilioDTO domicilio = new DomicilioDTO(idDom,calle, altura, piso, departamento, localidad);
 		this.personasEnTabla.get(fila).setDomicilio(domicilio);
 		this.agenda.editarDomicilio(idDom, domicilio);
-		
-		this.personasEnTabla.get(fila).setEmail(ventanaPersona.getTxtEmail().getText());
-		this.personasEnTabla.get(fila).setEtiqueta(ventanaPersona.getEtiquetaSeleccionada());
-		this.personasEnTabla.get(fila).setSignoZodiaco(ventanaPersona.getSignoZodiacoSeleccionado());
-		String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
-		LocalDate auxFecha = LocalDate.parse(fechaCumple);
-		this.personasEnTabla.get(fila).setFechaCumple(auxFecha);
-
-		int idPersonaClick = this.personasEnTabla.get(fila).getIdPersona();
-		this.agenda.editarPersona(idPersonaClick, this.personasEnTabla.get(fila));
 	}
 	
-	private void editarPersonaYCrearDomicilio(int fila) {
-		this.personasEnTabla.get(fila).setNombre(this.ventanaPersona.getTxtNombre().getText());
-		this.personasEnTabla.get(fila).setTelefono(this.ventanaPersona.getTxtTelefono().getText());
-
+	private void editarDatosPersonaYcrearDomicilio(int fila) {
+		editarDatosBasesPersonaSinDomicilio(fila);
+		
 		String calle = ventanaPersona.getTxtCalle().getText();
 		int altura = Integer.parseInt(ventanaPersona.getTxtAltura().getText());
 		int piso = Integer.parseInt(ventanaPersona.getTxtPiso().getText());
@@ -249,19 +237,9 @@ public class Controlador implements ActionListener {
 		DomicilioDTO domicilio = new DomicilioDTO(idDom,calle, altura, piso, departamento, localidad);
 		this.personasEnTabla.get(fila).setDomicilio(domicilio);
 		this.agenda.agregarDomicilio(domicilio);
-		
-		this.personasEnTabla.get(fila).setEmail(ventanaPersona.getTxtEmail().getText());
-		this.personasEnTabla.get(fila).setEtiqueta(ventanaPersona.getEtiquetaSeleccionada());
-		this.personasEnTabla.get(fila).setSignoZodiaco(ventanaPersona.getSignoZodiacoSeleccionado());
-		String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
-		LocalDate auxFecha = LocalDate.parse(fechaCumple);
-		this.personasEnTabla.get(fila).setFechaCumple(auxFecha);
-
-		int idPersonaClick = this.personasEnTabla.get(fila).getIdPersona();
-		this.agenda.editarPersona(idPersonaClick, this.personasEnTabla.get(fila));
 	}
 	
-	private void editarPersonaSinAgregarDomicilio(int fila) {
+	private void editarDatosBasesPersonaSinDomicilio(int fila) {
 		this.personasEnTabla.get(fila).setNombre(this.ventanaPersona.getTxtNombre().getText());
 		this.personasEnTabla.get(fila).setTelefono(this.ventanaPersona.getTxtTelefono().getText());
 		this.personasEnTabla.get(fila).setEmail(ventanaPersona.getTxtEmail().getText());
@@ -270,23 +248,23 @@ public class Controlador implements ActionListener {
 		String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 		LocalDate auxFecha = LocalDate.parse(fechaCumple);
 		this.personasEnTabla.get(fila).setFechaCumple(auxFecha);
-
-		int idPersonaClick = this.personasEnTabla.get(fila).getIdPersona();
-		this.agenda.editarPersona(idPersonaClick, this.personasEnTabla.get(fila));
 	}
 
 	private void editarPersona(ActionEvent p) {
 		int[] filasSeleccionadas = this.vista.getTablaPersonas().getSelectedRows();
 		for (int fila : filasSeleccionadas) {
 			try {
-				editarPersonaConDomicilioExistente(fila);
+				editarDatosPersonaConDomicilioExistente(fila);
 			} catch (Exception e) {
 				if (ventanaPersona.getLocalidadSeleccionada() != null)
-					editarPersonaYCrearDomicilio(fila);
+					editarDatosPersonaYcrearDomicilio(fila);
 				else
-					editarPersonaSinAgregarDomicilio(fila);
+					editarDatosBasesPersonaSinDomicilio(fila);
 			}
 
+			int idPersonaClick = this.personasEnTabla.get(fila).getIdPersona();
+			this.agenda.editarPersona(idPersonaClick, this.personasEnTabla.get(fila));
+			
 			this.refrescarTablaPersonas();
 			this.ventanaPersona.resetearVista();
 			break;
