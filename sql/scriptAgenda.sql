@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `etiquetas`(
 CREATE TABLE IF NOT EXISTS `personas`
 (
   `idPersona` int(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(45) NOT NULL,
+  `Nombre` varchar(30) NOT NULL,
   `Telefono` varchar(20) NOT NULL,
   `Email` varchar(30) NOT NULL,
   `idDomicilio` int(11),

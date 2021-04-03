@@ -165,6 +165,8 @@ public class VentanaPersona extends JFrame {
 		
 		this.setVisible(false);
 		
+		ValidadorObjetos.aplicarKeyListener(this.txtNombre,"\\w",30);
+		ValidadorObjetos.aplicarKeyListener(this.txtTelefono,"\\d|\\+|\\(|\\)|\\*|\\#",20);
 		ValidadorObjetos.aplicarKeyListener(this.txtCalle,"\\w",20);
 		ValidadorObjetos.aplicarKeyListener(this.txtAltura,"\\d",8);
 		ValidadorObjetos.aplicarKeyListener(this.txtPiso,"\\d",4);
