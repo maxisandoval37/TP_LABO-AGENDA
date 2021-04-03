@@ -31,7 +31,7 @@ public class ValidadorObjetos {
 	}
 	
 	public static boolean formatoMailValido(String cad) {
-		Pattern pattern2 = Pattern.compile("\\w+@\\w+(\\.\\w+)+");
+		Pattern pattern2 = Pattern.compile("(\\.|\\w)+@\\w+(\\.\\w+)+");
 		Matcher matcher = pattern2.matcher(cad);
 		
 		return matcher.matches();

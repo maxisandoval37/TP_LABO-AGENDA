@@ -169,6 +169,7 @@ public class VentanaPersona extends JFrame {
 		ValidadorObjetos.aplicarKeyListener(this.txtAltura,"\\d",8);
 		ValidadorObjetos.aplicarKeyListener(this.txtPiso,"\\d",4);
 		ValidadorObjetos.aplicarKeyListener(this.txtDepartamento,"\\d",4);
+		ValidadorObjetos.aplicarKeyListener(this.txtEmail,"\\w|\\W",30);
 	}
 	
 	private void comboboxTipoDireccion(JPanel panel) {
