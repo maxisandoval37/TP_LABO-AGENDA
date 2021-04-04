@@ -211,19 +211,31 @@ public class Controlador implements ActionListener {
 		this.agenda.agregarPersona(nuevaPersona);
 	}
 	
+	private boolean datosPrincipalesCompletos() {
+		String nombre = this.ventanaPersona.getTxtNombre().getText();
+		String tel = ventanaPersona.getTxtTelefono().getText();
+		String email = ventanaPersona.getTxtEmail().getText();
+		boolean ret = true;
+		
+		return ret && !nombre.isEmpty() && !tel.isEmpty() && !email.isEmpty();
+	}
+	
 	private void guardarPersona(ActionEvent p) {
-		if (ventanaPersona.getLocalidadSeleccionada() != null && ventanaPersona.getEstadoCheckBoxDireccion()) {
-			if (ValidadorObjetos.formatoMailValido(ventanaPersona.getTxtEmail().getText()))
-				generarPersonaNuevaConDomicilio();
-			else
-				JOptionPane.showMessageDialog(null, "El formato del E-Mail no es valido");
+		if (datosPrincipalesCompletos()) {
+			if (ventanaPersona.getLocalidadSeleccionada() != null && ventanaPersona.getEstadoCheckBoxDireccion()) {
+				if (ValidadorObjetos.formatoMailValido(ventanaPersona.getTxtEmail().getText()))
+					generarPersonaNuevaConDomicilio();
+				else
+					JOptionPane.showMessageDialog(null, "El formato del E-Mail no es valido");
+			}
+			else {
+				generarPersonaNuevaSinDomicilio();
+			}
+			this.refrescarTablaPersonas();
+			this.ventanaPersona.resetearVista();
 		}
-		else {
-			generarPersonaNuevaSinDomicilio();
-		}
-		this.refrescarTablaPersonas();
-		this.ventanaPersona.resetearVista();
-		// JOptionPane.showMessageDialog(null, "Asegurese de completar el Nombre, Tel y Email");
+		else
+			JOptionPane.showMessageDialog(null, "Asegurese de completar el Nombre, Tel y Email");
 	}
 	
 	private void editarDatosPersonaConDomicilioExistente(int fila) {

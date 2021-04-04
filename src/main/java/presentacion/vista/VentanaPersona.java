@@ -342,6 +342,8 @@ public class VentanaPersona extends JFrame {
 		this.txtEmail.setText(null);
 		this.txtFechaCumple.setText(null);
 		this.checkboxDomicilio.setSelected(false);
+		this.checkboxTipoEtiqueta.setSelected(false);
+		this.checkboxSignoZodiaco.setSelected(false);
 		btnEditarPersona.setVisible(false);
 		btnAgregarPersona.setVisible(true);
 		this.dispose();
