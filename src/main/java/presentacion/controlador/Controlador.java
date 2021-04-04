@@ -170,6 +170,11 @@ public class Controlador implements ActionListener {
 			String email = ventanaPersona.getTxtEmail().getText();
 			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 			LocalDate auxFecha = LocalDate.parse(fechaCumple);
+			
+			EtiquetaDTO etiqueta=null;
+			if (ventanaPersona.getEstadoCheckBoxTipoEtiqueta())
+				etiqueta = ventanaPersona.getEtiquetaSeleccionada();
+				
 			SignoZodiacoDTO signo=null;
 			if (ventanaPersona.getEstadoCheckBoxSigno())
 				signo = ventanaPersona.getSignoZodiacoSeleccionado();
@@ -178,7 +183,7 @@ public class Controlador implements ActionListener {
 			DomicilioDTO domicilio = new DomicilioDTO(IdDom,calle, altura, piso, departamento, localidad);
 			
 			this.agenda.agregarDomicilio(domicilio);
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha,signo);
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, domicilio, email, etiqueta, auxFecha,signo);
 			this.agenda.agregarPersona(nuevaPersona);
 		}
 
@@ -193,11 +198,16 @@ public class Controlador implements ActionListener {
 		String email = ventanaPersona.getTxtEmail().getText();
 		String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 		LocalDate auxFecha = LocalDate.parse(fechaCumple);
+		
+		EtiquetaDTO etiqueta=null;
+		if (ventanaPersona.getEstadoCheckBoxTipoEtiqueta())
+			etiqueta = ventanaPersona.getEtiquetaSeleccionada();
+		
 		SignoZodiacoDTO signo=null;
 		if (ventanaPersona.getEstadoCheckBoxSigno())
 			signo = ventanaPersona.getSignoZodiacoSeleccionado();
 		
-		PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, null, email, ventanaPersona.getEtiquetaSeleccionada(), auxFecha,signo);
+		PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, null, email, etiqueta, auxFecha, signo);
 		this.agenda.agregarPersona(nuevaPersona);
 	}
 	

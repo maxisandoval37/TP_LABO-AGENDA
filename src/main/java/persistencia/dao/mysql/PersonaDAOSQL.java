@@ -41,7 +41,12 @@ public class PersonaDAOSQL implements PersonaDAO {
 			catch (Exception e) {
 				statement.setString(5, null);
 			}
-			statement.setInt(6, persona.getEtiqueta().getId());
+			try {
+				statement.setInt(6, persona.getEtiqueta().getId());
+			}
+			catch (Exception e) {
+				statement.setString(6, null);
+			}
 			statement.setString(7, persona.getFechaCumple().toString());
 			try {
 				statement.setInt(8, persona.getSignoZodiaco().getIdSigno());
