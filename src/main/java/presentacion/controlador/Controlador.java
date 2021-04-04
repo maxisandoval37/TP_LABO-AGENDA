@@ -47,9 +47,9 @@ public class Controlador implements ActionListener {
 		
 		this.vista.getBtnEtiqueta().addActionListener(b -> ventanaABMEtiqueta(b));
 		this.vista.getBtnLocalidad().addActionListener(f -> ventanaABMLocalidad(f));
-		
 		this.ventanaLocalidad.getBtnAgregar().addActionListener(n -> ventanaAgregarLocalidad(n));
 		this.ventanaLocalidad.getBtnEditar().addActionListener(u -> ventanaEditarLocalidad(u));
+		
 		this.ventanaAMLocalidad.getBtnAgregarLocalidad().addActionListener(o -> guardarLocalidad(o));
 		this.ventanaAMLocalidad.getBtnEditarLocalidad().addActionListener(r -> editarLocalidad(r));
 		this.ventanaLocalidad.getBtnBorrar().addActionListener(g -> borrarLocalidad(g));
@@ -270,8 +270,10 @@ public class Controlador implements ActionListener {
 		this.personasEnTabla.get(fila).setNombre(this.ventanaPersona.getTxtNombre().getText());
 		this.personasEnTabla.get(fila).setTelefono(this.ventanaPersona.getTxtTelefono().getText());
 		this.personasEnTabla.get(fila).setEmail(ventanaPersona.getTxtEmail().getText());
-		this.personasEnTabla.get(fila).setEtiqueta(ventanaPersona.getEtiquetaSeleccionada());
-		this.personasEnTabla.get(fila).setSignoZodiaco(ventanaPersona.getSignoZodiacoSeleccionado());
+		if (ventanaPersona.getEstadoCheckBoxTipoEtiqueta())
+			this.personasEnTabla.get(fila).setEtiqueta(ventanaPersona.getEtiquetaSeleccionada());
+		if (ventanaPersona.getEstadoCheckBoxSigno())
+			this.personasEnTabla.get(fila).setSignoZodiaco(ventanaPersona.getSignoZodiacoSeleccionado());
 		String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
 		LocalDate auxFecha = LocalDate.parse(fechaCumple);
 		this.personasEnTabla.get(fila).setFechaCumple(auxFecha);
@@ -370,9 +372,8 @@ public class Controlador implements ActionListener {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 		
-		if (!bandera) {
+		if (!bandera)
 			JOptionPane.showMessageDialog(null, "La localidad se encuentra en uso");
-		}
 	}
 
 	private void agregarLocalidadesGenericas() {
