@@ -22,11 +22,13 @@ public class VentanaPersona extends JFrame {
 	private JTextField txtNombre;
 	private JTextField txtTelefono;
 	JCheckBox checkboxDomicilio;
+	JCheckBox checkboxTipoEtiqueta;
+	JCheckBox checkboxSignoZodiaco;
 	
 	private JComboBox<LocalidadDTO> jcbLocalidades;
 	private LocalidadDTO localidadSeleccionada;
 	
-	private JComboBox<EtiquetaDTO> jcbTipoContacto;
+	private JComboBox<EtiquetaDTO> jcbTipoEtiqueta;
 	private EtiquetaDTO etiquetaSeleccionada;
 	
 	private JComboBox<SignoZodiacoDTO> jcbSignoZodiaco;
@@ -121,7 +123,7 @@ public class VentanaPersona extends JFrame {
 		txtTelefono.setColumns(10);
 		
 		comboboxTipoDireccion(panel);
-		
+
 		txtCalle = new JTextField();
 		txtCalle.setBounds(133, jcbLocalidades.getY()+40, 270, 20);
 		panel.add(txtCalle);
@@ -152,9 +154,12 @@ public class VentanaPersona extends JFrame {
 		panel.add(txtFechaCumple);
 		txtFechaCumple.setColumns(10);
 		
-		comboBoxTipoContacto(panel);
+		comboBoxTipoEtiqueta(panel);
 		comboBoxTipoSignoZodiaco(panel);
+		
 		gestionarCheckBoxDireccion(panel);
+		gestionarCheckBoxTipoEtiqueta(panel);
+		gestionarCheckBoxSignoZodiaco(panel);
 		
 		btnAgregarPersona = new JButton("Agregar");
 		btnAgregarPersona.setBounds(208, jcbSignoZodiaco.getY()+80, 89, 23);
@@ -168,6 +173,8 @@ public class VentanaPersona extends JFrame {
 		
 		this.setVisible(false);
 		cambiarUsabilidadElemsDireccion(false);
+		jcbTipoEtiqueta.setEnabled(false);
+		jcbSignoZodiaco.setEnabled(false);
 		
 		ValidadorObjetos.aplicarKeyListener(this.txtNombre,"\\w|\\ |\\.",30);
 		ValidadorObjetos.aplicarKeyListener(this.txtTelefono,"\\d|\\+|\\(|\\)|\\*|\\#",20);
@@ -187,11 +194,10 @@ public class VentanaPersona extends JFrame {
 		checkboxDomicilio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent l) {
-				if (checkboxDomicilio.isSelected()) {
+				if (checkboxDomicilio.isSelected())
 					cambiarUsabilidadElemsDireccion(true);
-				} else {
+				else
 					cambiarUsabilidadElemsDireccion(false);
-				}
 			}
 		});
 	}
@@ -202,6 +208,40 @@ public class VentanaPersona extends JFrame {
 		txtAltura.setEnabled(visibilidad);
 		txtPiso.setEnabled(visibilidad);
 		txtDepartamento.setEnabled(visibilidad);
+	}
+	
+	private void gestionarCheckBoxTipoEtiqueta(JPanel panel) {
+		checkboxTipoEtiqueta = new JCheckBox("Cargar Etiqueta");
+		checkboxTipoEtiqueta.setBounds(jcbTipoEtiqueta.getX()+300,jcbTipoEtiqueta.getY(), 20, 20);
+		panel.add(checkboxTipoEtiqueta);
+		
+		checkboxTipoEtiqueta.setSelected(false);
+		checkboxTipoEtiqueta.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent l) {
+				if (checkboxTipoEtiqueta.isSelected())
+					jcbTipoEtiqueta.setEnabled(true);
+				else
+					jcbTipoEtiqueta.setEnabled(false);
+			}
+		});
+	}
+	
+	private void gestionarCheckBoxSignoZodiaco(JPanel panel) {
+		checkboxSignoZodiaco = new JCheckBox("Cargar Signo");
+		checkboxSignoZodiaco.setBounds(jcbSignoZodiaco.getX()+300,jcbSignoZodiaco.getY(), 20, 20);
+		panel.add(checkboxSignoZodiaco);
+		
+		checkboxSignoZodiaco.setSelected(false);
+		checkboxSignoZodiaco.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent l) {
+				if (checkboxSignoZodiaco.isSelected())
+					jcbSignoZodiaco.setEnabled(true);
+				else
+					jcbSignoZodiaco.setEnabled(false);
+			}
+		});
 	}
 	
 	private void comboboxTipoDireccion(JPanel panel) {
@@ -226,31 +266,31 @@ public class VentanaPersona extends JFrame {
 		this.jcbLocalidades.repaint();
 	}
 	
-	private void comboBoxTipoContacto(JPanel panel) {
-		jcbTipoContacto = new JComboBox<EtiquetaDTO>();
-		jcbTipoContacto.setBounds(133, txtFechaCumple.getY()+41, 270, 20);
-		panel.add(jcbTipoContacto);
+	private void comboBoxTipoEtiqueta(JPanel panel) {
+		jcbTipoEtiqueta = new JComboBox<EtiquetaDTO>();
+		jcbTipoEtiqueta.setBounds(133, txtFechaCumple.getY()+41, 270, 20);
+		panel.add(jcbTipoEtiqueta);
 		
-		jcbTipoContacto.addActionListener(new ActionListener() {
+		jcbTipoEtiqueta.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				EtiquetaDTO etaux = (EtiquetaDTO) jcbTipoContacto.getSelectedItem();
+				EtiquetaDTO etaux = (EtiquetaDTO) jcbTipoEtiqueta.getSelectedItem();
 				etiquetaSeleccionada = etaux;
 			}
 		});
 	}
 
 	public void agregarEtiquetasComboBox(List<EtiquetaDTO> list) {
-		this.jcbTipoContacto.removeAllItems();
+		this.jcbTipoEtiqueta.removeAllItems();
 		for (EtiquetaDTO i : list) {
-			this.jcbTipoContacto.addItem(i);
+			this.jcbTipoEtiqueta.addItem(i);
 		}
-		this.jcbTipoContacto.repaint();
+		this.jcbTipoEtiqueta.repaint();
 	}
 	
 	private void comboBoxTipoSignoZodiaco(JPanel panel) {
 		jcbSignoZodiaco = new JComboBox<SignoZodiacoDTO>();
-		jcbSignoZodiaco.setBounds(133, jcbTipoContacto.getY()+41, 270, 20);
+		jcbSignoZodiaco.setBounds(133, jcbTipoEtiqueta.getY()+41, 270, 20);
 		panel.add(jcbSignoZodiaco);
 		
 		jcbSignoZodiaco.addActionListener(new ActionListener() {
@@ -337,6 +377,14 @@ public class VentanaPersona extends JFrame {
 	
 	public boolean getEstadoCheckBoxDireccion() {
 		return checkboxDomicilio.isSelected();
+	}
+	
+	public boolean getEstadoCheckBoxTipoEtiqueta() {
+		return checkboxTipoEtiqueta.isSelected();
+	}
+	
+	public boolean getEstadoCheckBoxSigno() {
+		return checkboxSignoZodiaco.isSelected();
 	}
 	
 	public LocalidadDTO getLocalidadSeleccionada() {
