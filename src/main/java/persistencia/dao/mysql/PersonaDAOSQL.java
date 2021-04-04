@@ -43,8 +43,13 @@ public class PersonaDAOSQL implements PersonaDAO {
 			}
 			statement.setInt(6, persona.getEtiqueta().getId());
 			statement.setString(7, persona.getFechaCumple().toString());
-			statement.setInt(8, persona.getSignoZodiaco().getIdSigno());
-
+			try {
+				statement.setInt(8, persona.getSignoZodiaco().getIdSigno());
+			}
+			catch (Exception e) {
+				statement.setString(8, null);
+			}
+			
 			if (statement.executeUpdate() > 0) {
 				conexion.commit();
 				isInsertExitoso = true;

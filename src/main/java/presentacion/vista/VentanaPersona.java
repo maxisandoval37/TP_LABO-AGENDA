@@ -392,10 +392,10 @@ public class VentanaPersona extends JFrame {
 	}
 
 	public EtiquetaDTO getEtiquetaSeleccionada() {
-		return etiquetaSeleccionada;
+		return this.etiquetaSeleccionada;
 	}
 	
 	public SignoZodiacoDTO getSignoZodiacoSeleccionado() {
-		return signoZodiacoSeleccionado;
+		return this.signoZodiacoSeleccionado;
 	}
 }

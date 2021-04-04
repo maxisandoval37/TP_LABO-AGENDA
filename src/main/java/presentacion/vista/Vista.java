@@ -146,27 +146,39 @@ public class Vista {
 			String nombre = p.getNombre();
 			String tel = p.getTelefono();
 			String email = p.getEmail();
-			String fechaCumple = p.getFechaCumple().toString();
-			String etiq = p.getEtiqueta().getTipoEtiqueta();
-			String zodiaco = p.getSignoZodiaco().getSigno();
-			
+			String fechaNac = p.getFechaCumple().toString();
+			String etiq = "";
+			String localidad = "";
+			String codPostal = "";
+			String provincia = "";
+			String pais = "";
+			String calle = "";
+			String altura = "";
+			String piso = "";
+			String depa = "";
+			String signo = "";
 			try {
-				String localidad = p.getDomicilio().getLocalidad().getNombreLocalidad();
-				int codPostal = p.getDomicilio().getLocalidad().getIdCodPostal();
-				String provincia = p.getDomicilio().getLocalidad().getProvincia();
-				String pais = p.getDomicilio().getLocalidad().getPais();
-				String calle = p.getDomicilio().getCalle();
-				int altura = p.getDomicilio().getAltura();
-				int piso = p.getDomicilio().getPiso();
-				int depa = p.getDomicilio().getDepto();
-				
-				Object[] fila = { nombre, tel, localidad,codPostal,provincia,pais, calle, altura, piso, depa, email, fechaCumple, etiq, zodiaco };
-				this.getModelPersonas().addRow(fila);
+				etiq = p.getEtiqueta().getTipoEtiqueta();
 			}
-			catch(Exception e) {
-				Object[] fila = { nombre, tel, "","","","","","","","", email, fechaCumple, etiq, zodiaco };
-				this.getModelPersonas().addRow(fila);
+			catch(Exception e) {}
+			try {				
+				localidad = p.getDomicilio().getLocalidad().getNombreLocalidad();
+				codPostal = p.getDomicilio().getLocalidad().getIdCodPostal()+"";
+				provincia = p.getDomicilio().getLocalidad().getProvincia();
+				pais = p.getDomicilio().getLocalidad().getPais();
+				calle = p.getDomicilio().getCalle()+"";
+				altura = p.getDomicilio().getAltura()+"";
+				piso = p.getDomicilio().getPiso()+"";
+				depa = p.getDomicilio().getDepto()+"";
 			}
+			catch(Exception e) {}
+			try {
+				signo = p.getSignoZodiaco().getSigno();
+			}
+			catch(Exception e) {}
+			
+			Object[] fila = {nombre,tel,localidad,codPostal,provincia,pais,calle,altura,piso,depa,email,fechaNac,etiq,signo};
+			this.getModelPersonas().addRow(fila);
 		}
 	}
 }
