@@ -2,6 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte Agenda" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="284e0c88-a4b2-4ff8-98a2-d67b80bcffaf">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="net.sf.jasperreports.chart.pie.ignore.duplicated.key" value="true"/>
 	<parameter name="Fecha" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[]]>
@@ -142,7 +143,7 @@
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{signoZodiaco}.toString()]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="491" y="0" width="82" height="18" uuid="003a4f6e-42c0-4734-a0f7-45dc2e75650d">
 					<property name="net.sf.jasperreports.style.isBlankWhenNull" value="true"/>
 				</reportElement>
@@ -152,7 +153,32 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="7" splitType="Stretch"/>
+		<band height="230" splitType="Stretch">
+			<staticText>
+				<reportElement x="140" y="2" width="290" height="20" uuid="c55bf18f-436a-49b7-8308-a90d6c452456"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contactos segun Codigo Postal]]></text>
+			</staticText>
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="2" y="24" width="550" height="200" uuid="f4571de4-c8de-484c-a76b-dc0c95f4b890"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset resetType="Report"/>
+					<keyExpression><![CDATA[$F{domicilio}==null?"Sin CP":$F{domicilio}.getLocalidad().getIdCodPostal()]]></keyExpression>
+					<valueExpression><![CDATA[$V{contactos_COUNT}]]></valueExpression>
+				</pieDataset>
+				<piePlot labelFormat="{2}">
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
 	</columnFooter>
 	<pageFooter>
 		<band height="33" splitType="Stretch">
