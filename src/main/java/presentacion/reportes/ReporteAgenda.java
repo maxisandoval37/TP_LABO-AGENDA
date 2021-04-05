@@ -2,6 +2,7 @@ package presentacion.reportes;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,8 +22,12 @@ public class ReporteAgenda {
 	private JasperViewer reporteViewer;
 	private JasperPrint reporteLleno;
 	private Logger log = Logger.getLogger(ReporteAgenda.class);
+	private ComparadorCodigoPostal comparador = new ComparadorCodigoPostal ();
 	
 	public ReporteAgenda(List<PersonaDTO> personas) {
+		ordenarCodigoPostal(personas);
+		
+		
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 		try {
@@ -38,5 +43,13 @@ public class ReporteAgenda {
 		this.reporteViewer = new JasperViewer(this.reporteLleno, false);
 		this.reporteViewer.setVisible(true);
 	}
+	
+	public void ordenarCodigoPostal (List<PersonaDTO> personas) {
+		
+		Collections.sort(personas, this.comparador);
+		
+	}
+	
+	
 
 }

@@ -18,9 +18,10 @@ public class LocalidadDTO {
 		return idCodPostal;
 	}
 	
-	public String getHolis() {
-		return "aa";
+	public void setIdCodPostal (int numero) {
+		this.idCodPostal = numero;
 	}
+	
 
 	public String getPais() {
 		return Pais;
