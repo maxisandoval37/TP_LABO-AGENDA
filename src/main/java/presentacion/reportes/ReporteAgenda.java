@@ -21,9 +21,8 @@ public class ReporteAgenda {
 	private JasperViewer reporteViewer;
 	private JasperPrint reporteLleno;
 	private Logger log = Logger.getLogger(ReporteAgenda.class);
-
+	
 	public ReporteAgenda(List<PersonaDTO> personas) {
-		
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 		try {

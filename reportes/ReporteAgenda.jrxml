@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="284e0c88-a4b2-4ff8-98a2-d67b80bcffaf">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte Agenda" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="284e0c88-a4b2-4ff8-98a2-d67b80bcffaf">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="Fecha" class="java.lang.String"/>
 	<queryString language="SQL">
@@ -21,6 +21,25 @@
 	<field name="domicilio" class="dto.DomicilioDTO">
 		<fieldDescription><![CDATA[domicilio]]></fieldDescription>
 	</field>
+	<group name="contactos">
+		<groupExpression><![CDATA[$F{domicilio}.getLocalidad().getIdCodPostal()]]></groupExpression>
+		<groupHeader>
+			<band height="30">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="4" width="550" height="20" forecolor="#50A1FF" backcolor="#7FC9FF" uuid="8926fca1-4185-4ff2-b57c-60c584c9338b">
+						<property name="net.sf.jasperreports.style.isBlankWhenNull" value="true"/>
+					</reportElement>
+					<textField>
+						<reportElement x="1" y="3" width="70" height="14" forecolor="#FFFFFF" uuid="e5777ed4-3a37-4118-b43f-cda149873f13">
+							<property name="net.sf.jasperreports.style.isBlankWhenNull" value="true"/>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{domicilio}.getLocalidad().getIdCodPostal()]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -117,12 +136,16 @@
 				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="389" y="0" width="102" height="18" uuid="6833dc8a-f7fe-4da2-9a53-287b2553b1cb"/>
+				<reportElement x="389" y="0" width="102" height="18" uuid="6833dc8a-f7fe-4da2-9a53-287b2553b1cb">
+					<property name="net.sf.jasperreports.style.isBlankWhenNull" value="true"/>
+				</reportElement>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{signoZodiaco}.toString()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="491" y="0" width="82" height="18" uuid="003a4f6e-42c0-4734-a0f7-45dc2e75650d"/>
+				<reportElement x="491" y="0" width="82" height="18" uuid="003a4f6e-42c0-4734-a0f7-45dc2e75650d">
+					<property name="net.sf.jasperreports.style.isBlankWhenNull" value="true"/>
+				</reportElement>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{domicilio}.getLocalidad().getIdCodPostal()]]></textFieldExpression>
 			</textField>
