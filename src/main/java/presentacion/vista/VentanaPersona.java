@@ -39,7 +39,7 @@ public class VentanaPersona extends JFrame {
 	private JTextField txtPiso;
 	private JTextField txtDepartamento;
 	private JTextField txtEmail;
-	private JTextField txtFechaCumple;
+	private JTextField txtFechaNac;
 	
 	private JButton btnAgregarPersona;
 	private JButton btnEditarPersona;
@@ -100,12 +100,12 @@ public class VentanaPersona extends JFrame {
 		lblEmail.setBounds(10,lblDpto.getY()+40,113,14);
 		panel.add(lblEmail);
 		
-		JLabel lblFechaCumple = new JLabel ("Naci. (aaaa-mm-dd)");
-		lblFechaCumple.setBounds(10,lblEmail.getY()+40,113,14);
-		panel.add(lblFechaCumple);
+		JLabel lblFechaNac = new JLabel ("Naci. (aaaa-mm-dd)");
+		lblFechaNac.setBounds(10,lblEmail.getY()+40,113,14);
+		panel.add(lblFechaNac);
 		
 		JLabel lblTipoContacto = new JLabel ("Tipo de Contacto");
-		lblTipoContacto.setBounds(10,lblFechaCumple.getY()+40,113,14);
+		lblTipoContacto.setBounds(10,lblFechaNac.getY()+40,113,14);
 		panel.add(lblTipoContacto);
 		
 		JLabel lblSignoZodiaco = new JLabel ("Signo Zodiaco");
@@ -149,10 +149,10 @@ public class VentanaPersona extends JFrame {
 		panel.add(txtEmail);
 		txtEmail.setColumns(10);
 		
-		txtFechaCumple = new JTextField();
-		txtFechaCumple.setBounds(133, txtEmail.getY()+40, 270, 20);
-		panel.add(txtFechaCumple);
-		txtFechaCumple.setColumns(10);
+		txtFechaNac = new JTextField();
+		txtFechaNac.setBounds(133, txtEmail.getY()+40, 270, 20);
+		panel.add(txtFechaNac);
+		txtFechaNac.setColumns(10);
 		
 		comboBoxTipoEtiqueta(panel);
 		comboBoxTipoSignoZodiaco(panel);
@@ -183,7 +183,7 @@ public class VentanaPersona extends JFrame {
 		ValidadorObjetos.aplicarKeyListener(this.txtPiso,"\\d",4);
 		ValidadorObjetos.aplicarKeyListener(this.txtDepartamento,"\\d",4);
 		ValidadorObjetos.aplicarKeyListener(this.txtEmail,"\\w|\\W",30);
-		ValidadorObjetos.aplicarKeyListener(this.txtFechaCumple,"\\d|-",10);
+		ValidadorObjetos.aplicarKeyListener(this.txtFechaNac,"\\d|-",10);
 	}
 	
 	private void gestionarCheckBoxDireccion(JPanel panel) {
@@ -269,7 +269,7 @@ public class VentanaPersona extends JFrame {
 	
 	private void comboBoxTipoEtiqueta(JPanel panel) {
 		jcbTipoEtiqueta = new JComboBox<EtiquetaDTO>();
-		jcbTipoEtiqueta.setBounds(133, txtFechaCumple.getY()+41, 270, 20);
+		jcbTipoEtiqueta.setBounds(133, txtFechaNac.getY()+41, 270, 20);
 		panel.add(jcbTipoEtiqueta);
 		
 		jcbTipoEtiqueta.addActionListener(new ActionListener() {
@@ -341,7 +341,7 @@ public class VentanaPersona extends JFrame {
 		this.txtPiso.setText(null);
 		this.txtDepartamento.setText(null);
 		this.txtEmail.setText(null);
-		this.txtFechaCumple.setText(null);
+		this.txtFechaNac.setText(null);
 		this.checkboxDomicilio.setSelected(false);
 		this.checkboxTipoEtiqueta.setSelected(false);
 		this.checkboxSignoZodiaco.setSelected(false);
@@ -375,7 +375,7 @@ public class VentanaPersona extends JFrame {
 	}
 
 	public JTextField getTxtFechaNac() {
-		return txtFechaCumple;
+		return txtFechaNac;
 	}
 	
 	public boolean getEstadoCheckBoxDireccion() {

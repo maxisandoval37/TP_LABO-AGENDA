@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `personas`
   `Email` varchar(30) NOT NULL,
   `idDomicilio` int(11),
   `idEtiqueta` int(11),
-  `FechaCumple` varchar(10),
+  `fechaNac` varchar(10),
   `idSigno` int (11),
 
   PRIMARY KEY (`idPersona`),

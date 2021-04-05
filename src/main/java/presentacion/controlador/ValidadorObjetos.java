@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import dto.EtiquetaDTO;
 import dto.LocalidadDTO;
-import dto.PersonaDTO;
 
 public class ValidadorObjetos {
 	
@@ -29,14 +28,14 @@ public class ValidadorObjetos {
 		});
 	}
 	
-	public static boolean formatoMailValido(String cad) {
+	private static boolean formatoMailValido(String cad) {
 		Pattern pattern2 = Pattern.compile("(\\.|\\w)+@\\w+(\\.\\w+)+");
 		Matcher matcher = pattern2.matcher(cad);
 		
 		return matcher.matches();
 	}
 	
-	public static boolean formatoFechaValido(String cad) {
+	private static boolean formatoFechaValido(String cad) {
 		Pattern pattern2 = Pattern.compile("\\d{4}\\-\\d{2}\\-\\d{2}");
 		Matcher matcher = pattern2.matcher(cad);
 		

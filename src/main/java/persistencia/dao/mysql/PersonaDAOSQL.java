@@ -15,10 +15,10 @@ import dto.PersonaDTO;
 import dto.SignoZodiacoDTO;
 
 public class PersonaDAOSQL implements PersonaDAO {
-	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, idDomicilio, idEtiqueta, fechaCumple, idSigno) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, idDomicilio, idEtiqueta, fechaNac, idSigno) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String deleteAddressInUse = "DELETE FROM domicilios WHERE idDomicilio = ?";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
-	private static final String update = "UPDATE personas SET Nombre = ?, Telefono = ?, Email = ?, idDomicilio = ?, idEtiqueta = ?, FechaCumple = ?, idSigno = ? WHERE idPersona = ?";
+	private static final String update = "UPDATE personas SET Nombre = ?, Telefono = ?, Email = ?, idDomicilio = ?, idEtiqueta = ?, fechaNac = ?, idSigno = ? WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM personas";
 	private static final String findTagFK = "SELECT tipoEtiqueta FROM Etiquetas WHERE idEtiqueta = ?";
 	private static final String findAddressFK = "SELECT * FROM domicilios WHERE idDomicilio = ?";
@@ -165,7 +165,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 
 	public List<PersonaDTO> readAll() {
 		PreparedStatement statement;
-		ResultSet resultSet; // Guarda el resultado de la query
+		ResultSet resultSet; 
 		ArrayList<PersonaDTO> personas = new ArrayList<PersonaDTO>();
 		Conexion conexion = Conexion.getConexion();
 		try {
@@ -184,7 +184,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 		int id = resultSet.getInt("idPersona");
 		String nombre = resultSet.getString("Nombre");
 		String tel = resultSet.getString("Telefono");
-		String fechaCumple = resultSet.getString("FechaCumple");
+		String fechaNac = resultSet.getString("fechaNac");
 		String email = resultSet.getString("Email");
 		
 		EtiquetaDTO etiqueta = getEtiquetaById(resultSet.getInt("idEtiqueta"));
@@ -192,7 +192,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 		SignoZodiacoDTO signo = getSignoZodiacoById(resultSet.getInt("idSigno"));
 
 		try {
-			LocalDate auxFecha = LocalDate.parse(fechaCumple);
+			LocalDate auxFecha = LocalDate.parse(fechaNac);
 			return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta, auxFecha, signo);
 		}
 		catch (Exception e) {
@@ -202,7 +202,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 	
 	private DomicilioDTO getDomiciliobyId(int id) throws SQLException{ 
 		PreparedStatement statement;
-		ResultSet resultSet; // Guarda el resultado de la query
+		ResultSet resultSet; 
 		DomicilioDTO DomHallado = null;
 		Conexion conexion = Conexion.getConexion();
 		
@@ -229,7 +229,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 	private EtiquetaDTO getEtiquetaById(int id) throws SQLException{
 		
 		PreparedStatement statement;
-		ResultSet resultSet; // Guarda el resultado de la query
+		ResultSet resultSet;
 		EtiquetaDTO etiquetaHallada = null;
 		Conexion conexion = Conexion.getConexion();
 		
@@ -250,7 +250,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 	private SignoZodiacoDTO getSignoZodiacoById(int id) throws SQLException{
 		
 		PreparedStatement statement;
-		ResultSet resultSet; // Guarda el resultado de la query
+		ResultSet resultSet; 
 		SignoZodiacoDTO signoHallado = null;
 		Conexion conexion = Conexion.getConexion();
 		

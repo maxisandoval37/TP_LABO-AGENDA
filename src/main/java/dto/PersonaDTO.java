@@ -85,7 +85,7 @@ public class PersonaDTO {
 		this.signoZodiaco = signoZodiaco;
 	}
 
-	public void setFechaCumple(LocalDate fechaCumple) {
+	public void setFechaNac(LocalDate fechaCumple) {
 		this.fechaCumple = fechaCumple;
 	}
 

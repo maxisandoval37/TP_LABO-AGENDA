@@ -145,8 +145,10 @@ public class Controlador implements ActionListener {
 			ventanaPersona.getTxtNombre().setText(personasEnTabla.get(fila).getNombre());
 			ventanaPersona.getTxtTelefono().setText(personasEnTabla.get(fila).getTelefono());
 			ventanaPersona.getTxtEmail().setText(personasEnTabla.get(fila).getEmail());
-			ventanaPersona.getTxtFechaNac().setText(personasEnTabla.get(fila).getFechaNac().toString());
-			
+			try {
+				ventanaPersona.getTxtFechaNac().setText(personasEnTabla.get(fila).getFechaNac().toString());
+			}
+			catch(Exception e) {}
 			try {
 				ventanaPersona.getTxtAltura().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getAltura()));
 				ventanaPersona.getTxtCalle().setText(personasEnTabla.get(fila).getDomicilio().getCalle());
@@ -300,9 +302,12 @@ public class Controlador implements ActionListener {
 			this.personasEnTabla.get(fila).setEtiqueta(ventanaPersona.getEtiquetaSeleccionada());
 		if (ventanaPersona.getEstadoCheckBoxSigno())
 			this.personasEnTabla.get(fila).setSignoZodiaco(ventanaPersona.getSignoZodiacoSeleccionado());
-		String fechaCumple = ventanaPersona.getTxtFechaNac().getText();
-		LocalDate auxFecha = LocalDate.parse(fechaCumple);
-		this.personasEnTabla.get(fila).setFechaCumple(auxFecha);
+		try {
+			String fechaNac = ventanaPersona.getTxtFechaNac().getText();
+			LocalDate auxFecha = LocalDate.parse(fechaNac);
+			this.personasEnTabla.get(fila).setFechaNac(auxFecha);
+		}
+		catch(Exception e) {}
 		auxEditarPersonaYcargarVista(fila);
 	}
 	
