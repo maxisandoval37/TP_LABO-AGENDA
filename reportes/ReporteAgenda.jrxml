@@ -18,6 +18,9 @@
 	<field name="signoZodiaco" class="dto.SignoZodiacoDTO">
 		<fieldDescription><![CDATA[signoZodiaco]]></fieldDescription>
 	</field>
+	<field name="domicilio" class="dto.DomicilioDTO">
+		<fieldDescription><![CDATA[domicilio]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -57,34 +60,41 @@
 	<columnHeader>
 		<band height="31" splitType="Stretch">
 			<frame>
-				<reportElement x="2" y="6" width="550" height="23" uuid="23209a62-cc9d-4b81-8e93-aa9cc3a92b36"/>
+				<reportElement x="2" y="6" width="572" height="23" uuid="23209a62-cc9d-4b81-8e93-aa9cc3a92b36"/>
 				<staticText>
-					<reportElement x="0" y="0" width="228" height="21" uuid="6f5462fa-eb72-479f-bb27-fb5ef7144791"/>
+					<reportElement x="0" y="0" width="188" height="21" uuid="6f5462fa-eb72-479f-bb27-fb5ef7144791"/>
 					<textElement textAlignment="Center">
 						<font size="14"/>
 					</textElement>
 					<text><![CDATA[Nombre y apellido]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="229" y="0" width="100" height="20" uuid="e2252ea3-811b-43d8-ae6b-e9b261b705f9"/>
+					<reportElement x="189" y="1" width="100" height="20" uuid="e2252ea3-811b-43d8-ae6b-e9b261b705f9"/>
 					<textElement textAlignment="Center">
 						<font size="14"/>
 					</textElement>
 					<text><![CDATA[Telefono]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="330" y="1" width="100" height="20" uuid="7c66143a-d6aa-4c94-9f41-66234243464b"/>
+					<reportElement x="289" y="0" width="100" height="20" uuid="7c66143a-d6aa-4c94-9f41-66234243464b"/>
 					<textElement textAlignment="Center">
 						<font size="14"/>
 					</textElement>
 					<text><![CDATA[Email]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="430" y="3" width="100" height="20" uuid="25a7cd3f-7237-415d-a1d3-a05342b41f84"/>
+					<reportElement x="389" y="1" width="100" height="20" uuid="25a7cd3f-7237-415d-a1d3-a05342b41f84"/>
 					<textElement textAlignment="Center">
 						<font size="14"/>
 					</textElement>
 					<text><![CDATA[Signo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="489" y="3" width="82" height="20" uuid="a485436e-24e9-4595-ad4c-243015e081af"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[CP]]></text>
 				</staticText>
 			</frame>
 		</band>
@@ -92,24 +102,29 @@
 	<detail>
 		<band height="23" splitType="Stretch">
 			<textField>
-				<reportElement x="5" y="0" width="225" height="18" uuid="4a345b01-b751-4529-b6d6-2ccf3c13ff66"/>
+				<reportElement x="0" y="0" width="185" height="18" uuid="4a345b01-b751-4529-b6d6-2ccf3c13ff66"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="230" y="0" width="102" height="18" uuid="dd3f7d4c-c2c3-4ee6-8d98-1b88fe0228ec"/>
+				<reportElement x="185" y="0" width="102" height="18" uuid="dd3f7d4c-c2c3-4ee6-8d98-1b88fe0228ec"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="331" y="0" width="102" height="18" uuid="b4ff293f-5a34-4f8c-9f9f-a04dae932ce1"/>
+				<reportElement x="287" y="0" width="102" height="18" uuid="b4ff293f-5a34-4f8c-9f9f-a04dae932ce1"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="433" y="0" width="102" height="18" uuid="6833dc8a-f7fe-4da2-9a53-287b2553b1cb"/>
+				<reportElement x="389" y="0" width="102" height="18" uuid="6833dc8a-f7fe-4da2-9a53-287b2553b1cb"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{signoZodiaco}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="491" y="0" width="82" height="18" uuid="003a4f6e-42c0-4734-a0f7-45dc2e75650d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{domicilio}.getLocalidad().getIdCodPostal()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
