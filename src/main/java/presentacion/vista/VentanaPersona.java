@@ -183,6 +183,7 @@ public class VentanaPersona extends JFrame {
 		ValidadorObjetos.aplicarKeyListener(this.txtPiso,"\\d",4);
 		ValidadorObjetos.aplicarKeyListener(this.txtDepartamento,"\\d",4);
 		ValidadorObjetos.aplicarKeyListener(this.txtEmail,"\\w|\\W",30);
+		ValidadorObjetos.aplicarKeyListener(this.txtFechaCumple,"\\d|-",10);
 	}
 	
 	private void gestionarCheckBoxDireccion(JPanel panel) {
@@ -373,7 +374,7 @@ public class VentanaPersona extends JFrame {
 		return txtEmail;
 	}
 
-	public JTextField getTxtFechaCumple() {
+	public JTextField getTxtFechaNac() {
 		return txtFechaCumple;
 	}
 	

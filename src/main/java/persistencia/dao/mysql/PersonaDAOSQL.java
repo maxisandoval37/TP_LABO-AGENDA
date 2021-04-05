@@ -47,7 +47,12 @@ public class PersonaDAOSQL implements PersonaDAO {
 			catch (Exception e) {
 				statement.setString(6, null);
 			}
-			statement.setString(7, persona.getFechaCumple().toString());
+			try {
+				statement.setString(7, persona.getFechaNac().toString());
+			}
+			catch (Exception e) {
+				statement.setString(7, null);
+			}
 			try {
 				statement.setInt(8, persona.getSignoZodiaco().getIdSigno());
 			}
@@ -133,8 +138,12 @@ public class PersonaDAOSQL implements PersonaDAO {
 			catch (Exception e) {
 				statement.setString(5, null);
 			}
-			
-			statement.setString(6, persona_nueva.getFechaCumple().toString());
+			try {
+				statement.setString(6, persona_nueva.getFechaNac().toString());
+			}
+			catch (Exception e) {
+				statement.setString(6,null);
+			}
 			try {
 				statement.setInt(7, persona_nueva.getSignoZodiaco().getIdSigno());
 			}
@@ -182,12 +191,13 @@ public class PersonaDAOSQL implements PersonaDAO {
 		DomicilioDTO domicilio = getDomiciliobyId(resultSet.getInt("idDomicilio"));
 		SignoZodiacoDTO signo = getSignoZodiacoById(resultSet.getInt("idSigno"));
 
-		if (fechaCumple.equals("")) {
-			return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta,null,signo);
+		try {
+			LocalDate auxFecha = LocalDate.parse(fechaCumple);
+			return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta, auxFecha, signo);
 		}
-		
-		LocalDate auxFecha = LocalDate.parse(fechaCumple);
-		return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta,auxFecha,signo);
+		catch (Exception e) {
+			return new PersonaDTO(id, nombre, tel, domicilio, email, etiqueta, null, signo);
+		}
 	}
 	
 	private DomicilioDTO getDomiciliobyId(int id) throws SQLException{ 

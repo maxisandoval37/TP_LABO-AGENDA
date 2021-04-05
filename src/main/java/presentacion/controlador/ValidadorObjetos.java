@@ -5,12 +5,11 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 import dto.EtiquetaDTO;
 import dto.LocalidadDTO;
+import dto.PersonaDTO;
 
 public class ValidadorObjetos {
 	
@@ -35,6 +34,26 @@ public class ValidadorObjetos {
 		Matcher matcher = pattern2.matcher(cad);
 		
 		return matcher.matches();
+	}
+	
+	public static boolean formatoFechaValido(String cad) {
+		Pattern pattern2 = Pattern.compile("\\d{4}\\-\\d{2}\\-\\d{2}");
+		Matcher matcher = pattern2.matcher(cad);
+		
+		return matcher.matches();
+	}
+	
+	public static boolean nuevaPersonaEsValida(String email, String fecha) {
+		boolean ret = false;
+		if (formatoMailValido(email))
+			ret = true;
+		else 
+			JOptionPane.showMessageDialog(null, "El formato del E-Mail no es valido");
+		
+		if (!formatoFechaValido(fecha) && !fecha.isEmpty())
+			JOptionPane.showMessageDialog(null, "El formato de la fecha no es valido");
+		
+		return ret;
 	}
 	
 	public static boolean nuevaLocalidadEsValida(LocalidadDTO nuevaLocalidad,List<LocalidadDTO> localidadesExistentes) {

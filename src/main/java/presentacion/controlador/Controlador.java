@@ -145,7 +145,7 @@ public class Controlador implements ActionListener {
 			ventanaPersona.getTxtNombre().setText(personasEnTabla.get(fila).getNombre());
 			ventanaPersona.getTxtTelefono().setText(personasEnTabla.get(fila).getTelefono());
 			ventanaPersona.getTxtEmail().setText(personasEnTabla.get(fila).getEmail());
-			ventanaPersona.getTxtFechaCumple().setText(personasEnTabla.get(fila).getFechaCumple().toString());
+			ventanaPersona.getTxtFechaNac().setText(personasEnTabla.get(fila).getFechaNac().toString());
 			
 			try {
 				ventanaPersona.getTxtAltura().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getAltura()));
@@ -168,8 +168,12 @@ public class Controlador implements ActionListener {
 			int departamento =  Integer.parseInt(ventanaPersona.getTxtDepartamento().getText());
 			LocalidadDTO localidad = ventanaPersona.getLocalidadSeleccionada();
 			String email = ventanaPersona.getTxtEmail().getText();
-			String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
-			LocalDate auxFecha = LocalDate.parse(fechaCumple);
+			LocalDate auxFecha = null;
+			try {
+				String fechaNac = ventanaPersona.getTxtFechaNac().getText();
+				auxFecha = LocalDate.parse(fechaNac);
+			}
+			catch(Exception e) {}
 			
 			EtiquetaDTO etiqueta=null;
 			if (ventanaPersona.getEstadoCheckBoxTipoEtiqueta())
@@ -196,8 +200,13 @@ public class Controlador implements ActionListener {
 		String nombre = this.ventanaPersona.getTxtNombre().getText();
 		String tel = ventanaPersona.getTxtTelefono().getText();
 		String email = ventanaPersona.getTxtEmail().getText();
-		String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
-		LocalDate auxFecha = LocalDate.parse(fechaCumple);
+		
+		LocalDate auxFecha = null;
+		try {
+			String fechaNac = ventanaPersona.getTxtFechaNac().getText();
+			auxFecha = LocalDate.parse(fechaNac);
+		}
+		catch(Exception e) {}
 		
 		EtiquetaDTO etiqueta=null;
 		if (ventanaPersona.getEstadoCheckBoxTipoEtiqueta())
@@ -211,28 +220,33 @@ public class Controlador implements ActionListener {
 		this.agenda.agregarPersona(nuevaPersona);
 	}
 	
-	private boolean datosPrincipalesCompletos() {
-		String nombre = this.ventanaPersona.getTxtNombre().getText();
-		String tel = ventanaPersona.getTxtTelefono().getText();
-		String email = ventanaPersona.getTxtEmail().getText();
+	private boolean datosPrincipalesCompletos(String nombre, String tel, String email) {
 		boolean ret = true;
-		
 		return ret && !nombre.isEmpty() && !tel.isEmpty() && !email.isEmpty();
 	}
 	
 	private void guardarPersona(ActionEvent p) {
-		if (datosPrincipalesCompletos()) {
+		String nombre = this.ventanaPersona.getTxtNombre().getText();
+		String tel = ventanaPersona.getTxtTelefono().getText();
+		String email = ventanaPersona.getTxtEmail().getText();
+		String fecha = ventanaPersona.getTxtFechaNac().getText()+"";
+		
+		if (datosPrincipalesCompletos(nombre,tel,email)) {
 			if (ventanaPersona.getLocalidadSeleccionada() != null && ventanaPersona.getEstadoCheckBoxDireccion()) {
-				if (ValidadorObjetos.formatoMailValido(ventanaPersona.getTxtEmail().getText()))
+				if (ValidadorObjetos.nuevaPersonaEsValida(email, fecha)) {
 					generarPersonaNuevaConDomicilio();
-				else
-					JOptionPane.showMessageDialog(null, "El formato del E-Mail no es valido");
+					this.refrescarTablaPersonas();
+					this.ventanaPersona.resetearVista();
+				}
+					
 			}
 			else {
-				generarPersonaNuevaSinDomicilio();
+				if (ValidadorObjetos.nuevaPersonaEsValida(email, fecha)) {
+					generarPersonaNuevaSinDomicilio();
+					this.refrescarTablaPersonas();
+					this.ventanaPersona.resetearVista();
+				}
 			}
-			this.refrescarTablaPersonas();
-			this.ventanaPersona.resetearVista();
 		}
 		else
 			JOptionPane.showMessageDialog(null, "Asegurese de completar el Nombre, Tel y Email");
@@ -286,7 +300,7 @@ public class Controlador implements ActionListener {
 			this.personasEnTabla.get(fila).setEtiqueta(ventanaPersona.getEtiquetaSeleccionada());
 		if (ventanaPersona.getEstadoCheckBoxSigno())
 			this.personasEnTabla.get(fila).setSignoZodiaco(ventanaPersona.getSignoZodiacoSeleccionado());
-		String fechaCumple = ventanaPersona.getTxtFechaCumple().getText();
+		String fechaCumple = ventanaPersona.getTxtFechaNac().getText();
 		LocalDate auxFecha = LocalDate.parse(fechaCumple);
 		this.personasEnTabla.get(fila).setFechaCumple(auxFecha);
 		auxEditarPersonaYcargarVista(fila);

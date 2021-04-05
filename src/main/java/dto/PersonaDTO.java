@@ -77,7 +77,7 @@ public class PersonaDTO {
 		this.etiqueta = nuevaEtiqueta;
 	}
 	
-	public LocalDate getFechaCumple() {
+	public LocalDate getFechaNac() {
 		return fechaCumple;
 	}
 

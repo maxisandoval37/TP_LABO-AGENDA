@@ -146,7 +146,7 @@ public class Vista {
 			String nombre = p.getNombre();
 			String tel = p.getTelefono();
 			String email = p.getEmail();
-			String fechaNac = p.getFechaCumple().toString();
+			String fechaNac = "";
 			String etiq = "";
 			String localidad = "";
 			String codPostal = "";
@@ -157,6 +157,10 @@ public class Vista {
 			String piso = "";
 			String depa = "";
 			String signo = "";
+			try {
+				fechaNac = p.getFechaNac().toString();
+			}
+			catch(Exception e) {}
 			try {
 				etiq = p.getEtiqueta().getTipoEtiqueta();
 			}
