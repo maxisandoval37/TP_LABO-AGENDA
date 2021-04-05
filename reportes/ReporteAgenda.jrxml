@@ -15,6 +15,9 @@
 	<field name="email" class="java.lang.String">
 		<fieldDescription><![CDATA[email]]></fieldDescription>
 	</field>
+	<field name="signoZodiaco" class="dto.SignoZodiacoDTO">
+		<fieldDescription><![CDATA[signoZodiaco]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -76,6 +79,13 @@
 					</textElement>
 					<text><![CDATA[Email]]></text>
 				</staticText>
+				<staticText>
+					<reportElement x="430" y="3" width="100" height="20" uuid="25a7cd3f-7237-415d-a1d3-a05342b41f84"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[Signo]]></text>
+				</staticText>
 			</frame>
 		</band>
 	</columnHeader>
@@ -95,6 +105,11 @@
 				<reportElement x="331" y="0" width="102" height="18" uuid="b4ff293f-5a34-4f8c-9f9f-a04dae932ce1"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="0" width="102" height="18" uuid="6833dc8a-f7fe-4da2-9a53-287b2553b1cb"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{signoZodiaco}.toString()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
