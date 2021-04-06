@@ -136,6 +136,7 @@ public class VentanaAMLocalidad extends JFrame{
 	}
 
 	public void resetearVista() {
+		this.txtCP.setText(null);
 		this.txtPais.setText(null);
 		this.txtProvincia.setText(null);
 		this.txtLocalidad.setText(null);

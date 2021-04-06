@@ -88,7 +88,7 @@ public class ValidadorObjetos {
 			}
 			else {
 				for (LocalidadDTO lit : localidadesExistentes) {
-					if (lit.getPais().equalsIgnoreCase(nuevaLocalidad.getPais())&&lit.getIdCodPostal() == nuevaLocalidad.getIdCodPostal()) {
+					if (lit.getIdCodPostal().equals(nuevaLocalidad.getIdCodPostal())) {
 						JOptionPane.showMessageDialog(null, "La localidad ya existe");
 						bandera = false;
 						break;

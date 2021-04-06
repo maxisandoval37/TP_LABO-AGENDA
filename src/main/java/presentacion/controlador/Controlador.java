@@ -222,8 +222,6 @@ public class Controlador implements ActionListener {
 		this.agenda.agregarPersona(nuevaPersona);
 	}
 	
-
-	
 	private void guardarPersona(ActionEvent p) {
 		String nombre = this.ventanaPersona.getTxtNombre().getText();
 		String tel = ventanaPersona.getTxtTelefono().getText();
