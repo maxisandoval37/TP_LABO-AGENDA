@@ -52,6 +52,7 @@ public class ValidadorObjetos {
 	public static boolean nuevaPersonaEsValida(String tel, String email, String fecha) {
 		boolean retEmail = false;
 		boolean retTel = false;
+		boolean retFecha = true;
 		
 		if (formatoTelefonoValido(tel))
 			retTel = true;
@@ -63,10 +64,12 @@ public class ValidadorObjetos {
 		else 
 			JOptionPane.showMessageDialog(null, "El formato del E-Mail no es valido");
 		
-		if (!formatoFechaValido(fecha) && !fecha.isEmpty())
+		if (!formatoFechaValido(fecha) && !fecha.isEmpty()) {
+			retFecha = false;
 			JOptionPane.showMessageDialog(null, "El formato de la fecha no es valido");
-		
-		return retEmail && retTel;
+		}
+
+		return retEmail && retTel && retFecha;
 	}
 	
 	public static boolean datosPrincipalesCompletos(String nombre, String tel, String email) {
