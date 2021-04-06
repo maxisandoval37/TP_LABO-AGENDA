@@ -124,12 +124,14 @@ public class VentanaAMLocalidad extends JFrame{
 	}
 
 	public JButton getBtnAgregarLocalidad() {
+		this.txtCP.setEditable(true);
 		btnEditarLocalidad.setVisible(false);
 		btnAgregarLocalidad.setVisible(true);
 		return btnAgregarLocalidad;
 	}
 
 	public JButton getBtnEditarLocalidad() {
+		this.txtCP.setEditable(false);
 		btnAgregarLocalidad.setVisible(false);
 		btnEditarLocalidad.setVisible(true);
 		return btnEditarLocalidad;

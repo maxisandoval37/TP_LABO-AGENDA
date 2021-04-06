@@ -8,7 +8,7 @@ public class ComparadorCodigoPostal implements Comparator<PersonaDTO> {
 	@Override
 	public int compare(PersonaDTO persona1, PersonaDTO persona2) {
 		if (persona1.getDomicilio() != null && persona2.getDomicilio() != null) {
-			if (persona1.getDomicilio().getLocalidad().getIdCodPostal() == persona2.getDomicilio().getLocalidad().getIdCodPostal())
+			if (persona1.getDomicilio().getLocalidad().getIdCodPostal().equals(persona2.getDomicilio().getLocalidad().getIdCodPostal()))
 				return 0;
 		}
 		
