@@ -28,6 +28,13 @@ public class ValidadorObjetos {
 		});
 	}
 	
+	private static boolean formatoTelefonoValido(String cad) {
+		Pattern pattern = Pattern.compile("[^a-zA-Z]{3,20}");
+		Matcher matcher = pattern.matcher(cad);
+		
+		return matcher.matches();
+	}
+	
 	private static boolean formatoMailValido(String cad) {
 		Pattern pattern2 = Pattern.compile("(\\.|\\w)+@\\w+(\\.\\w+)+");
 		Matcher matcher = pattern2.matcher(cad);
@@ -42,17 +49,29 @@ public class ValidadorObjetos {
 		return matcher.matches();
 	}
 	
-	public static boolean nuevaPersonaEsValida(String email, String fecha) {
-		boolean ret = false;
+	public static boolean nuevaPersonaEsValida(String tel, String email, String fecha) {
+		boolean retEmail = false;
+		boolean retTel = false;
+		
+		if (formatoTelefonoValido(tel))
+			retTel = true;
+		else
+			JOptionPane.showMessageDialog(null, "El formato del Telefono no es valido");
+		
 		if (formatoMailValido(email))
-			ret = true;
+			retEmail = true;
 		else 
 			JOptionPane.showMessageDialog(null, "El formato del E-Mail no es valido");
 		
 		if (!formatoFechaValido(fecha) && !fecha.isEmpty())
 			JOptionPane.showMessageDialog(null, "El formato de la fecha no es valido");
 		
-		return ret;
+		return retEmail && retTel;
+	}
+	
+	public static boolean datosPrincipalesCompletos(String nombre, String tel, String email) {
+		boolean ret = true;
+		return ret && !nombre.isEmpty() && !tel.isEmpty() && !email.isEmpty();
 	}
 	
 	public static boolean nuevaLocalidadEsValida(LocalidadDTO nuevaLocalidad,List<LocalidadDTO> localidadesExistentes) {

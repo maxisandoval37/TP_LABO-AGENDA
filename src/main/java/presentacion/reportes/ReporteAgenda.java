@@ -25,8 +25,7 @@ public class ReporteAgenda {
 	private ComparadorCodigoPostal comparador = new ComparadorCodigoPostal ();
 	
 	public ReporteAgenda(List<PersonaDTO> personas) {
-		ordenarCodigoPostal(personas);
-		
+		ordenarPorCodigoPostal(personas);
 		
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
@@ -35,21 +34,17 @@ public class ReporteAgenda {
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, parametersMap,new JRBeanCollectionDataSource(personas));
 			log.info("Se cargó correctamente el reporte");
 		} catch (JRException ex) {
-			log.error("Ocurrió un error mientras se cargaba el archivo ReporteAgenda.Jasper", ex);
+			log.error("Ocurrio un error mientras se cargaba el archivo ReporteAgenda.Jasper", ex);
 		}
 	}
 
+	private void ordenarPorCodigoPostal (List<PersonaDTO> personas) {
+		Collections.sort(personas, this.comparador);
+	}
+	
 	public void mostrar() {
 		this.reporteViewer = new JasperViewer(this.reporteLleno, false);
 		this.reporteViewer.setVisible(true);
 	}
 	
-	public void ordenarCodigoPostal (List<PersonaDTO> personas) {
-		
-		Collections.sort(personas, this.comparador);
-		
-	}
-	
-	
-
 }

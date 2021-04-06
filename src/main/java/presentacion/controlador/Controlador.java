@@ -222,10 +222,7 @@ public class Controlador implements ActionListener {
 		this.agenda.agregarPersona(nuevaPersona);
 	}
 	
-	private boolean datosPrincipalesCompletos(String nombre, String tel, String email) {
-		boolean ret = true;
-		return ret && !nombre.isEmpty() && !tel.isEmpty() && !email.isEmpty();
-	}
+
 	
 	private void guardarPersona(ActionEvent p) {
 		String nombre = this.ventanaPersona.getTxtNombre().getText();
@@ -233,9 +230,9 @@ public class Controlador implements ActionListener {
 		String email = ventanaPersona.getTxtEmail().getText();
 		String fecha = ventanaPersona.getTxtFechaNac().getText()+"";
 		
-		if (datosPrincipalesCompletos(nombre,tel,email)) {
+		if (ValidadorObjetos.datosPrincipalesCompletos(nombre,tel,email)) {
 			if (ventanaPersona.getLocalidadSeleccionada() != null && ventanaPersona.getEstadoCheckBoxDireccion()) {
-				if (ValidadorObjetos.nuevaPersonaEsValida(email, fecha)) {
+				if (ValidadorObjetos.nuevaPersonaEsValida(tel, email, fecha)) {
 					generarPersonaNuevaConDomicilio();
 					this.refrescarTablaPersonas();
 					this.ventanaPersona.resetearVista();
@@ -243,7 +240,7 @@ public class Controlador implements ActionListener {
 					
 			}
 			else {
-				if (ValidadorObjetos.nuevaPersonaEsValida(email, fecha)) {
+				if (ValidadorObjetos.nuevaPersonaEsValida(tel, email, fecha)) {
 					generarPersonaNuevaSinDomicilio();
 					this.refrescarTablaPersonas();
 					this.ventanaPersona.resetearVista();

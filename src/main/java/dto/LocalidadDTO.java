@@ -17,11 +17,6 @@ public class LocalidadDTO {
 	public Integer getIdCodPostal() {
 		return idCodPostal;
 	}
-	
-	public void setIdCodPostal (int numero) {
-		this.idCodPostal = numero;
-	}
-	
 
 	public String getPais() {
 		return Pais;
