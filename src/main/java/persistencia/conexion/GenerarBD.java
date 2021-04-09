@@ -1,13 +1,13 @@
 package persistencia.conexion;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.apache.log4j.Logger;
 
@@ -20,7 +20,8 @@ public class GenerarBD {
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306", "root","");
 			ScriptRunner sr = new ScriptRunner(connection);
-			Reader reader = new BufferedReader(new FileReader("sql/scriptAgenda.sql"));
+			String  ruta = new File("sql"+File.separator+"scriptAgenda.sql").getAbsoluteFile().toString();
+			Reader reader = new BufferedReader(new FileReader(ruta));
 			sr.runScript(reader);
 			log.info("La base de datos se ha creado correctamente!");
 		}

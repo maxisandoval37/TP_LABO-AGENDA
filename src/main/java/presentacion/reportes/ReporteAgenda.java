@@ -30,7 +30,8 @@ public class ReporteAgenda {
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 		try {
-			this.reporte = (JasperReport) JRLoader.loadObjectFromFile("reportes" + File.separator + "ReporteAgenda.jasper");
+			String  ruta = new File("reportes"+File.separator+"ReporteAgenda.jasper").getAbsoluteFile().toString();
+			this.reporte = (JasperReport) JRLoader.loadObjectFromFile(ruta);
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, parametersMap,new JRBeanCollectionDataSource(personas));
 			log.info("Se cargó correctamente el reporte");
 		} catch (JRException ex) {
