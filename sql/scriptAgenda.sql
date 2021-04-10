@@ -54,6 +54,6 @@ CREATE TABLE IF NOT EXISTS `personas`
 );
 
 CREATE USER  IF NOT EXISTS 'montenegro_sandoval'@'localhost' IDENTIFIED BY '1234';
-GRANT RELOAD,PROCESS ON *.* TO 'montenegro_sandoval'@'localhost';
+GRANT RELOAD,PROCESS ON *.* TO 'grupo_ms'@'localhost';
 
-GRANT ALL PRIVILEGES ON *.* TO 'montenegro_sandoval'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'grupo_ms'@'localhost' WITH GRANT OPTION;
