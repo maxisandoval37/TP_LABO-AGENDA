@@ -1,7 +1,6 @@
 package modelo;
 
 import java.util.List;
-
 import dto.DomicilioDTO;
 import dto.EtiquetaDTO;
 import dto.LocalidadDTO;

@@ -73,8 +73,6 @@ public class VentanaAMEtiqueta extends JFrame{
 		panel.add(btnEditarEtiqueta);
 		
 		ValidadorObjetos.aplicarKeyListener(this.txtTipoEtiqueta,"\\w",20);
-		
-		
 	}
 	
 	public JTextField getTxtTipoEtiqueta() {
