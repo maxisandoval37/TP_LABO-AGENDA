@@ -26,6 +26,7 @@ public class Main {
 		try {
 			if (Conexion.getUsuarioRegistrado().equals(usuarioLogin)) {
 				GenerarBD.runScriptCrearDB();
+				ventanaLogin.resetearVista();
 				Vista vista = new Vista();
 				Agenda modelo = new Agenda(new DAOSQLFactory());
 				Controlador controlador = new Controlador(vista, modelo);
