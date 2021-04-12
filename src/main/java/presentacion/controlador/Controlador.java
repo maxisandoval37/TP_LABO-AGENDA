@@ -1,7 +1,10 @@
 package presentacion.controlador;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -46,6 +49,7 @@ public class Controlador implements ActionListener {
 		this.ventanaPersona = VentanaPersona.getInstance();
 		
 		this.vista.getBtnEtiqueta().addActionListener(b -> ventanaABMEtiqueta(b));
+		this.vista.getBtnManual().addActionListener(y -> mostrarManual());
 		this.vista.getBtnLocalidad().addActionListener(f -> ventanaABMLocalidad(f));
 		this.ventanaLocalidad.getBtnAgregar().addActionListener(n -> ventanaAgregarLocalidad(n));
 		this.ventanaLocalidad.getBtnEditar().addActionListener(u -> ventanaEditarLocalidad(u));
@@ -332,6 +336,16 @@ public class Controlador implements ActionListener {
 	private void mostrarReporte(ActionEvent r) {
 		ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
 		reporte.mostrar();
+	}
+	
+	private void mostrarManual() {
+		try {
+			 String  ruta = new File("manual.pdf").getAbsoluteFile().toString();
+		     File path = new File (ruta);
+		     Desktop.getDesktop().open(path);
+		}catch (IOException ex) {
+			JOptionPane.showMessageDialog(null, "El Manual no se encuentra disponible");
+		}
 	}
 
 	private void borrarPersona(ActionEvent s) {
