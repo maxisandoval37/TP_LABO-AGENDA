@@ -401,4 +401,17 @@ public class VentanaPersona extends JFrame {
 	public SignoZodiacoDTO getSignoZodiacoSeleccionado() {
 		return this.signoZodiacoSeleccionado;
 	}
+	
+	public void setEstadoCheckBoxDireccion (boolean estado) {
+		this.checkboxDomicilio.setSelected(estado);
+	}
+	
+	public void setEstadoCheckBoxTipoEtiqueta(boolean estado) {
+		this.checkboxTipoEtiqueta.setSelected(estado);
+	}
+	
+	public void setEstadoCheckBoxSigno (boolean estado) {
+		this.checkboxSignoZodiaco.setSelected(estado);;
+		
+	}
 }

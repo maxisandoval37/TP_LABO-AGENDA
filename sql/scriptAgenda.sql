@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `personas`
   FOREIGN KEY (idSigno) REFERENCES signos(idSigno)
 );
 
-CREATE USER  IF NOT EXISTS 'montenegro_sandoval'@'localhost' IDENTIFIED BY '1234';
+CREATE USER  IF NOT EXISTS 'grupo_ms'@'localhost' IDENTIFIED BY '1234';
 GRANT RELOAD,PROCESS ON *.* TO 'grupo_ms'@'localhost';
 
 GRANT ALL PRIVILEGES ON *.* TO 'grupo_ms'@'localhost' WITH GRANT OPTION;

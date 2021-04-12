@@ -144,11 +144,15 @@ public class Controlador implements ActionListener {
 		this.ventanaPersona.getBtnAgregarPersona().setVisible(false);
 		this.ventanaPersona.getBtnEditarPersona().setVisible(true);
 		this.ventanaPersona.mostrarVentana();
+		ventanaPersona.setEstadoCheckBoxDireccion(false);
+		ventanaPersona.setEstadoCheckBoxSigno(false);
+		ventanaPersona.setEstadoCheckBoxTipoEtiqueta(false);
 
 		for (int fila : filasSeleccionadas) {
 			ventanaPersona.getTxtNombre().setText(personasEnTabla.get(fila).getNombre());
 			ventanaPersona.getTxtTelefono().setText(personasEnTabla.get(fila).getTelefono());
 			ventanaPersona.getTxtEmail().setText(personasEnTabla.get(fila).getEmail());
+			
 			try {
 				ventanaPersona.getTxtFechaNac().setText(personasEnTabla.get(fila).getFechaNac().toString());
 			}
