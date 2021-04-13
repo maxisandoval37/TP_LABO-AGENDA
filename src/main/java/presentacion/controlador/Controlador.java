@@ -146,9 +146,9 @@ public class Controlador implements ActionListener {
 		int[] filasSeleccionadas = this.vista.getTablaPersonas().getSelectedRows();
 		
 		if (filasSeleccionadas.length > 0) {
+			this.ventanaPersona.resetearVista();
 			this.ventanaPersona.getBtnAgregarPersona().setVisible(false);
 			this.ventanaPersona.getBtnEditarPersona().setVisible(true);
-			this.ventanaPersona.resetearVista();
 			this.ventanaPersona.mostrarVentana();
 
 			for (int fila : filasSeleccionadas) {
@@ -378,7 +378,7 @@ public class Controlador implements ActionListener {
 	}
 	
 	private void guardarLocalidad(ActionEvent a) {
-		if (ValidadorObjetos.nuevaLocalidadEsValida(generarLocalidadNueva(),obtenerLocalidades())) {
+		if (ValidadorObjetos.nuevaLocalidadEsValida(generarLocalidadNueva(),obtenerLocalidades(),"agregar")) {
 			this.agenda.agregarLocalidad(generarLocalidadNueva());
 			this.refrescarTablaLocalidades();
 			ventanaPersona.agregarLocalidadesComboBox(obtenerLocalidades());
@@ -387,7 +387,7 @@ public class Controlador implements ActionListener {
 	}
 	
 	private void editarLocalidad(ActionEvent a) {
-		if (ValidadorObjetos.nuevaLocalidadEsValida(generarLocalidadNueva(),obtenerLocalidades())) {
+		if (ValidadorObjetos.nuevaLocalidadEsValida(generarLocalidadNueva(),obtenerLocalidades(),"editar")) {
 			
 			int[] filasSeleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
 			for (int fila : filasSeleccionadas) {

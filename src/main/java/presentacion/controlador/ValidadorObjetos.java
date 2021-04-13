@@ -77,7 +77,7 @@ public class ValidadorObjetos {
 		return ret && !nombre.isEmpty() && !tel.isEmpty() && !email.isEmpty();
 	}
 	
-	public static boolean nuevaLocalidadEsValida(LocalidadDTO nuevaLocalidad,List<LocalidadDTO> localidadesExistentes) {
+	public static boolean nuevaLocalidadEsValida(LocalidadDTO nuevaLocalidad,List<LocalidadDTO> localidadesExistentes, String accion) {
 		boolean bandera = true;
 
 		if (nuevaLocalidad == null) {
@@ -91,7 +91,7 @@ public class ValidadorObjetos {
 			}
 			else {
 				for (LocalidadDTO lit : localidadesExistentes) {
-					if (lit.getIdCodPostal().equals(nuevaLocalidad.getIdCodPostal())) {
+					if (lit.getIdCodPostal().equals(nuevaLocalidad.getIdCodPostal()) && accion.equals("agregar")) {
 						JOptionPane.showMessageDialog(null, "La localidad ya existe");
 						bandera = false;
 						break;

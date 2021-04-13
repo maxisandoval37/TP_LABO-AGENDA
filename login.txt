@@ -1,2 +1,3 @@
 user:grupo_ms
 pass:1234
+*CREEDENCIALES GUARDADAS*
