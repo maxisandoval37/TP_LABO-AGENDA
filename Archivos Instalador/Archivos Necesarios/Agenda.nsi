@@ -62,6 +62,7 @@ Section "Agenda" agenda
   ;Archivos a instalar (solo archivos, los ejecutables van en la sección "prerequisitos"
   File agenda.jar
   File "agenda.ico"
+  File "login.txt"
   File /r "sql"
   File /r "reportes"
 
@@ -106,6 +107,7 @@ SetShellVarContext all
 ;Archivos a desinstalar
     delete $INSTDIR\agenda.jar
     delete $INSTDIR\manual.pdf
+    delete $INSTDIR\login.txt
     delete $INSTDIR\agenda.ico
     delete $INSTDIR\xampp.exe
     delete $INSTDIR\java.exe

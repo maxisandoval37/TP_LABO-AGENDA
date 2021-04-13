@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import persistencia.conexion.Conexion;
 
 public class VentanaLogin extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -105,7 +106,10 @@ public class VentanaLogin extends JFrame{
 	}
 	
 	private void mostrarUserPass() {
-		String datos = "<html><body><center><h2>USER: grupo_ms<br><br>PASS: 1234</h2></center></body></html>";
+		String user = Conexion.getUsuarioRegistrado().first();
+		String pass = Conexion.getUsuarioRegistrado().second();
+		
+		String datos = "<html><body><center><h2>USER: "+user+"<br><br>PASS: "+pass+"</h2></center></body></html>";
 		JOptionPane.showMessageDialog(null, datos);
 	}
 }
