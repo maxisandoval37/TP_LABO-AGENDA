@@ -55,7 +55,8 @@ public class Conexion {
 	public static boolean hayContrasenaGuardada() {
 		FileInputStream fis;
 		try {
-			fis = new FileInputStream("login.txt");
+			String ruta = new File("login.txt").getAbsoluteFile().toString();
+			fis = new FileInputStream(ruta);
 			sc = new Scanner(fis);
 			while (sc.hasNextLine()){ 
 				String linea = sc.nextLine();
@@ -74,7 +75,7 @@ public class Conexion {
 
 		try {
 			String data = "\r\n*CREEDENCIALES GUARDADAS*";
-			File file = new File("login.txt");
+			File file = new File("login.txt").getAbsoluteFile();
 
 			fw = new FileWriter(file.getAbsoluteFile(), true);
 			bw = new BufferedWriter(fw);
@@ -98,7 +99,8 @@ public class Conexion {
 		String user="";
 		String pass="";
 		try {
-			fis = new FileInputStream("login.txt");
+			String ruta = new File("login.txt").getAbsoluteFile().toString();
+			fis = new FileInputStream(ruta);
 			sc = new Scanner(fis);
 			while (sc.hasNextLine()){ 
 				String linea = sc.nextLine();
