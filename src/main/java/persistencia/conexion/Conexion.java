@@ -60,7 +60,7 @@ public class Conexion {
 			sc = new Scanner(fis);
 			while (sc.hasNextLine()){ 
 				String linea = sc.nextLine();
-				if (linea.equals("*CREEDENCIALES GUARDADAS*"))
+				if (linea.equals("*CREDENCIALES GUARDADAS*"))
 					return true;
 			}
 		} catch (FileNotFoundException e) {
@@ -74,7 +74,7 @@ public class Conexion {
 		FileWriter fw = null;
 
 		try {
-			String data = "\r\n*CREEDENCIALES GUARDADAS*";
+			String data = "\r\n*CREDENCIALES GUARDADAS*";
 			File file = new File("login.txt").getAbsoluteFile();
 
 			fw = new FileWriter(file.getAbsoluteFile(), true);
