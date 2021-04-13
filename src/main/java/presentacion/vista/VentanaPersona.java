@@ -348,6 +348,8 @@ public class VentanaPersona extends JFrame {
 		this.cambiarUsabilidadElemsDireccion(false);
 		btnEditarPersona.setVisible(false);
 		btnAgregarPersona.setVisible(true);
+		jcbTipoEtiqueta.setEnabled(false);
+		jcbSignoZodiaco.setEnabled(false);
 		this.dispose();
 	}
 	
