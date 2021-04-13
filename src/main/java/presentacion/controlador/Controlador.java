@@ -100,15 +100,17 @@ public class Controlador implements ActionListener {
 	private void ventanaEditarLocalidad(ActionEvent a) {
 		int[] filasSeleccionadas = this.ventanaLocalidad.getTablaLocalidades().getSelectedRows();
 
-		this.ventanaAMLocalidad.getBtnAgregarLocalidad().setVisible(false);
-		this.ventanaAMLocalidad.getBtnEditarLocalidad().setVisible(true);
-		this.ventanaAMLocalidad.mostrarVentana();
-
-		for (int fila : filasSeleccionadas) {
-			this.ventanaAMLocalidad.getTxtCodPostal().setText(""+this.localidadesEnTabla.get(fila).getIdCodPostal());
-			this.ventanaAMLocalidad.getTxtPais().setText(this.localidadesEnTabla.get(fila).getPais());
-			this.ventanaAMLocalidad.getTxtProvincia().setText(this.localidadesEnTabla.get(fila).getProvincia());
-			this.ventanaAMLocalidad.getTxtLocalidad().setText(this.localidadesEnTabla.get(fila).getNombreLocalidad());
+		if (filasSeleccionadas.length > 0) {
+			this.ventanaAMLocalidad.getBtnAgregarLocalidad().setVisible(false);
+			this.ventanaAMLocalidad.getBtnEditarLocalidad().setVisible(true);
+			this.ventanaAMLocalidad.mostrarVentana();
+	
+			for (int fila : filasSeleccionadas) {
+				this.ventanaAMLocalidad.getTxtCodPostal().setText(""+this.localidadesEnTabla.get(fila).getIdCodPostal());
+				this.ventanaAMLocalidad.getTxtPais().setText(this.localidadesEnTabla.get(fila).getPais());
+				this.ventanaAMLocalidad.getTxtProvincia().setText(this.localidadesEnTabla.get(fila).getProvincia());
+				this.ventanaAMLocalidad.getTxtLocalidad().setText(this.localidadesEnTabla.get(fila).getNombreLocalidad());
+			}
 		}
 	}
 	
@@ -122,12 +124,14 @@ public class Controlador implements ActionListener {
 	private void ventanaEditarEtiqueta(ActionEvent et) {
 		int[] filasSeleccionadas = this.ventanaEtiqueta.getTablaEtiquetas().getSelectedRows();
 
-		this.ventanaAMEtiqueta.getBtnAgregarEtiqueta().setVisible(false);
-		this.ventanaAMEtiqueta.getBtnEditarEtiqueta().setVisible(true);
-		this.ventanaAMEtiqueta.mostrarVentana();
-		
-		for (int fila : filasSeleccionadas) {
-			ventanaAMEtiqueta.getTxtTipoEtiqueta().setText(etiquetasEnTabla.get(fila).getTipoEtiqueta());
+		if (filasSeleccionadas.length > 0) {
+			this.ventanaAMEtiqueta.getBtnAgregarEtiqueta().setVisible(false);
+			this.ventanaAMEtiqueta.getBtnEditarEtiqueta().setVisible(true);
+			this.ventanaAMEtiqueta.mostrarVentana();
+			
+			for (int fila : filasSeleccionadas) {
+				ventanaAMEtiqueta.getTxtTipoEtiqueta().setText(etiquetasEnTabla.get(fila).getTipoEtiqueta());
+			}
 		}
 	}
 	
@@ -140,31 +144,29 @@ public class Controlador implements ActionListener {
 
 	private void ventanaEditarPersona(ActionEvent a) {
 		int[] filasSeleccionadas = this.vista.getTablaPersonas().getSelectedRows();
+		
+		if (filasSeleccionadas.length > 0) {
+			this.ventanaPersona.getBtnAgregarPersona().setVisible(false);
+			this.ventanaPersona.getBtnEditarPersona().setVisible(true);
+			this.ventanaPersona.resetearVista();
+			this.ventanaPersona.mostrarVentana();
 
-		this.ventanaPersona.getBtnAgregarPersona().setVisible(false);
-		this.ventanaPersona.getBtnEditarPersona().setVisible(true);
-		this.ventanaPersona.mostrarVentana();
-		ventanaPersona.setEstadoCheckBoxDireccion(false);
-		ventanaPersona.setEstadoCheckBoxSigno(false);
-		ventanaPersona.setEstadoCheckBoxTipoEtiqueta(false);
-
-		for (int fila : filasSeleccionadas) {
-			ventanaPersona.getTxtNombre().setText(personasEnTabla.get(fila).getNombre());
-			ventanaPersona.getTxtTelefono().setText(personasEnTabla.get(fila).getTelefono());
-			ventanaPersona.getTxtEmail().setText(personasEnTabla.get(fila).getEmail());
-			
-			try {
-				ventanaPersona.getTxtFechaNac().setText(personasEnTabla.get(fila).getFechaNac().toString());
+			for (int fila : filasSeleccionadas) {
+				ventanaPersona.getTxtNombre().setText(personasEnTabla.get(fila).getNombre());
+				ventanaPersona.getTxtTelefono().setText(personasEnTabla.get(fila).getTelefono());
+				ventanaPersona.getTxtEmail().setText(personasEnTabla.get(fila).getEmail());
+				try {
+					ventanaPersona.getTxtFechaNac().setText(personasEnTabla.get(fila).getFechaNac().toString());
+				}
+				catch(Exception e) {}
+				try {
+					ventanaPersona.getTxtAltura().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getAltura()));
+					ventanaPersona.getTxtCalle().setText(personasEnTabla.get(fila).getDomicilio().getCalle());
+					ventanaPersona.getTxtDepartamento().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getDepto()));
+					ventanaPersona.getTxtPiso().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getPiso()));
+				}
+				catch(Exception e) {}
 			}
-			catch(Exception e) {}
-			try {
-				ventanaPersona.getTxtAltura().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getAltura()));
-				ventanaPersona.getTxtCalle().setText(personasEnTabla.get(fila).getDomicilio().getCalle());
-				ventanaPersona.getTxtDepartamento().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getDepto()));
-				ventanaPersona.getTxtPiso().setText(String.valueOf(personasEnTabla.get(fila).getDomicilio().getPiso()));
-			}
-			
-			catch(Exception e) {}
 		}
 	}
 	

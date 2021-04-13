@@ -345,6 +345,7 @@ public class VentanaPersona extends JFrame {
 		this.checkboxDomicilio.setSelected(false);
 		this.checkboxTipoEtiqueta.setSelected(false);
 		this.checkboxSignoZodiaco.setSelected(false);
+		this.cambiarUsabilidadElemsDireccion(false);
 		btnEditarPersona.setVisible(false);
 		btnAgregarPersona.setVisible(true);
 		this.dispose();
@@ -400,18 +401,5 @@ public class VentanaPersona extends JFrame {
 	
 	public SignoZodiacoDTO getSignoZodiacoSeleccionado() {
 		return this.signoZodiacoSeleccionado;
-	}
-	
-	public void setEstadoCheckBoxDireccion (boolean estado) {
-		this.checkboxDomicilio.setSelected(estado);
-	}
-	
-	public void setEstadoCheckBoxTipoEtiqueta(boolean estado) {
-		this.checkboxTipoEtiqueta.setSelected(estado);
-	}
-	
-	public void setEstadoCheckBoxSigno (boolean estado) {
-		this.checkboxSignoZodiaco.setSelected(estado);;
-		
 	}
 }
